@@ -11,13 +11,27 @@ export default function Schedule() {
 
   const activeTeam = useMemo(() => employees.filter(e => (e.status || '').toLowerCase() === 'active'), [employees]);
   const dates = useMemo(() => {
-    const today = new Date();
+    if (schedule && schedule.shifts && schedule.shifts.length > 0) {
+      // Get unique dates from the schedule shifts, sort them
+      const uniqueDates = Array.from(new Set(schedule.shifts.map(s => s.shift_date))).sort();
+      if (uniqueDates.length > 0) {
+        // Build 7 days starting from the first shift date
+        const start = new Date(uniqueDates[0]);
+        return Array.from({length: 7}).map((_, i) => {
+          const d = new Date(start);
+          d.setDate(d.getDate() + i);
+          return d;
+        });
+      }
+    }
+    // Fallback if no schedule but dataset exists
+    const fallback = (dataset && dataset.week_start) ? new Date(dataset.week_start) : new Date();
     return Array.from({length: 7}).map((_, i) => {
-      const d = new Date(today);
+      const d = new Date(fallback);
       d.setDate(d.getDate() + i);
       return d;
     });
-  }, []);
+  }, [schedule, dataset]);
   
   const shiftsByEmployee = useMemo(() => {
     const map = new Map();
