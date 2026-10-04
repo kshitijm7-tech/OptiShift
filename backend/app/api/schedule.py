@@ -4,6 +4,7 @@ from datetime import datetime
 from ..data.store import store
 from ..models.optimization import OptimizationRequest, OptimizationResult
 from ..services.schedule_service import ScheduleService
+from ..models.domain import Shift
 
 router = APIRouter(tags=["Schedule & Optimization"])
 _svc = ScheduleService(store)
@@ -45,8 +46,9 @@ def get_schedule():
         "generated_at": datetime.now().isoformat(),
         "status": "optimal" if sched.status == "feasible" else "infeasible",
         "assignments": map_assignments(sched.assignments),
-        "shifts": [],
-        "employees": [],
+                "shifts": [{"id": s.id, "name": s.name, "start_time": s.start_time, "end_time": s.end_time, "shift_date": "2024-12-09"} for s in store.get_shifts()],
+
+                "employees": [],
         "requirements": [],
         "metrics": {
             "total_labor_cost": sum(a.cost for a in sched.assignments),

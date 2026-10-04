@@ -11,11 +11,11 @@ export default function Schedule() {
 
   const activeTeam = useMemo(() => employees.filter(e => (e.status || '').toLowerCase() === 'active'), [employees]);
   const dates = useMemo(() => {
-    if (schedule && schedule.shifts && schedule.shifts.length > 0) {
-      // Get unique dates from the schedule shifts, sort them
-      const uniqueDates = Array.from(new Set(schedule.shifts.map(s => s.shift_date))).sort();
-      if (uniqueDates.length > 0) {
-        // Build 7 days starting from the first shift date
+    if (schedule && schedule.assignments && schedule.assignments.length > 0) {
+      // Get unique dates from the schedule assignments, sort them
+      const uniqueDates = Array.from(new Set(schedule.assignments.map(a => a.assigned_date))).sort();
+      if (uniqueDates.length > 0 && uniqueDates[0]) {
+        // Build 7 days starting from the first assigned date
         const start = new Date(uniqueDates[0]);
         return Array.from({length: 7}).map((_, i) => {
           const d = new Date(start);
@@ -40,7 +40,7 @@ export default function Schedule() {
       const shift = schedule.shifts.find(s => s.id === a.shift_id);
       if (shift) {
         const empShifts = map.get(a.employee_id) || [];
-        empShifts.push({ date: shift.shift_date, shift });
+        empShifts.push({ date: a.assigned_date, shift });
         map.set(a.employee_id, empShifts);
       }
     });
