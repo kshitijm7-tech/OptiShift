@@ -3,6 +3,7 @@ from fastapi import APIRouter, HTTPException
 from typing import List, Dict, Any
 
 from typing import Any, Dict
+from ..models.employee import Employee
 
 def map_employee_to_frontend(emp: Employee) -> Dict[str, Any]:
     days = {"monday": 0, "tuesday": 1, "wednesday": 2, "thursday": 3, "friday": 4, "saturday": 5, "sunday": 6}
@@ -26,7 +27,7 @@ def map_employee_to_frontend(emp: Employee) -> Dict[str, Any]:
     }
 
 from ..data.store import store
-from ..models.employee import Employee
+
 
 router = APIRouter(prefix="/employees", tags=["Employees"])
 
@@ -45,8 +46,30 @@ def get_employee(employee_id: str):
     return map_employee_to_frontend(emp)
 
 
-@router.post("/", response_model=Employee, status_code=201)
-def create_employee(emp: Employee):
+@router.post("/", response_model=Dict[str, Any], status_code=201)
+def create_employee(payload: Dict[str, Any]):
+    import uuid
+    from ..models.employee import Availability
+    
+    # Map frontend availability to backend availability
+    days_map = {0: "Monday", 1: "Tuesday", 2: "Wednesday", 3: "Thursday", 4: "Friday", 5: "Saturday", 6: "Sunday"}
+    backend_avail = []
+    for a in payload.get("availability", []):
+        day_str = days_map.get(a.get("day_of_week", 0), "Monday")
+        backend_avail.append(Availability(day=day_str, available=True))
+        
+    emp = Employee(
+        id=payload.get("id") or f"emp_{uuid.uuid4().hex[:8]}",
+        name=payload.get("name", "Unknown"),
+        role=payload.get("role", "Staff"),
+        skills=payload.get("skills", []),
+        hourly_rate=payload.get("hourly_pay", 0.0),
+        max_hours_per_week=payload.get("max_weekly_hours", 40.0),
+        availability=backend_avail
+    )
+    
     if store.get_employee(emp.id):
         raise HTTPException(status_code=409, detail=f"Employee '{emp.id}' already exists")
-    return store.add_employee(emp)
+    store.add_employee(emp)
+    return map_employee_to_frontend(emp)
+
