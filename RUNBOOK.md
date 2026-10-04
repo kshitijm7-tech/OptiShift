@@ -20,12 +20,6 @@ cd frontend
 npm run build
 ```
 
-### Test/Type-check
-```bash
-cd frontend
-npm run tsc
-```
-
 ## Backend
 
 ### Install environment/dependencies
@@ -38,7 +32,7 @@ uv pip install -r requirements.txt
 ### Start FastAPI
 ```bash
 cd backend
-uv run uvicorn app.main:app --reload
+$env:PYTHONPATH="." ; uv run uvicorn app.main:app --reload
 ```
 
 ### Health check
@@ -49,48 +43,52 @@ curl http://127.0.0.1:8000/health
 ### Run tests
 ```bash
 cd backend
-uv run pytest
+$env:PYTHONPATH="." ; uv run pytest
 ```
 
 ## Sentinel
 
-Sentinel is our development-time guardian for architecture blueprint enforcement.
+Sentinel is installed at `D:\MProjects\Sentinel_v1.0`.
+OptiShift is the target project at `D:\MProjects\OptiShift`.
+
+All Sentinel commands must be run from the Sentinel directory, targeting the OptiShift path.
 
 ### Scan
 ```bash
-uv run sentinel scan .
+cd D:\MProjects\Sentinel_v1.0
+uv run sentinel scan d:\MProjects\OptiShift
 ```
 
 ### Analyze
 ```bash
-uv run sentinel analyze .
+uv run sentinel analyze d:\MProjects\OptiShift
 ```
 
 ### Watch
-Start the watchdog (use only as appropriate; do not leave unnecessary background processes running):
 ```bash
-uv run sentinel watch .
+uv run sentinel watch d:\MProjects\OptiShift
 ```
-*(To stop the watchdog, use `Ctrl+C` or kill the process in your terminal).*
+*(Stop with Ctrl+C)*
 
 ### Inspect Events
 ```bash
-uv run sentinel events . --limit 20
+uv run sentinel events d:\MProjects\OptiShift --limit 20
 ```
 
 ### Verify Architecture Checks
 ```bash
-uv run sentinel verify LAYER_BOUNDARY DEPENDENCY_RULE CIRCULAR_DEPENDENCY BLUEPRINT_FRESH
-```
-*(If `--decide` is appropriate for the installed Sentinel version, append it).*
-
-### Findings
-If findings exist:
-```bash
-uv run sentinel findings
+uv run sentinel verify -c CIRCULAR_DEPENDENCY -s OptiShift -p "compliant" d:\MProjects\OptiShift --decide
+uv run sentinel verify -c LAYER_BOUNDARY -s OptiShift -p "compliant" d:\MProjects\OptiShift --decide
+uv run sentinel verify -c DEPENDENCY_RULE -s OptiShift -p "compliant" d:\MProjects\OptiShift --decide
+uv run sentinel verify -c BLUEPRINT_FRESH -s architecture -p valid d:\MProjects\OptiShift --decide
 ```
 
-### Explain Result
+### Evidence
 ```bash
-uv run sentinel explain <verification_result_id>
+uv run sentinel evidence --project d:\MProjects\OptiShift --limit 20
+```
+
+### Project Info
+```bash
+uv run sentinel project-info d:\MProjects\OptiShift
 ```
