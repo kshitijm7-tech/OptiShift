@@ -1,1 +1,1 @@
-# Initialization file for backend app
+# backend/app/__init__.py
