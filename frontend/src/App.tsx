@@ -3,15 +3,15 @@ import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-d
 import AppShell from './components/AppShell';
 import { checkHealth } from './api';
 
-import Overview from './pages/Overview_Stitch';
-import Schedule from './pages/Schedule_Stitch';
-import Team from './pages/Team_Stitch';
-import TimeOff from './pages/TimeOff_Stitch';
-import Rules from './pages/Rules_Stitch';
-import Settings from './pages/Settings_Stitch';
+import Overview from './pages/Overview';
+import Schedule from './pages/Schedule';
+import Team from './pages/Team';
+import TimeOff from './pages/TimeOffStatic';
+import Rules from './pages/RulesStatic';
+import Settings from './pages/SettingsStatic';
 
 // Temporary mapped to Overview until DemoMode_Stitch exists
-import DemoMode from './pages/Overview_Stitch';
+import DemoMode from './pages/Overview';
 
 function App() {
   const [backendStatus, setBackendStatus] = useState('Checking backend…');

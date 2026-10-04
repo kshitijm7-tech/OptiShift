@@ -1,15 +1,6 @@
 // Auto-generated from ui/optishift_overview/code.html
 
-import { useCurrentSchedule, useEmployees } from '../hooks';
-
 export default function Overview() {
-  const { employees, loading } = useEmployees();
-  const { schedule } = useCurrentSchedule();
-  
-  const activeCount = employees.filter((e) => (e.status || '').toLowerCase() === 'active').length;
-  const metrics = schedule?.metrics ?? null;
-  const coveragePct = metrics && metrics.shifts_total > 0 ? Math.round((metrics.shifts_staffed / metrics.shifts_total) * 100) : null;
-
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-col w-full">
@@ -72,7 +63,7 @@ export default function Overview() {
 <div className="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col justify-between h-28 hover:shadow-md transition-shadow">
 <span className="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant font-semibold">Active Team</span>
 <div>
-<div className="font-metric-display text-metric-display text-on-surface tracking-tight" id="kpi-team">{loading ? "..." : activeCount} people</div>
+<div className="font-metric-display text-metric-display text-on-surface tracking-tight" id="kpi-team">8 people</div>
 <p className="font-body-sm text-body-sm text-on-surface-variant mt-space-xs truncate">All active &amp; ready</p>
 </div>
 </div>
@@ -80,7 +71,7 @@ export default function Overview() {
 <div className="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col justify-between h-28 hover:shadow-md transition-shadow">
 <span className="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant font-semibold">Staffing Covered</span>
 <div>
-<div className="font-metric-display text-metric-display text-on-surface tracking-tight" id="kpi-coverage">{coveragePct ?? "—"}%</div>
+<div className="font-metric-display text-metric-display text-on-surface tracking-tight" id="kpi-coverage">100%</div>
 <p className="font-body-sm text-body-sm text-on-secondary-container mt-space-xs truncate" id="kpi-coverage-sub">All planned shifts filled</p>
 </div>
 </div>
@@ -88,7 +79,7 @@ export default function Overview() {
 <div className="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col justify-between h-28 hover:shadow-md transition-shadow">
 <span className="font-label-sm text-label-sm uppercase tracking-wide text-on-surface-variant font-semibold">Staff Cost</span>
 <div>
-<div className="font-metric-display text-metric-display text-on-surface tracking-tight" id="kpi-cost">{loading ? "..." : (metrics ? `₹${metrics.total_labor_cost.toLocaleString()}` : "—")}</div>
+<div className="font-metric-display text-metric-display text-on-surface tracking-tight" id="kpi-cost">₹42,680</div>
 <p className="font-body-sm text-body-sm text-on-surface-variant mt-space-xs truncate">Estimated 7-day cost</p>
 </div>
 </div>
