@@ -26,20 +26,20 @@ import {
   PageHeader,
   PrimaryButton,
   SecondaryButton,
-  StatusBadge,
+  // StatusBadge,
 } from '../components/ui';
 import { useCurrentSchedule, useEmployees } from '../hooks';
 import {
   activeEmployees,
   buildWeekInputs,
   mondayOf,
-  prettyDate,
+  // prettyDate,
   scheduleDates,
   timeAgo,
   weekdayLabel,
   weekDays,
 } from '../schedule';
-import type { Employee } from '../types';
+
 
 interface ShiftWindow {
   key: number;
@@ -98,22 +98,38 @@ export default function Schedule() {
     [schedule],
   );
 
-  const namesById = useMemo(() => {
-    const map = new Map<string, Employee>();
-    for (const e of schedule?.employees ?? []) map.set(e.id, e);
-    return map;
-  }, [schedule]);
 
-  const assignedByShift = useMemo(() => {
-    const map = new Map<string, string[]>();
-    for (const a of schedule?.assignments ?? []) {
-      const list = map.get(a.shift_id) ?? [];
-      const person = namesById.get(a.employee_id);
-      list.push(person ? person.name : a.employee_id);
-      map.set(a.shift_id, list);
+  const shiftsByEmployee = useMemo(() => {
+    const map = new Map<string, { date: string, shift: any }[]>();
+    if (schedule && activeTeam) {
+      schedule.assignments.forEach((a: any) => {
+        const shift = schedule.shifts.find((s: any) => s.id === a.shift_id);
+        if (shift) {
+          const arr = map.get(a.employee_id) ?? [];
+          arr.push({ date: shift.shift_date, shift });
+          map.set(a.employee_id, arr);
+        }
+      });
     }
     return map;
-  }, [schedule, namesById]);
+  }, [schedule, activeTeam]);
+
+  const totalHoursByEmployee = useMemo(() => {
+    const map = new Map<string, number>();
+    if (schedule && activeTeam) {
+      schedule.assignments.forEach((a: any) => {
+        const shift = schedule.shifts.find((s: any) => s.id === a.shift_id);
+        if (shift) {
+          const [h1, m1] = shift.start_time.split(':').map(Number);
+          const [h2, m2] = shift.end_time.split(':').map(Number);
+          const hrs = (h2 + m2 / 60) - (h1 + m1 / 60);
+          const currentTotal = map.get(a.employee_id) ?? 0;
+          map.set(a.employee_id, currentTotal + hrs);
+        }
+      });
+    }
+    return map;
+  }, [schedule, activeTeam]);
 
   function updateWindow(key: number, patch: Partial<ShiftWindow>) {
     setWindows((ws) => ws.map((w) => (w.key === key ? { ...w, ...patch } : w)));
@@ -444,76 +460,94 @@ export default function Schedule() {
             />
           </section>
 
-          <Card>
-            <div className="mb-3 flex items-center justify-between">
+          <Card className="overflow-x-auto p-0 border border-gray-200">
+            <div className="p-4 border-b border-gray-100 flex items-center justify-between">
               <div>
-                <h2 className="text-[15px] font-semibold text-[#111827]">
-                  Week roster · solved by the optimization engine
-                </h2>
-                <p
-                  className="tnum text-[12px] text-[#6B7280]"
-                  title={new Date(schedule.generated_at).toLocaleString()}
-                >
-                  Last built {timeAgo(schedule.generated_at)}
-                </p>
+                <h2 className="text-base font-semibold text-gray-900">Your Schedule</h2>
+                <p className="text-sm text-gray-500">See who is working each day and ensure every shift has enough people.</p>
               </div>
-              <StatusBadge tone="success">Optimal</StatusBadge>
+              <div className="flex gap-2">
+                <PrimaryButton>Update Schedule</PrimaryButton>
+                <SecondaryButton>Export / Print</SecondaryButton>
+              </div>
             </div>
-            <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-7">
-              {dates.map((dateStr) => {
-                const dayShifts = schedule.shifts
-                  .filter((s) => s.shift_date === dateStr)
-                  .sort((a, b) => a.start_time.localeCompare(b.start_time));
-                return (
-                  <div
-                    key={dateStr}
-                    className="flex flex-col gap-2 rounded-lg bg-[#F9FAFB] p-2"
-                  >
-                    <div className="px-1 pt-1">
-                      <p className="text-[12px] font-semibold text-[#111827]">
-                        {weekdayLabel(dateStr)}
-                      </p>
-                      <p className="tnum text-[11px] text-[#6B7280]">
-                        {prettyDate(dateStr)}
-                      </p>
-                    </div>
-                    {dayShifts.map((s) => {
-                      const crew = assignedByShift.get(s.id) ?? [];
-                      return (
-                        <div
-                          key={s.id}
-                          className="rounded-md border border-[#E5E7EB] bg-white p-2"
-                        >
-                          <p className="text-[12px] font-semibold text-[#111827]">
-                            {s.name}
-                          </p>
-                          <p className="tnum text-[11px] text-[#6B7280]">
-                            {s.start_time.slice(0, 5)}–{s.end_time.slice(0, 5)}
-                          </p>
-                          {crew.length > 0 ? (
-                            <ul className="mt-1 flex flex-col gap-0.5">
-                              {crew.map((name) => (
-                                <li
-                                  key={name}
-                                  className="truncate text-[12px] text-[#374151]"
-                                >
-                                  {name}
-                                </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <StatusBadge tone="warning">Unstaffed</StatusBadge>
-                          )}
+
+            <table className="w-full text-left border-collapse min-w-[800px]">
+              <thead>
+                <tr className="bg-gray-50 border-b border-gray-200">
+                  <th className="py-3 px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider w-48">Team Member</th>
+                  {dates.map(dateStr => (
+                    <th key={dateStr} className="py-3 px-2 text-xs font-semibold text-gray-500 uppercase tracking-wider text-center">
+                      {weekdayLabel(dateStr)}<br/>
+                      <span className="text-[10px]">{dateStr.slice(5)}</span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100 bg-white">
+                {activeTeam.map(emp => {
+                  const empShifts = shiftsByEmployee.get(emp.id) ?? [];
+                  const totalHrs = totalHoursByEmployee.get(emp.id) ?? 0;
+                  
+                  return (
+                    <tr key={emp.id} className="hover:bg-gray-50 transition-colors">
+                      <td className="py-3 px-4 border-r border-gray-100">
+                        <div className="flex items-center gap-3">
+                          <img src={`https://ui-avatars.com/api/?name=${encodeURIComponent(emp.name)}&background=166534&color=fff`} className="w-10 h-10 rounded-full" alt={emp.name} />
+                          <div>
+                            <p className="text-sm font-semibold text-gray-900">{emp.name}</p>
+                            <p className="text-xs text-gray-500 truncate w-32">{emp.role}</p>
+                            <p className="text-xs font-bold text-gray-900 mt-1">{totalHrs.toFixed(1)} hrs assigned</p>
+                          </div>
                         </div>
-                      );
-                    })}
-                  </div>
-                );
-              })}
+                      </td>
+                      {dates.map(dateStr => {
+                        const dayAssign = empShifts.find((s: any) => s.date === dateStr);
+                        if (!dayAssign) {
+                          return (
+                            <td key={dateStr} className="py-3 px-2 text-center border-r border-gray-100 last:border-r-0">
+                              <span className="inline-block px-3 py-1 bg-gray-100 text-gray-500 rounded text-xs font-medium">Day Off</span>
+                            </td>
+                          );
+                        }
+                        
+                        const isMorning = dayAssign.shift.name.toLowerCase().includes('morn');
+                        
+                        return (
+                          <td key={dateStr} className="py-3 px-2 text-center border-r border-gray-100 last:border-r-0">
+                            <div className="flex flex-col items-center justify-center gap-1">
+                              <span className={`text-xs font-bold flex items-center gap-1 ${isMorning ? 'text-green-700' : 'text-blue-700'}`}>
+                                <span className="text-lg leading-none">•</span> {dayAssign.shift.name}
+                              </span>
+                              <span className="text-[10px] text-gray-500">{dayAssign.shift.start_time.slice(0, 5)} - {dayAssign.shift.end_time.slice(0, 5)}</span>
+                            </div>
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            
+            <div className="p-4 bg-gray-50 border-t border-gray-100 flex gap-6">
+              <div className="flex items-center gap-2">
+                <span className="text-green-700 font-bold text-lg leading-none">•</span>
+                <span className="text-xs text-gray-600 font-medium">Morning (7:00-15:30)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-blue-700 font-bold text-lg leading-none">•</span>
+                <span className="text-xs text-gray-600 font-medium">Evening (15:00-23:30)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="inline-block w-4 h-4 rounded bg-gray-200"></span>
+                <span className="text-xs text-gray-600 font-medium">Scheduled Rest Day</span>
+              </div>
             </div>
-            <details className="mt-3 rounded-md bg-[#F9FAFB] p-3">
+
+            <details className="mt-4 rounded-md bg-[#F9FAFB] p-3 mx-4 mb-4 border border-gray-200">
               <summary className="cursor-pointer text-[13px] font-medium text-[#166534]">
-                Why this schedule
+                Why this schedule (Engine Explanation)
               </summary>
               <ul className="mt-2 flex list-disc flex-col gap-1 pl-5 text-[12px] text-[#4B5563]">
                 {schedule.explanation.map((line) => (
