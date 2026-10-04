@@ -15,6 +15,8 @@ from .api.shifts import router as shifts_router
 from .api.tasks import router as tasks_router
 from .api.schedule import router as schedule_router
 from .api.leave import router as leave_router
+from .api.demo import router as demo_router
+from .api.comparison import router as comparison_router
 
 # ── Logging ───────────────────────────────────────────────────────────────────
 logging.basicConfig(
@@ -58,6 +60,8 @@ app.include_router(shifts_router,    prefix=PREFIX)
 app.include_router(tasks_router,     prefix=PREFIX)
 app.include_router(schedule_router,  prefix=PREFIX)
 app.include_router(leave_router,     prefix=PREFIX)
+app.include_router(demo_router)
+app.include_router(comparison_router)
 
 
 # ── Health check ──────────────────────────────────────────────────────────────
