@@ -28,6 +28,40 @@ cd frontend
 npm run build
 ```
 
+### Stitch screens (original UI, live data)
+The Stitch deliverables from `ui/*/code.html` are served verbatim at:
+
+- `http://127.0.0.1:5173/stitch/overview.html` — Overview
+- `http://127.0.0.1:5173/stitch/schedule.html` — Schedule workspace
+- `http://127.0.0.1:5173/stitch/team.html` — My Team
+- `http://127.0.0.1:5173/stitch/timeoff.html` — Time Off
+- `http://127.0.0.1:5173/stitch/rules.html` — Rules
+- `http://127.0.0.1:5173/stitch/settings.html` — Settings
+- `http://127.0.0.1:5173/stitch/custom.html` — Custom Mode
+- `http://127.0.0.1:5173/stitch/comparison.html` — Value comparison
+
+Files live in `frontend/public/stitch/` (byte-identical copies plus a
+one-line `<script src="./connect.js">` tag). `connect.js` is the only
+hand-written UI code: it fills the screens' existing DOM ids from the real
+backend and binds primary actions (build/approve/add). API base defaults to
+`http://127.0.0.1:8002`; override with `?api=…` or
+`localStorage.optishift_api`. Also linked from the app sidebar
+("Stitch Screens").
+
+### Backend branch (pulled, NOT merged)
+```bash
+git fetch origin
+git worktree add D:\MProjects\OptiShift-backend origin/backend
+cd D:\MProjects\OptiShift-backend
+uv venv
+uv pip install -r backend/requirements.txt
+uv run uvicorn app.main:app --port 8002 --app-dir backend
+```
+The `backend` branch has unrelated history — never merge it into `master`.
+It serves the Stitch screens above on port 8002 with seeded demo data
+(verify: `GET /api/v1/employees/`, `POST /api/v1/optimize`
+with `{"week_start": "2024-12-09", "include_baseline": true}`).
+
 ### Build
 ```bash
 cd frontend

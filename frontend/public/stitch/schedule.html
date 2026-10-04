@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-container-low":"#f1f3ff","tertiary":"#004b1f","on-error-container":"#93000a","inverse-on-surface":"#edf0ff","inverse-primary":"#8bd79b","on-error":"#ffffff","error-container":"#ffdad6","surface-tint":"#1f6c3a","surface-container-high":"#e1e8fd","inverse-surface":"#293040","primary-fixed":"#a6f4b5","on-surface":"#141b2b","surface-variant":"#dce2f7","tertiary-fixed":"#95f8a7","surface-container-highest":"#dce2f7","error":"#ba1a1a","on-tertiary-container":"#81e394","on-tertiary-fixed-variant":"#005323","surface-container":"#e9edff","on-primary-fixed":"#00210b","outline":"#707a6f","surface-dim":"#d3daef","secondary-fixed-dim":"#95d4ac","on-primary-container":"#93e0a2","tertiary-container":"#00662d","on-secondary-fixed-variant":"#0f5132","primary":"#004c22","on-background":"#141b2b","on-tertiary-fixed":"#00210a","on-tertiary":"#ffffff","surface":"#f9f9ff","on-primary":"#ffffff","secondary-fixed":"#b0f1c7","primary-fixed-dim":"#8bd79b","secondary":"#2d6a48","outline-variant":"#bfc9bd","on-surface-variant":"#404940","surface-container-lowest":"#ffffff","surface-bright":"#f9f9ff","on-secondary-fixed":"#002111","secondary-container":"#b0f1c7","on-secondary-container":"#33704e","background":"#f9f9ff","on-secondary":"#ffffff","on-primary-fixed-variant":"#005226","tertiary-fixed-dim":"#79db8d","primary-container":"#166534"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-xl":"1.5rem","space-md":"0.75rem","gutter-desktop":"1.5rem","space-sm":"0.5rem","space-lg":"1rem","margin-desktop":"2rem","gutter":"1rem","space-xs":"0.25rem","margin":"1rem"},"fontFamily":{"headline-md":["Inter"],"metric-display":["Inter"],"label-md":["Inter"],"headline-lg":["Inter"],"body-sm":["Inter"],"body-md":["Inter"],"headline-xl":["Inter"],"headline-xl-mobile":["Inter"],"body-lg":["Inter"],"label-sm":["Inter"]},"fontSize":{"headline-md":["18px",{"lineHeight":"26px","letterSpacing":"-0.01em","fontWeight":"600"}],"metric-display":["28px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"400"}],"body-md":["13px",{"lineHeight":"18px","letterSpacing":"0em","fontWeight":"400"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-lg":["15px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"600"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #166534
+- Font: inter
+- Mode: light
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UAYwL_UjHjNc3kB2MYEZDs0ifLdEf7mEfw_kOEwjG4KQrjUCYuzHBQ8aFY9ze6vK1ADq01phcoDoIF8SuNRaRfBhOOcOCLLBgS6cec2aQ1epM6Y9CktECMSIU1klF33MAALTjI7yvBeF47N8l9v-_sx-z7JRUJqO-camWWaGDlz4bXEtW6JlghYNmb4pE9lP9kdtA1LTZPG8pDrEpnD09Y0cD8Kl8Y-EJaUyi_CJX5zm20a5KS879lBw"/><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-surface leading-tight">OptiShift</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Smart Scheduling</span></div></div><div class="px-space-md py-space-sm"><nav class="flex flex-col gap-space-xs" data-active-classes="bg-secondary-container text-on-secondary-container font-headline-md"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="overview" href="#"><span class="material-symbols-outlined text-primary-container">dashboard</span><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface leading-none">Overview</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Today's summary</span></div></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl transition-all bg-secondary-container text-on-secondary-container font-headline-md" data-path="schedule" href="#"><span class="material-symbols-outlined text-on-surface-variant">calendar_today</span><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface leading-none">Schedule</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">See who works when</span></div></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="my-team" href="#"><span class="material-symbols-outlined text-on-surface-variant">group</span><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface leading-none">My Team</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Staff &amp; work limits</span></div></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="time-off" href="#"><span class="material-symbols-outlined text-on-surface-variant">beach_access</span><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface leading-none">Time Off</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Vacation &amp; requests</span></div><span class="font-label-sm text-label-sm bg-secondary-container text-on-secondary-container px-space-xs py-0.5 rounded-full font-bold">1</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="rules" href="#"><span class="material-symbols-outlined text-on-surface-variant">tune</span><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface leading-none">Rules</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Shift &amp; hour limits</span></div></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="settings" href="#"><span class="material-symbols-outlined text-on-surface-variant">settings</span><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface leading-none">Settings</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Store &amp; preferences</span></div></a></nav></div></div><div class="p-space-md"><div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs"><div class="flex items-center gap-space-xs text-primary-container"><span class="material-symbols-outlined text-body-lg">help</span><span class="font-label-md text-label-md font-semibold text-on-surface">Need help?</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Simple guide to scheduling staff and managing shifts easily.</p><a class="font-label-sm text-label-sm text-primary-container font-semibold hover:underline mt-space-xs inline-block" data-path="support" href="#">View documentation →</a></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-md py-space-xs rounded-xl cursor-pointer hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-primary-container text-body-lg">location_on</span><div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface leading-tight">UrbanBrew Café</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Mumbai Outlet</span></div><span class="material-symbols-outlined text-on-surface-variant text-body-sm ml-space-xs">expand_more</span></div></div><div class="flex items-center gap-space-lg"><button aria-label="Notifications" class="relative p-space-xs rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors" type="button"><span class="material-symbols-outlined">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><div class="flex items-center gap-space-sm pl-space-sm"><div class="text-right"><div class="font-label-md text-label-md font-semibold text-on-surface leading-tight">Alex Morgan</div><div class="font-label-sm text-label-sm text-on-surface-variant leading-none">Owner</div></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-surface-variant" src="https://lh3.googleusercontent.com/aida/AEtjO1ULF42LAEkd7qJAhWNMQvd6lBfSI80KBFsa1ORr5JI9iTIxaCMUOI_8qT6LJstTtIKci00RYPNBY6h5LNxyBxoX-AMFGdlrvUjEgvyy8JI2ccr2MwoJjW_gTMBsH1JAYellkVy1YWJfXDNGq7ab40g8xt-eT3BQ5aoDeZiFiSi79PUbZO8gqvpn5n344hj31WCRFjquV9W_yDyhobMZ-mxwQI44LhjyvP9RDSUEdOO0p5BqNll1n3mwkQ"/></div></div></header><main class="w-full pt-16 bg-background min-h-screen px-space-lg py-space-xl"><div class="flex flex-col w-full">
+<!-- Interactive State Switcher Banner -->
+<aside aria-label="Interactive State Switcher" class="mb-space-lg bg-surface-container-lowest p-space-sm rounded-xl shadow-sm flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-sm uppercase tracking-wider pl-space-xs">
+<span class="material-symbols-outlined text-[16px] text-primary">science</span>
+<span>Simulate Scenarios:</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs">
+<button class="px-space-md py-1.5 rounded-lg text-label-md font-semibold transition-all bg-primary-container text-on-primary shadow-xs" id="btn-state-1" onclick="setWorkspaceState(1)" type="button">
+        1. Full Schedule (Optimal)
+      </button>
+<button class="px-space-md py-1.5 rounded-lg text-label-md font-medium text-on-surface-variant bg-surface-container-low hover:bg-surface-container transition-all" id="btn-state-2" onclick="setWorkspaceState(2)" type="button">
+        2. Understaffed Warning (Friday)
+      </button>
+<button class="px-space-md py-1.5 rounded-lg text-label-md font-medium text-on-surface-variant bg-surface-container-low hover:bg-surface-container transition-all" id="btn-state-3" onclick="setWorkspaceState(3)" type="button">
+        3. What Changed Modal
+      </button>
+<button class="px-space-md py-1.5 rounded-lg text-label-md font-medium text-on-surface-variant bg-surface-container-low hover:bg-surface-container transition-all" id="btn-state-4" onclick="setWorkspaceState(4)" type="button">
+        4. Updating Progress
+      </button>
+<button class="px-space-md py-1.5 rounded-lg text-label-md font-medium text-on-surface-variant bg-surface-container-low hover:bg-surface-container transition-all" id="btn-state-5" onclick="setWorkspaceState(5)" type="button">
+        5. Empty (No Schedule Yet)
+      </button>
+</div>
+</aside>
+<!-- Workspace Container: Active Workspace Display -->
+<div class="flex flex-col w-full gap-space-lg" id="workspace-loaded-view">
+<!-- Header Area -->
+<header class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+<div class="flex flex-col gap-0.5">
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Your Schedule</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">See who is working each day and ensure every shift has enough people.</p>
+</div>
+<!-- Controls & Navigation -->
+<div class="flex flex-wrap items-center gap-space-md">
+<!-- Date navigator -->
+<nav aria-label="Schedule Period Navigation" class="flex items-center bg-surface-container-low p-1 rounded-xl shadow-xs">
+<button aria-label="Previous Week" class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-lowest transition-colors" title="Previous Week" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<div class="flex items-center gap-1.5 px-space-md py-1 text-on-surface font-label-md font-semibold">
+<span class="material-symbols-outlined text-[16px] text-primary">calendar_month</span>
+<span>This Week: Oct 14 – Oct 20</span>
+</div>
+<button aria-label="Next Week" class="p-1.5 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-lowest transition-colors" title="Next Week" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</nav>
+<!-- Filter pills -->
+<div class="flex items-center bg-surface-container-low p-1 rounded-xl">
+<button class="px-space-md py-1 rounded-lg text-label-md font-semibold bg-surface-container-lowest text-on-surface shadow-xs transition-all" id="filter-all" onclick="setShiftFilter('all')" type="button">All Shifts</button>
+<button class="px-space-md py-1 rounded-lg text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-all" id="filter-morning" onclick="setShiftFilter('morning')" type="button">Morning (7:00–15:30)</button>
+<button class="px-space-md py-1 rounded-lg text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-all" id="filter-evening" onclick="setShiftFilter('evening')" type="button">Evening (15:00–23:30)</button>
+</div>
+<!-- Primary Action buttons -->
+<div class="flex items-center gap-space-xs">
+<button class="flex items-center gap-space-xs px-space-lg py-2 rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-all font-label-md font-semibold shadow-xs" onclick="triggerScheduleUpdate()" type="button">
+<span class="material-symbols-outlined text-[18px]">auto_fix_high</span>
+<span>Update Schedule</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-all font-label-md font-medium" onclick="window.print()" type="button">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Export / Print</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Weekly Summary KPI Strip -->
+<section aria-label="Weekly Key Performance Indicators" class="grid grid-cols-2 md:grid-cols-5 gap-space-sm">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary-container shrink-0">
+<span class="material-symbols-outlined text-[20px]">date_range</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider">Duration</span>
+<span class="font-headline-md text-headline-md text-on-surface">7 Days</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0">
+<span class="material-symbols-outlined text-[20px]">group</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider">Active Staff</span>
+<span class="font-headline-md text-headline-md text-on-surface">8 Members</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0" id="kpi-coverage-icon">
+<span class="material-symbols-outlined text-[20px]">verified</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider">Coverage Rate</span>
+<span class="font-headline-md text-headline-md text-on-surface" id="kpi-coverage-value">100% Covered</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-tertiary-container shrink-0">
+<span class="material-symbols-outlined text-[20px]">hourglass_empty</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider">Extra Hours</span>
+<span class="font-headline-md text-headline-md text-on-surface">0 Overtime</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex items-center gap-space-md col-span-2 md:col-span-1">
+<div class="w-10 h-10 rounded-xl bg-primary-fixed flex items-center justify-center text-on-primary-fixed shrink-0">
+<span class="material-symbols-outlined text-[20px]">payments</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-sm text-on-surface-variant uppercase tracking-wider">Est. Staff Cost</span>
+<span class="font-headline-md text-headline-md text-primary font-bold">₹42,680</span>
+</div>
+</div>
+</section>
+<!-- Weekly Staffing Status Row (Summary per day) -->
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<div class="flex items-center gap-space-xs text-on-surface font-label-md font-semibold">
+<span class="material-symbols-outlined text-[18px] text-primary">fact_check</span>
+<span>Shift Fulfillment per Day</span>
+</div>
+<span class="font-label-sm text-on-surface-variant">Store Requirement: Morning (3) · Evening (4)</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-7 gap-space-sm">
+<!-- Monday -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between gap-1.5 transition-all">
+<div class="flex items-center justify-between">
+<span class="font-label-md font-bold text-on-surface">Mon, Oct 14</span>
+<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-label-sm font-semibold bg-secondary-container text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Fully staffed
+            </span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+<span>Morn: <strong>3/3</strong></span> · <span>Eve: <strong>4/4</strong></span>
+</div>
+</div>
+<!-- Tuesday (TODAY highlighted) -->
+<div class="bg-surface-container-high p-space-sm rounded-lg flex flex-col justify-between gap-1.5 relative shadow-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1">
+<span class="font-label-md font-bold text-on-surface">Tue, Oct 15</span>
+<span class="px-1 py-0.2 bg-primary-container text-on-primary rounded text-[9px] uppercase font-bold tracking-wider">Today</span>
+</div>
+<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-label-sm font-semibold bg-secondary-container text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Fully staffed
+            </span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface">
+<span>Morn: <strong>3/3</strong></span> · <span>Eve: <strong>4/4</strong></span>
+</div>
+</div>
+<!-- Wednesday -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between gap-1.5 transition-all">
+<div class="flex items-center justify-between">
+<span class="font-label-md font-bold text-on-surface">Wed, Oct 16</span>
+<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-label-sm font-semibold bg-secondary-container text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Fully staffed
+            </span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+<span>Morn: <strong>3/3</strong></span> · <span>Eve: <strong>4/4</strong></span>
+</div>
+</div>
+<!-- Thursday -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between gap-1.5 transition-all">
+<div class="flex items-center justify-between">
+<span class="font-label-md font-bold text-on-surface">Thu, Oct 17</span>
+<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-label-sm font-semibold bg-secondary-container text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Fully staffed
+            </span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+<span>Morn: <strong>3/3</strong></span> · <span>Eve: <strong>4/4</strong></span>
+</div>
+</div>
+<!-- Friday (Dynamic for State 2) -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between gap-1.5 transition-all" id="friday-summary-card">
+<div class="flex items-center justify-between">
+<span class="font-label-md font-bold text-on-surface">Fri, Oct 18</span>
+<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-label-sm font-semibold bg-secondary-container text-on-secondary-container" id="friday-badge">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Fully staffed
+            </span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant" id="friday-ratio-info">
+<span>Morn: <strong>3/3</strong></span> · <span>Eve: <strong>4/4</strong></span>
+</div>
+<div class="hidden mt-0.5" id="friday-fix-btn-container">
+<button class="w-full py-1 px-2 rounded-md bg-amber-500 text-surface-container-lowest font-label-sm font-bold flex items-center justify-center gap-1 hover:bg-amber-600 transition-colors shadow-xs" onclick="setWorkspaceState(3)" type="button">
+<span class="material-symbols-outlined text-[14px]">build</span>
+<span>Fix Shift</span>
+</button>
+</div>
+</div>
+<!-- Saturday -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between gap-1.5 transition-all">
+<div class="flex items-center justify-between">
+<span class="font-label-md font-bold text-on-surface">Sat, Oct 19</span>
+<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-label-sm font-semibold bg-secondary-container text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Fully staffed
+            </span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+<span>Morn: <strong>4/4</strong></span> · <span>Eve: <strong>4/4</strong></span>
+</div>
+</div>
+<!-- Sunday -->
+<div class="bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between gap-1.5 transition-all">
+<div class="flex items-center justify-between">
+<span class="font-label-md font-bold text-on-surface">Sun, Oct 20</span>
+<span class="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-label-sm font-semibold bg-secondary-container text-on-secondary-container">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Fully staffed
+            </span>
+</div>
+<div class="font-body-sm text-body-sm text-on-surface-variant">
+<span>Morn: <strong>3/3</strong></span> · <span>Eve: <strong>3/3</strong></span>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Weekly Grid Container -->
+<div class="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col">
+<!-- Grid Scroll Area -->
+<div class="overflow-x-auto">
+<div class="min-w-[1080px] flex flex-col">
+<!-- Table Header Row -->
+<div class="grid grid-cols-[260px_repeat(7,1fr)] bg-surface-container-high py-space-sm px-space-md text-on-surface font-label-md font-semibold uppercase tracking-wider">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">badge</span>
+<span>Team Member</span>
+</div>
+<div class="text-center">Mon 14</div>
+<div class="text-center font-bold text-primary flex items-center justify-center gap-1">
+<span>Tue 15</span>
+<span class="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+</div>
+<div class="text-center">Wed 16</div>
+<div class="text-center">Thu 17</div>
+<div class="text-center">Fri 18</div>
+<div class="text-center">Sat 19</div>
+<div class="text-center">Sun 20</div>
+</div>
+<!-- Employee Rows -->
+<!-- 1. Priya Sharma -->
+<div class="grid grid-cols-[260px_repeat(7,1fr)] items-center px-space-md py-space-sm hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm pr-space-sm">
+<img class="w-10 h-10 rounded-full object-cover shrink-0" data-alt="Warm portrait of Priya Sharma, a smiling Indian woman in barista uniform inside a light-filled contemporary artisan coffee bar." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCihryyruhp3ckO6hzD4SU-rrXZlmBnK4xMoc2BcmjnOvac5TMnGuMpK68_FO-2pIVnbIk1i-DLsbb_oj5w0iB8ctOhFzEXf4duOMOsa1av7_ErOrfjl9qmbujz2YHUQumUAwsG9hj4oWh-gKJQsENnsK0Vs7xoGPH5G0rGl7DGR71Lge7Mq8XyRoAHrLIp5NL-SJ72byXs9sbuw2umJZsOmt5w49m8AHq8vEL7UvjAP76AfIVtfLen"/>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-body-lg text-on-surface leading-tight truncate">Priya Sharma</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Senior Barista · Full-time</span>
+<span class="font-label-sm text-primary font-semibold">38 hrs assigned</span>
+</div>
+</div>
+<!-- Mon -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Tue -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+<!-- Wed -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Thu -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Fri: Time Off -->
+<div class="p-1 shift-cell" data-shift="leave">
+<div class="bg-amber-50 text-amber-900 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="material-symbols-outlined text-[14px] text-amber-600">beach_access</span>Time Off</span>
+<span class="text-[10px] text-amber-700 font-medium">Personal (Approved)</span>
+</div>
+</div>
+<!-- Sat -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Sun -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+</div>
+<!-- 2. Rahul Patil -->
+<div class="grid grid-cols-[260px_repeat(7,1fr)] items-center px-space-md py-space-sm bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm pr-space-sm">
+<img class="w-10 h-10 rounded-full object-cover shrink-0" data-alt="Professional headshot of Rahul Patil, an Indian male supervisor in his late twenties with a focused friendly expression inside a modern espresso lounge." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBztOGIVYSqPAGVTZduL46zdYzoYl-xwsxksr5VQp0AGFTWph9UxF_HIee_5fn3Fwm05U09od9PIQ2U1e5l8URRC027cEQ0ntuJlVEd6JB3W2waaUPRkPYg4Lwf7oWkXFgSTx8FStGKszOwV6qwD7QZa9-1X-vkTc_vmgH5WD7hRKvE3rnVSWn-IJmPAIKGvqL1btIzkD8gPEd8GSZFGcLglhPbmDYqL1m5s4Jwav29jDsCeKfLFD5P"/>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-body-lg text-on-surface leading-tight truncate">Rahul Patil</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Shift Supervisor · Full-time</span>
+<span class="font-label-sm text-primary font-semibold">38.5 hrs assigned</span>
+</div>
+</div>
+<!-- Mon -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Tue -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Wed -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Thu -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+<!-- Fri -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Sat -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Sun -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+</div>
+<!-- 3. Aisha Khan (Dynamic cell on Fri in State 2) -->
+<div class="grid grid-cols-[260px_repeat(7,1fr)] items-center px-space-md py-space-sm bg-surface-container-low/40 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm pr-space-sm">
+<img class="w-10 h-10 rounded-full object-cover shrink-0" data-alt="Portrait of Aisha Khan, an energetic young professional South Asian woman in casual apron standing beside stainless steel coffee equipment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBUleyhmHGTRv9EA5MKBxFIDmtkqAad_pyEuEAJjNyYrKXxfq7_-vzI8gYffn-TEoMgL7svjR6GV8zktpkeCetOlDmpQvsIDwoov_ERyltRGyzTqUASHG0nVaLdODYaU7VZeigf-BpeJqLkV5erZw4ZPOGzepNGS1Bj29JBPgNxkSZkRRAaVAOLGC-nyAU7KqvvsE1iNgmJnFWQIylXChr3AfMRgL26cDE3Q3BlpFBG3I20b9huz8VA"/>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-body-lg text-on-surface leading-tight truncate">Aisha Khan</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Head Barista · Full-time</span>
+<span class="font-label-sm text-primary font-semibold">36 hrs assigned</span>
+</div>
+</div>
+<!-- Mon -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Tue -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Wed -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+<!-- Thu -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Fri (Target for understaffing switch) -->
+<div class="p-1 shift-cell" data-shift="evening" id="aisha-fri-cell">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Sat -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Sun -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+</div>
+<!-- 4. Vikram Mehta -->
+<div class="grid grid-cols-[260px_repeat(7,1fr)] items-center px-space-md py-space-sm bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm pr-space-sm">
+<img class="w-10 h-10 rounded-full object-cover shrink-0" data-alt="Headshot of Vikram Mehta, an affable young male clerk with glasses in a tidy retail hospitality environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO20JVfIDUVJMWFjvQtjEvaJX-WUPYqGM-9xth5EzleDipXfyuTHNSR1S0G3WHARF9ZRwPhhKsF8KFMinPPLb3ycuvt1VzFHcOlWzH2SD2NBxIBdGv7DAKJ3pcJz4ssRl3yQDkmkWAKk1Mev-nAcLmVKdYVJ82-gzTCKoTCNS7ZXXmtbP4k9PwNGfiJHcjFum-BMp9Z5xntOkKv0GAz6FkKf3ehA6hO3CLi4wU5lRIe93ltYwjOr3w"/>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-body-lg text-on-surface leading-tight truncate">Vikram Mehta</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Counter &amp; POS · Part-time</span>
+<span class="font-label-sm text-primary font-semibold">24 hrs assigned</span>
+</div>
+</div>
+<!-- Mon -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Tue -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Wed -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+<!-- Thu -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+<!-- Fri -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Sat -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+<!-- Sun -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+</div>
+<!-- 5. Kavita Nair -->
+<div class="grid grid-cols-[260px_repeat(7,1fr)] items-center px-space-md py-space-sm bg-surface-container-low/40 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm pr-space-sm">
+<img class="w-10 h-10 rounded-full object-cover shrink-0" data-alt="Portrait of Kavita Nair, an experienced Indian female closing manager in casual dark shirt in a calm warm café setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuByTsh-Slacq9kxoNRxUWixXr6bkV8IGOHAKvEoq7qLYJjjj3ShKMpQv4Hupp9OqEYSxXHUVLZdFpg0yimCZPn8c7JG-YjOtdITMUMQ26bAlVIhqGnQvgHcBosIXpV0szZTsbcy_B6zcu2Wg44Ib2tpOLAjCDRXA6hZ0VZY8VaQ00amCiPBCvJ60VruaBzXtFbL1-Kot2CpZsFOErdNe2e-wcwR7uXeWP05-Jh_rF_XLdesOCaZZEeP"/>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-body-lg text-on-surface leading-tight truncate">Kavita Nair</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Closing Manager · Full-time</span>
+<span class="font-label-sm text-primary font-semibold">38 hrs assigned</span>
+</div>
+</div>
+<!-- Mon -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Tue -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Wed -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Thu -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+<!-- Fri -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+<!-- Sat -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Sun -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+</div>
+<!-- 6. Arjun Patel -->
+<div class="grid grid-cols-[260px_repeat(7,1fr)] items-center px-space-md py-space-sm bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm pr-space-sm">
+<img class="w-10 h-10 rounded-full object-cover shrink-0" data-alt="Headshot photo of Arjun Patel, a college student barista with cheerful demeanor holding a clean cup in an artisan roastery." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjjp0Wa_RiQtWBlAqjOYEdXnVF_7fmgZuOtFD7otYpzIHF-X3A8ZgRjw6J3y95-hbYdi5KbthkAdyxqSNbz3pJaF0Iiy_Vj27ZQ590o6vwfHnifUQSoJIyYsu1XGpE7lXdOb7FQsDhlwaceCPJTlJLGyKmNZVzcEn90fMwn3BbGm_H8x4weR26QyE4ocLc6rqHpk2Ll62JDZkXUAe7rfnDrJzAn7Mcm0Vu9P8LsDdXSPRH66pWHJN2"/>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-body-lg text-on-surface leading-tight truncate">Arjun Patel</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Barista · Part-time</span>
+<span class="font-label-sm text-primary font-semibold">25 hrs assigned</span>
+</div>
+</div>
+<!-- Mon -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+<!-- Tue -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Wed -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Thu -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Fri -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Sat -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+<!-- Sun -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+</div>
+<!-- 7. Sneha Roy -->
+<div class="grid grid-cols-[260px_repeat(7,1fr)] items-center px-space-md py-space-sm bg-surface-container-low/40 hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm pr-space-sm">
+<img class="w-10 h-10 rounded-full object-cover shrink-0" data-alt="Portrait of Sneha Roy, a cheerful Indian young woman in customer service uniform smiling at counter of coffee store." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYscK3Vr3R2HncavodcTGxyTsIDLUfhGOWhOFVqMbHj1cw7-PwU5ScUi4_ezEJA_bZyc9nsKJfsSzhIUbr0iozS1WyPnAZoJ4HKXFxZD619W1kP4sjtyJQpnV4m_kE9cZk6F7996LCqOapeXed77ryaIGkCHGRvZBGgJzzJ4_C5XUlStKh5qf8MKMeEtaxThxtTQalofqdK1yvrGaF0heTgQRnI_6F_b07bYNd0kR_N5pdtD-VpsKJ"/>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-body-lg text-on-surface leading-tight truncate">Sneha Roy</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Customer Service · Part-time</span>
+<span class="font-label-sm text-primary font-semibold">24 hrs assigned</span>
+</div>
+</div>
+<!-- Mon -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Tue -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Wed -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+<!-- Thu -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Fri -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+<!-- Sat -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Sun -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+</div>
+<!-- 8. David Lobo -->
+<div class="grid grid-cols-[260px_repeat(7,1fr)] items-center px-space-md py-space-sm bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<div class="flex items-center gap-space-sm pr-space-sm">
+<img class="w-10 h-10 rounded-full object-cover shrink-0" data-alt="Portrait photo of David Lobo, a skilled culinary kitchen prep cook in clean black chef coat inside modern bakery prep room." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbtP3LB2vl2MacDXDeASxkPd1XpC1dp4Lr4BWPTGdcf0CQWaGs5jO9YgSJvW6tR39jhFYu98IIsKd4REggHWPNrh8cxkj_U4PTjJemAj4g6USh54vU4o4NdN-j6APXeMpD670rKvF_f2uuxLbO_8nGI00UHVCYBs5hqRl1XZ8R7ubPHZmZXpKp2Ovd32MIIQKLzH1JtDP777TAwti6tvPbFkyUIBXvH58AjJbcorC9fD8S48pq-j8D"/>
+<div class="flex flex-col min-w-0">
+<span class="font-headline-md text-body-lg text-on-surface leading-tight truncate">David Lobo</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Kitchen &amp; Prep · Full-time</span>
+<span class="font-label-sm text-primary font-semibold">37 hrs assigned</span>
+</div>
+</div>
+<!-- Mon -->
+<div class="p-1 shift-cell" data-shift="off">
+<div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+<span class="font-label-sm font-medium">Day Off</span>
+</div>
+</div>
+<!-- Tue -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+<!-- Wed -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Thu -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Fri -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Sat -->
+<div class="p-1 shift-cell" data-shift="morning">
+<div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+<span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+</div>
+</div>
+<!-- Sun -->
+<div class="p-1 shift-cell" data-shift="evening">
+<div class="bg-slate-100 text-slate-800 p-space-xs rounded-lg flex flex-col gap-0.5">
+<span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-slate-600"></span>Evening</span>
+<span class="text-[11px] font-mono text-slate-700">15:00–23:30</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Legend Footer -->
+<footer class="p-space-md bg-surface-container-low flex flex-wrap items-center justify-between text-label-sm text-on-surface-variant gap-space-md">
+<div class="flex items-center gap-space-lg">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-emerald-100 inline-block"></span>
+<span>Morning (7:00–15:30)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-slate-200 inline-block"></span>
+<span>Evening (15:00–23:30)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-amber-100 inline-block"></span>
+<span>Approved Time Off</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded-sm bg-surface-container-high inline-block"></span>
+<span>Scheduled Rest Day</span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-on-surface">
+<span class="material-symbols-outlined text-[16px] text-primary">lock_clock</span>
+<span>Mandatory 14-hour minimum rest guaranteed across shifts</span>
+</div>
+</footer>
+</div>
+</div>
+<!-- State 5: Empty View (Hidden by default, displayed via state switcher) -->
+<div class="hidden flex-col items-center justify-center py-20 px-space-lg bg-surface-container-lowest rounded-xl shadow-sm text-center" id="workspace-empty-view">
+<div class="w-20 h-20 rounded-full bg-surface-container flex items-center justify-center text-primary-container mb-space-lg shadow-sm">
+<span class="material-symbols-outlined text-[40px]">calendar_add_on</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-xs">No schedule built yet for this week.</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-md mb-space-xl">
+      Tell us who can work and your store hours, and OptiShift will build your schedule in one click.
+    </p>
+<div class="flex flex-col sm:flex-row items-center gap-space-md">
+<button class="flex items-center gap-space-xs px-space-xl py-3 rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-all font-label-md font-bold shadow-md" onclick="setWorkspaceState(4)" type="button">
+<span class="material-symbols-outlined text-[20px]">auto_awesome</span>
+<span>Build My Schedule</span>
+</button>
+<button class="px-space-lg py-3 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-all font-label-md font-medium" onclick="setWorkspaceState(1)" type="button">
+        Load Sample Template
+      </button>
+</div>
+</div>
+<!-- State 3: Modal Dialog Overlay "See What Changed" -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-space-lg bg-inverse-surface/40 backdrop-blur-xs" id="modal-what-changed">
+<div class="bg-surface-container-lowest w-full max-w-lg rounded-xl shadow-xl p-space-lg flex flex-col gap-space-md animate-in fade-in zoom-in-95 duration-200">
+<div class="flex items-start justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[22px]">published_with_changes</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">See What Changed</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Optimal schedule rebalancing explanation</p>
+</div>
+</div>
+<button aria-label="Close modal" class="text-on-surface-variant hover:text-on-surface p-1 rounded-lg hover:bg-surface-container-low transition-colors" onclick="closeWhatChangedModal()" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-sm">
+<span class="font-label-md font-bold text-on-surface">Schedule updated because:</span>
+<ul class="flex flex-col gap-space-sm text-body-md text-on-surface-variant font-body-md">
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-amber-600 shrink-0 mt-0.5">event_busy</span>
+<span><strong>Priya Sharma</strong> is taking Friday off (Personal leave).</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary shrink-0 mt-0.5">swap_horiz</span>
+<span><strong>Aisha Khan</strong> was moved to Friday morning so customer rush is fully covered.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary shrink-0 mt-0.5">bedtime</span>
+<span>Everyone still has at least <strong>14 hours of rest</strong> between consecutive shifts.</span>
+</li>
+<li class="flex items-start gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary shrink-0 mt-0.5">savings</span>
+<span>Zero extra hours or overtime added (Staff cost stayed strictly at <strong>₹42,680</strong>).</span>
+</li>
+</ul>
+</div>
+<!-- Action footer -->
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="px-space-md py-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-md font-semibold" onclick="closeWhatChangedModal()" type="button">
+          Close
+        </button>
+<button class="px-space-lg py-2 rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-colors font-label-md font-semibold flex items-center gap-1 shadow-xs" onclick="window.print()" type="button">
+<span class="material-symbols-outlined text-[18px]">print</span>
+<span>Print Schedule</span>
+</button>
+</div>
+</div>
+</div>
+<!-- State 4: Updating Progress Overlay -->
+<div class="hidden fixed inset-0 z-50 flex items-center justify-center p-space-lg bg-inverse-surface/40 backdrop-blur-xs" id="modal-updating-progress">
+<div class="bg-surface-container-lowest w-full max-w-md rounded-xl shadow-xl p-space-xl flex flex-col gap-space-lg animate-in fade-in zoom-in-95 duration-200">
+<div class="flex items-center gap-space-md">
+<div class="w-12 h-12 rounded-xl bg-primary-container text-on-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[28px] animate-spin">sync</span>
+</div>
+<div class="flex flex-col">
+<h3 class="font-headline-md text-headline-md text-on-surface">Updating Schedule</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">OptiShift AI solver running checks</p>
+</div>
+</div>
+<!-- Visual Progress Steps -->
+<div class="flex flex-col gap-space-xs bg-surface-container-low p-space-md rounded-xl">
+<div class="flex items-center gap-2 text-body-md text-on-surface font-medium" id="step-1">
+<span class="material-symbols-outlined text-[18px] text-primary">check_circle</span>
+<span>Checking your team...</span>
+</div>
+<div class="flex items-center gap-2 text-body-md text-on-surface font-medium" id="step-2">
+<span class="material-symbols-outlined text-[18px] text-primary">check_circle</span>
+<span>Checking when people can work...</span>
+</div>
+<div class="flex items-center gap-2 text-body-md text-on-surface font-medium" id="step-3">
+<span class="material-symbols-outlined text-[18px] text-primary">check_circle</span>
+<span>Checking your business rules...</span>
+</div>
+<div class="flex items-center gap-2 text-body-md text-on-surface font-medium animate-pulse" id="step-4">
+<span class="material-symbols-outlined text-[18px] text-primary-container">hourglass_top</span>
+<span>Making the best schedule...</span>
+</div>
+<div class="flex items-center gap-2 text-body-md text-on-surface-variant" id="step-5">
+<span class="material-symbols-outlined text-[18px]">radio_button_unchecked</span>
+<span>Finishing up...</span>
+</div>
+</div>
+<!-- Linear progress bar -->
+<div class="flex flex-col gap-1.5">
+<div class="w-full bg-surface-container rounded-full h-2 overflow-hidden">
+<div class="bg-primary-container h-full rounded-full transition-all duration-300 w-3/4" id="progress-bar-fill"></div>
+</div>
+<span class="font-label-sm text-body-sm text-on-surface-variant text-center">Your new schedule will be ready in seconds.</span>
+</div>
+<div class="flex justify-center">
+<button class="text-body-sm text-on-surface-variant hover:text-on-surface font-medium underline" onclick="closeProgressModal()" type="button">
+          Cancel &amp; Return
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  let activeState = 1;
+  let simulatedTimer = null;
+
+  function setWorkspaceState(stateNum) {
+    activeState = stateNum;
+
+    // Reset button states
+    for (let i = 1; i <= 5; i++) {
+      const btn = document.getElementById('btn-state-' + i);
+      if (btn) {
+        if (i === stateNum) {
+          btn.className = 'px-space-md py-1.5 rounded-lg text-label-md font-semibold transition-all bg-primary-container text-on-primary shadow-xs';
+        } else {
+          btn.className = 'px-space-md py-1.5 rounded-lg text-label-md font-medium text-on-surface-variant bg-surface-container-low hover:bg-surface-container transition-all';
+        }
+      }
+    }
+
+    const loadedView = document.getElementById('workspace-loaded-view');
+    const emptyView = document.getElementById('workspace-empty-view');
+    const modalWhatChanged = document.getElementById('modal-what-changed');
+    const modalProgress = document.getElementById('modal-updating-progress');
+
+    // Default close overlays
+    modalWhatChanged.classList.add('hidden');
+    modalProgress.classList.add('hidden');
+
+    if (stateNum === 5) {
+      // Empty state
+      loadedView.classList.add('hidden');
+      emptyView.classList.remove('hidden');
+      emptyView.classList.add('flex');
+      return;
+    }
+
+    // Showing main workspace view
+    loadedView.classList.remove('hidden');
+    emptyView.classList.add('hidden');
+    emptyView.classList.remove('flex');
+
+    const fridaySummaryCard = document.getElementById('friday-summary-card');
+    const fridayBadge = document.getElementById('friday-badge');
+    const fridayRatio = document.getElementById('friday-ratio-info');
+    const fridayFixBtn = document.getElementById('friday-fix-btn-container');
+    const kpiCoverageValue = document.getElementById('kpi-coverage-value');
+    const kpiCoverageIcon = document.getElementById('kpi-coverage-icon');
+    const aishaFriCell = document.getElementById('aisha-fri-cell');
+
+    if (stateNum === 2) {
+      // State 2: Understaffed Warning (Friday)
+      fridaySummaryCard.className = 'bg-amber-50/80 p-space-sm rounded-lg flex flex-col justify-between gap-1.5 transition-all shadow-xs';
+      fridayBadge.className = 'inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-label-sm font-semibold bg-amber-200 text-amber-900';
+      fridayBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span> 1 more person needed';
+      fridayRatio.innerHTML = '<span class="text-amber-900 font-bold">Morn: 2/3</span> · <span>Eve: 4/4</span>';
+      fridayFixBtn.classList.remove('hidden');
+
+      kpiCoverageValue.innerText = '94% Covered';
+      kpiCoverageValue.className = 'font-headline-md text-headline-md text-amber-700';
+      kpiCoverageIcon.className = 'w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-800 shrink-0';
+
+      // Keep Aisha as Day Off in Friday for state 2 to showcase the gap
+      aishaFriCell.innerHTML = `
+        <div class="bg-surface-container-high/60 text-on-surface-variant p-space-xs rounded-lg text-center flex flex-col justify-center min-h-[44px]">
+          <span class="font-label-sm font-medium">Day Off</span>
+        </div>
+      `;
+    } else {
+      // State 1, 3, 4: Reset Friday to fully covered
+      fridaySummaryCard.className = 'bg-surface-container-low p-space-sm rounded-lg flex flex-col justify-between gap-1.5 transition-all';
+      fridayBadge.className = 'inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-label-sm font-semibold bg-secondary-container text-on-secondary-container';
+      fridayBadge.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Fully staffed';
+      fridayRatio.innerHTML = '<span>Morn: <strong>3/3</strong></span> · <span>Eve: <strong>4/4</strong></span>';
+      fridayFixBtn.classList.add('hidden');
+
+      kpiCoverageValue.innerText = '100% Covered';
+      kpiCoverageValue.className = 'font-headline-md text-headline-md text-on-surface';
+      kpiCoverageIcon.className = 'w-10 h-10 rounded-xl bg-secondary-container flex items-center justify-center text-on-secondary-container shrink-0';
+
+      aishaFriCell.innerHTML = `
+        <div class="bg-emerald-50 text-emerald-950 p-space-xs rounded-lg flex flex-col gap-0.5">
+          <span class="font-label-sm font-semibold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>Morning</span>
+          <span class="text-[11px] font-mono text-emerald-800">7:00–15:30</span>
+        </div>
+      `;
+    }
+
+    if (stateNum === 3) {
+      modalWhatChanged.classList.remove('hidden');
+    } else if (stateNum === 4) {
+      modalProgress.classList.remove('hidden');
+      animateProgressModal();
+    }
+  }
+
+  function closeWhatChangedModal() {
+    document.getElementById('modal-what-changed').classList.add('hidden');
+    setWorkspaceState(1);
+  }
+
+  function closeProgressModal() {
+    clearTimeout(simulatedTimer);
+    document.getElementById('modal-updating-progress').classList.add('hidden');
+    setWorkspaceState(1);
+  }
+
+  function triggerScheduleUpdate() {
+    setWorkspaceState(4);
+  }
+
+  function animateProgressModal() {
+    const bar = document.getElementById('progress-bar-fill');
+    bar.style.width = '30%';
+    clearTimeout(simulatedTimer);
+    simulatedTimer = setTimeout(() => {
+      bar.style.width = '75%';
+      simulatedTimer = setTimeout(() => {
+        bar.style.width = '100%';
+        simulatedTimer = setTimeout(() => {
+          // Finish and transition into State 3 What Changed
+          setWorkspaceState(3);
+        }, 600);
+      }, 700);
+    }, 600);
+  }
+
+  function setShiftFilter(type) {
+    const btnAll = document.getElementById('filter-all');
+    const btnMorning = document.getElementById('filter-morning');
+    const btnEvening = document.getElementById('filter-evening');
+    const cells = document.querySelectorAll('.shift-cell');
+
+    [btnAll, btnMorning, btnEvening].forEach(b => {
+      b.className = 'px-space-md py-1 rounded-lg text-label-md font-medium text-on-surface-variant hover:text-on-surface transition-all';
+    });
+
+    if (type === 'all') {
+      btnAll.className = 'px-space-md py-1 rounded-lg text-label-md font-semibold bg-surface-container-lowest text-on-surface shadow-xs transition-all';
+      cells.forEach(cell => {
+        cell.classList.remove('opacity-20');
+      });
+    } else if (type === 'morning') {
+      btnMorning.className = 'px-space-md py-1 rounded-lg text-label-md font-semibold bg-surface-container-lowest text-on-surface shadow-xs transition-all';
+      cells.forEach(cell => {
+        const shift = cell.getAttribute('data-shift');
+        if (shift === 'morning') {
+          cell.classList.remove('opacity-20');
+        } else {
+          cell.classList.add('opacity-20');
+        }
+      });
+    } else if (type === 'evening') {
+      btnEvening.className = 'px-space-md py-1 rounded-lg text-label-md font-semibold bg-surface-container-lowest text-on-surface shadow-xs transition-all';
+      cells.forEach(cell => {
+        const shift = cell.getAttribute('data-shift');
+        if (shift === 'evening') {
+          cell.classList.remove('opacity-20');
+        } else {
+          cell.classList.add('opacity-20');
+        }
+      });
+    }
+  }
+</script></main></div><script src="./connect.js"></script>
+</body></html>

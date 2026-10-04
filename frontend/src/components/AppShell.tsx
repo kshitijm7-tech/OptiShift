@@ -130,6 +130,22 @@ export default function AppShell({
           </div>
         </div>
         <SidebarNav />
+        <a
+          href="/stitch/overview.html"
+          className="mt-1 flex items-center gap-3 rounded-lg px-3 py-2 text-[#4B5563] hover:bg-[#F3F4F6] hover:text-[#111827]"
+        >
+          <span className="shrink-0 text-[#166534]">
+            <Zap className="h-5 w-5" aria-hidden="true" />
+          </span>
+          <span className="flex min-w-0 flex-1 flex-col">
+            <span className="text-[12px] font-medium leading-4">
+              Stitch Screens
+            </span>
+            <span className="truncate text-[11px] text-[#6B7280]">
+              Original UI · live data
+            </span>
+          </span>
+        </a>
         <div className="mt-auto flex flex-col gap-3 pt-4">
           <div className="flex items-center gap-2 rounded-lg bg-[#F9FAFB] p-3">
             <Store

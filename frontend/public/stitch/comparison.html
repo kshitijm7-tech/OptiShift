@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"surface-container-low":"#f1f3ff","tertiary":"#004b1f","on-error-container":"#93000a","inverse-on-surface":"#edf0ff","inverse-primary":"#8bd79b","on-error":"#ffffff","error-container":"#ffdad6","surface-tint":"#1f6c3a","surface-container-high":"#e1e8fd","inverse-surface":"#293040","primary-fixed":"#a6f4b5","on-surface":"#141b2b","surface-variant":"#dce2f7","tertiary-fixed":"#95f8a7","surface-container-highest":"#dce2f7","error":"#ba1a1a","on-tertiary-container":"#81e394","on-tertiary-fixed-variant":"#005323","surface-container":"#e9edff","on-primary-fixed":"#00210b","outline":"#707a6f","surface-dim":"#d3daef","secondary-fixed-dim":"#95d4ac","on-primary-container":"#93e0a2","tertiary-container":"#00662d","on-secondary-fixed-variant":"#0f5132","primary":"#004c22","on-background":"#141b2b","on-tertiary-fixed":"#00210a","on-tertiary":"#ffffff","surface":"#f9f9ff","on-primary":"#ffffff","secondary-fixed":"#b0f1c7","primary-fixed-dim":"#8bd79b","secondary":"#2d6a48","outline-variant":"#bfc9bd","on-surface-variant":"#404940","surface-container-lowest":"#ffffff","surface-bright":"#f9f9ff","on-secondary-fixed":"#002111","secondary-container":"#b0f1c7","on-secondary-container":"#33704e","background":"#f9f9ff","on-secondary":"#ffffff","on-primary-fixed-variant":"#005226","tertiary-fixed-dim":"#79db8d","primary-container":"#166534"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.25rem","xl":"0.5rem","full":"0.75rem"},"spacing":{"space-xl":"1.5rem","space-md":"0.75rem","gutter-desktop":"1.5rem","space-sm":"0.5rem","space-lg":"1rem","margin-desktop":"2rem","gutter":"1rem","space-xs":"0.25rem","margin":"1rem"},"fontFamily":{"headline-md":["Inter"],"metric-display":["Inter"],"label-md":["Inter"],"headline-lg":["Inter"],"body-sm":["Inter"],"body-md":["Inter"],"headline-xl":["Inter"],"headline-xl-mobile":["Inter"],"body-lg":["Inter"],"label-sm":["Inter"]},"fontSize":{"headline-md":["18px",{"lineHeight":"26px","letterSpacing":"-0.01em","fontWeight":"600"}],"metric-display":["28px",{"lineHeight":"34px","letterSpacing":"-0.02em","fontWeight":"600"}],"label-md":["12px",{"lineHeight":"16px","letterSpacing":"0.02em","fontWeight":"500"}],"headline-lg":["24px",{"lineHeight":"32px","letterSpacing":"-0.015em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","letterSpacing":"0.01em","fontWeight":"400"}],"body-md":["13px",{"lineHeight":"18px","letterSpacing":"0em","fontWeight":"400"}],"headline-xl":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"600"}],"headline-xl-mobile":["24px",{"lineHeight":"32px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-lg":["15px",{"lineHeight":"22px","letterSpacing":"0em","fontWeight":"400"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"600"}]}}}}</script></head><body class="bg-background font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-50 flex flex-col justify-between"><div class="flex flex-col"><div class="h-16 px-space-lg flex items-center gap-space-sm"><img alt="Brand logo. - Primary color: #166534
+- Font: inter
+- Mode: light
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UAYwL_UjHjNc3kB2MYEZDs0ifLdEf7mEfw_kOEwjG4KQrjUCYuzHBQ8aFY9ze6vK1ADq01phcoDoIF8SuNRaRfBhOOcOCLLBgS6cec2aQ1epM6Y9CktECMSIU1klF33MAALTjI7yvBeF47N8l9v-_sx-z7JRUJqO-camWWaGDlz4bXEtW6JlghYNmb4pE9lP9kdtA1LTZPG8pDrEpnD09Y0cD8Kl8Y-EJaUyi_CJX5zm20a5KS879lBw"/><div class="flex flex-col"><span class="font-headline-md text-headline-md text-on-surface leading-tight">OptiShift</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Smart Scheduling</span></div></div><div class="px-space-md py-space-sm"><nav class="flex flex-col gap-space-xs" data-active-classes="bg-secondary-container text-on-secondary-container font-headline-md"><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="overview" href="#"><span class="material-symbols-outlined text-primary-container">dashboard</span><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface leading-none">Overview</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Today's summary</span></div></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="schedule" href="#"><span class="material-symbols-outlined text-on-surface-variant">calendar_today</span><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface leading-none">Schedule</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">See who works when</span></div></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="my-team" href="#"><span class="material-symbols-outlined text-on-surface-variant">group</span><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface leading-none">My Team</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Staff &amp; work limits</span></div></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="time-off" href="#"><span class="material-symbols-outlined text-on-surface-variant">beach_access</span><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface leading-none">Time Off</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Vacation &amp; requests</span></div><span class="font-label-sm text-label-sm bg-secondary-container text-on-secondary-container px-space-xs py-0.5 rounded-full font-bold">1</span></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="rules" href="#"><span class="material-symbols-outlined text-on-surface-variant">tune</span><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface leading-none">Rules</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Shift &amp; hour limits</span></div></a><a class="flex items-center gap-space-md px-space-md py-space-sm rounded-xl text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-all" data-path="settings" href="#"><span class="material-symbols-outlined text-on-surface-variant">settings</span><div class="flex flex-col min-w-0 flex-1"><span class="font-label-md text-label-md text-on-surface leading-none">Settings</span><span class="font-label-sm text-label-sm text-on-surface-variant truncate">Store &amp; preferences</span></div></a></nav></div></div><div class="p-space-md"><div class="bg-surface-container-low p-space-md rounded-xl flex flex-col gap-space-xs"><div class="flex items-center gap-space-xs text-primary-container"><span class="material-symbols-outlined text-body-lg">help</span><span class="font-label-md text-label-md font-semibold text-on-surface">Need help?</span></div><p class="font-body-sm text-body-sm text-on-surface-variant">Simple guide to scheduling staff and managing shifts easily.</p><a class="font-label-sm text-label-sm text-primary-container font-semibold hover:underline mt-space-xs inline-block" data-path="support" href="#">View documentation →</a></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg"><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs bg-surface-container-low px-space-md py-space-xs rounded-xl cursor-pointer hover:bg-surface-container transition-colors"><span class="material-symbols-outlined text-primary-container text-body-lg">location_on</span><div class="flex flex-col"><span class="font-label-md text-label-md font-semibold text-on-surface leading-tight">UrbanBrew Café</span><span class="font-label-sm text-label-sm text-on-surface-variant leading-none">Mumbai Outlet</span></div><span class="material-symbols-outlined text-on-surface-variant text-body-sm ml-space-xs">expand_more</span></div></div><div class="flex items-center gap-space-lg"><button aria-label="Notifications" class="relative p-space-xs rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors" type="button"><span class="material-symbols-outlined">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error ring-2 ring-surface"></span></button><div class="flex items-center gap-space-sm pl-space-sm"><div class="text-right"><div class="font-label-md text-label-md font-semibold text-on-surface leading-tight">Alex Morgan</div><div class="font-label-sm text-label-sm text-on-surface-variant leading-none">Owner</div></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-surface-variant" src="https://lh3.googleusercontent.com/aida/AEtjO1ULF42LAEkd7qJAhWNMQvd6lBfSI80KBFsa1ORr5JI9iTIxaCMUOI_8qT6LJstTtIKci00RYPNBY6h5LNxyBxoX-AMFGdlrvUjEgvyy8JI2ccr2MwoJjW_gTMBsH1JAYellkVy1YWJfXDNGq7ab40g8xt-eT3BQ5aoDeZiFiSi79PUbZO8gqvpn5n344hj31WCRFjquV9W_yDyhobMZ-mxwQI44LhjyvP9RDSUEdOO0p5BqNll1n3mwkQ"/></div></div></header><main class="w-full pt-16 bg-background min-h-screen px-space-lg py-space-xl"><div class="flex flex-col w-full">
+<!-- Interactive Algothon Simulation Switcher (Judge Bar) -->
+<div class="w-full bg-surface-container-high/60 backdrop-blur-md px-space-md py-space-xs rounded-xl flex flex-wrap items-center justify-between gap-space-sm mb-space-lg shadow-sm">
+<div class="flex items-center gap-space-xs min-w-0">
+<span class="material-symbols-outlined text-primary-container text-body-md">smart_toy</span>
+<span class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider font-semibold">Algothon Live Simulator:</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant hidden md:inline">Select test scenario to review real-time optimization response:</span>
+</div>
+<div class="flex items-center gap-1.5 overflow-x-auto py-0.5" id="scenario-selector">
+<button class="px-space-sm py-1 rounded-lg font-label-sm text-label-sm transition-all bg-primary-container text-on-primary font-semibold shadow-xs" id="btn-sc-1" onclick="setScenario(1)">
+        1. Ready (Standard Savings)
+      </button>
+<button class="px-space-sm py-1 rounded-lg font-label-sm text-label-sm transition-all bg-surface-container-lowest text-on-surface hover:bg-surface-container font-medium" id="btn-sc-2" onclick="setScenario(2)">
+        2. Updated (Leave Swap)
+      </button>
+<button class="px-space-sm py-1 rounded-lg font-label-sm text-label-sm transition-all bg-surface-container-lowest text-on-surface hover:bg-surface-container font-medium" id="btn-sc-3" onclick="setScenario(3)">
+        3. Coverage Focus (Same Cost)
+      </button>
+<button class="px-space-sm py-1 rounded-lg font-label-sm text-label-sm transition-all bg-surface-container-lowest text-error hover:bg-error-container font-medium" id="btn-sc-4" onclick="setScenario(4)">
+        4. Infeasible State
+      </button>
+</div>
+</div>
+<!-- Infeasible Alert Banner (State 4 only) -->
+<div class="hidden w-full bg-error-container p-space-lg rounded-xl mb-space-lg shadow-sm animate-fadeIn" id="infeasible-banner">
+<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md">
+<div class="flex items-start gap-space-md">
+<div class="p-space-xs bg-on-error rounded-lg flex items-center justify-center text-error mt-0.5">
+<span class="material-symbols-outlined text-headline-md">warning</span>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-md text-headline-md text-on-error-container">We couldn't build this schedule yet</span>
+<span class="bg-error text-on-error font-label-sm text-label-sm px-space-xs py-0.5 rounded-sm">Staffing Constraint</span>
+</div>
+<p class="font-body-md text-body-md text-on-error-container mt-0.5">
+            There isn't enough available staff to meet all needs. <strong>Friday Evening:</strong> Needs 3 people (Only 2 available due to 1 approved leave and mandatory 12h rest rules).
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-end md:self-center">
+<button class="px-space-md py-1.5 rounded-lg bg-on-error text-on-error-container font-label-md text-label-md font-semibold hover:bg-surface-bright shadow-xs transition-colors">
+          Adjust Friday Requirements
+        </button>
+<button class="px-space-md py-1.5 rounded-lg bg-transparent text-on-error-container font-label-md text-label-md hover:bg-error/10 transition-colors">
+          Review Staffing Rules
+        </button>
+</div>
+</div>
+</div>
+<!-- Main Optimization Header & Actions -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-lg">
+<div class="flex flex-col gap-0.5">
+<div class="flex items-center gap-space-sm flex-wrap">
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight" id="screen-title">Your schedule is ready</h1>
+<div class="flex items-center gap-1.5 px-space-sm py-0.5 bg-secondary-container text-on-secondary-container rounded-full font-label-sm text-label-sm font-semibold" id="status-pill">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span id="status-text">Draft #204-BT · Ready</span>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-space-xs py-0.5 rounded-sm">Oct 21 – Oct 27, 2024</span>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant" id="screen-subtitle">We found an optimal roster that fits your team availability, role certifications, and weekly labor budget.</p>
+</div>
+<!-- Action Toolbar -->
+<div class="flex items-center gap-space-xs shrink-0 flex-wrap">
+<button class="px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors shadow-xs flex items-center gap-1.5">
+<span class="material-symbols-outlined text-body-lg">tune</span>
+<span>Adjust &amp; Try Again</span>
+</button>
+<button class="px-space-md py-2 rounded-lg bg-surface-container-lowest text-on-surface font-label-md text-label-md hover:bg-surface-container transition-colors shadow-xs flex items-center gap-1.5" onclick="scrollToChanges()">
+<span class="material-symbols-outlined text-body-lg">published_with_changes</span>
+<span>See What Changed</span>
+</button>
+<button class="px-space-lg py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-tertiary-container shadow-md transition-all flex items-center gap-1.5">
+<span>View Full Schedule</span>
+<span class="material-symbols-outlined text-body-lg">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Primary Metric Highlights (4-Card Strip) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md mb-space-lg">
+<!-- Metric 1: Coverage -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-xs flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between text-on-surface-variant mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Staffing Covered</span>
+<span class="material-symbols-outlined text-primary-container text-headline-md">verified</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-metric-display text-metric-display text-on-surface" id="metric-coverage">100%</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold" id="metric-coverage-sub">+8% vs manual</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-space-sm overflow-hidden">
+<div class="bg-primary-container h-full rounded-full transition-all duration-700" id="bar-coverage" style="width: 100%;"></div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">All 14 operational shifts manned</span>
+</div>
+<!-- Metric 2: Cost -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-xs flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between text-on-surface-variant mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Total Staff Cost</span>
+<span class="material-symbols-outlined text-secondary text-headline-md">payments</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-metric-display text-metric-display text-on-surface" id="metric-cost">₹42,680</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold" id="metric-cost-sub">↓ ₹5,670 saved</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-space-sm overflow-hidden">
+<div class="bg-secondary h-full rounded-full transition-all duration-700" id="bar-cost" style="width: 88%;"></div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs" id="metric-cost-footer">11.7% under manual roster cost</span>
+</div>
+<!-- Metric 3: Extra Hours / Overtime -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-xs flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between text-on-surface-variant mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Extra Overtime</span>
+<span class="material-symbols-outlined text-primary-container text-headline-md">pace</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-metric-display text-metric-display text-on-surface" id="metric-ot">0 hrs</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold" id="metric-ot-sub">Saved 12 hrs OT</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-space-sm overflow-hidden">
+<div class="bg-primary-container h-full rounded-full transition-all duration-700" id="bar-ot" style="width: 0%;"></div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">Zero fatigue penalty applied</span>
+</div>
+<!-- Metric 4: Fairness & Balance -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-xs flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between text-on-surface-variant mb-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider font-semibold">Workload Balance</span>
+<span class="material-symbols-outlined text-secondary text-headline-md">balance</span>
+</div>
+<div class="flex items-baseline gap-space-xs">
+<span class="font-metric-display text-metric-display text-on-surface" id="metric-balance">91 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">/ 100</span></span>
+<span class="font-label-sm text-label-sm text-primary font-semibold" id="metric-balance-sub">+15 pts vs manual</span>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full mt-space-sm overflow-hidden">
+<div class="bg-secondary-container h-full rounded-full transition-all duration-700" id="bar-balance" style="width: 91%;"></div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant mt-space-xs">Evenly shared across 8 active staff</span>
+</div>
+</div>
+<!-- Savings Banner Callout -->
+<div class="w-full bg-surface-container-low p-space-md rounded-xl mb-space-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md shadow-xs" id="savings-banner">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-headline-md">savings</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface">Tangible Business Impact This Week</span>
+<p class="font-body-md text-body-md text-on-surface-variant" id="savings-text">
+          You save <strong class="text-primary-container font-semibold">₹5,670</strong> this week by eliminating accidental overtime and aligning shift starts with peak customer rush hours at UrbanBrew Café.
+        </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 pl-14 md:pl-0">
+<span class="font-label-sm text-label-sm bg-surface-container text-on-surface px-space-sm py-1 rounded-lg">Estimated ₹22,680/mo ROI</span>
+</div>
+</div>
+<!-- Asymmetric Split Layout: Comparison & Trust Left | Timeline Right -->
+<div class="grid grid-cols-1 xl:grid-cols-12 gap-space-lg mb-space-xl">
+<!-- Left Column (5 Cols): Side-by-Side Value & Explainability -->
+<div class="xl:col-span-5 flex flex-col gap-space-lg">
+<!-- Card: Current Roster vs OptiShift Comparison -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-xs flex flex-col">
+<div class="flex items-center justify-between pb-space-sm mb-space-md">
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-on-surface">Side-by-Side Comparison</h2>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Your current manual schedule vs OptiShift</span>
+</div>
+<span class="font-label-sm text-label-sm bg-surface-container-high text-on-surface px-space-xs py-0.5 rounded-sm">7-Day Cycle</span>
+</div>
+<!-- Comparative Metrics Stack -->
+<div class="flex flex-col gap-space-md">
+<!-- Metric Row 1: Cost -->
+<div class="flex flex-col gap-1.5 p-space-sm bg-surface-container-low/50 rounded-lg">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Weekly Staff Payroll</span>
+<span class="font-label-sm text-label-sm font-semibold text-primary">↓ ₹5,670 (11.7% Saved)</span>
+</div>
+<!-- Bar 1: Current -->
+<div class="flex items-center gap-space-sm text-label-sm font-label-sm">
+<span class="w-16 text-on-surface-variant">Manual</span>
+<div class="flex-1 bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-outline-variant h-full rounded-full" style="width: 100%;"></div>
+</div>
+<span class="w-16 text-right tabular-nums text-on-surface-variant">₹48,350</span>
+</div>
+<!-- Bar 2: OptiShift -->
+<div class="flex items-center gap-space-sm text-label-sm font-label-sm">
+<span class="w-16 font-semibold text-primary-container">OptiShift</span>
+<div class="flex-1 bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" id="comp-bar-cost" style="width: 88.2%;"></div>
+</div>
+<span class="w-16 text-right tabular-nums font-semibold text-primary-container" id="comp-val-cost">₹42,680</span>
+</div>
+</div>
+<!-- Metric Row 2: Shift Coverage -->
+<div class="flex flex-col gap-1.5 p-space-sm bg-surface-container-low/50 rounded-lg">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Shift Coverage</span>
+<span class="font-label-sm text-label-sm font-semibold text-primary">+8% Full Coverage</span>
+</div>
+<!-- Bar 1: Current -->
+<div class="flex items-center gap-space-sm text-label-sm font-label-sm">
+<span class="w-16 text-on-surface-variant">Manual</span>
+<div class="flex-1 bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-outline-variant h-full rounded-full" style="width: 92%;"></div>
+</div>
+<span class="w-16 text-right tabular-nums text-on-surface-variant">92%</span>
+</div>
+<!-- Bar 2: OptiShift -->
+<div class="flex items-center gap-space-sm text-label-sm font-label-sm">
+<span class="w-16 font-semibold text-primary-container">OptiShift</span>
+<div class="flex-1 bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 100%;"></div>
+</div>
+<span class="w-16 text-right tabular-nums font-semibold text-primary-container">100%</span>
+</div>
+</div>
+<!-- Metric Row 3: Unplanned Overtime -->
+<div class="flex flex-col gap-1.5 p-space-sm bg-surface-container-low/50 rounded-lg">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Unplanned Overtime</span>
+<span class="font-label-sm text-label-sm font-semibold text-primary">Zero Fatigue Risk</span>
+</div>
+<!-- Bar 1: Current -->
+<div class="flex items-center gap-space-sm text-label-sm font-label-sm">
+<span class="w-16 text-on-surface-variant">Manual</span>
+<div class="flex-1 bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-error/60 h-full rounded-full" style="width: 75%;"></div>
+</div>
+<span class="w-16 text-right tabular-nums text-on-surface-variant">12 hrs</span>
+</div>
+<!-- Bar 2: OptiShift -->
+<div class="flex items-center gap-space-sm text-label-sm font-label-sm">
+<span class="w-16 font-semibold text-primary-container">OptiShift</span>
+<div class="flex-1 bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 2%;"></div>
+</div>
+<span class="w-16 text-right tabular-nums font-semibold text-primary-container">0 hrs</span>
+</div>
+</div>
+<!-- Metric Row 4: Work Fairness Score -->
+<div class="flex flex-col gap-1.5 p-space-sm bg-surface-container-low/50 rounded-lg">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-surface font-semibold">Team Workload Balance</span>
+<span class="font-label-sm text-label-sm font-semibold text-primary">+15 Pts Fairness</span>
+</div>
+<!-- Bar 1: Current -->
+<div class="flex items-center gap-space-sm text-label-sm font-label-sm">
+<span class="w-16 text-on-surface-variant">Manual</span>
+<div class="flex-1 bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-outline-variant h-full rounded-full" style="width: 76%;"></div>
+</div>
+<span class="w-16 text-right tabular-nums text-on-surface-variant">76 / 100</span>
+</div>
+<!-- Bar 2: OptiShift -->
+<div class="flex items-center gap-space-sm text-label-sm font-label-sm">
+<span class="w-16 font-semibold text-primary-container">OptiShift</span>
+<div class="flex-1 bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 91%;"></div>
+</div>
+<span class="w-16 text-right tabular-nums font-semibold text-primary-container">91 / 100</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card: "Why This Schedule?" Trust & Explainability -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-xs flex flex-col">
+<div class="flex items-center gap-space-xs mb-space-xs">
+<span class="material-symbols-outlined text-primary-container text-headline-md">verified_user</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Why This Schedule Works</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
+          OptiShift strictly complies with your café’s store rules and labor regulations without guesswork:
+        </p>
+<ul class="flex flex-col gap-space-sm font-body-sm text-body-sm text-on-surface">
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-lg shrink-0 mt-0.5">check_circle</span>
+<span><strong>Availability respected:</strong> Everyone is scheduled only during their declared active working hours.</span>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-lg shrink-0 mt-0.5">check_circle</span>
+<span><strong>Approved leaves protected:</strong> Priya Sharma’s Friday off-duty request is 100% honored.</span>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-lg shrink-0 mt-0.5">check_circle</span>
+<span><strong>Role certification guaranteed:</strong> Every shift has at least 1 Certified Barista and 1 Shift Supervisor.</span>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-lg shrink-0 mt-0.5">check_circle</span>
+<span><strong>Rest safety compliance:</strong> Strictly enforces minimum 12-hour turnarounds between closing and morning opening.</span>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-lg shrink-0 mt-0.5">check_circle</span>
+<span><strong>Zero overtime creep:</strong> Maximum 40 hours per week cap maintained across all 8 team members.</span>
+</li>
+<li class="flex items-start gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-lg shrink-0 mt-0.5">check_circle</span>
+<span><strong>Fair weekend rotation:</strong> Peak Friday–Sunday shifts distributed equally across junior and senior staff.</span>
+</li>
+</ul>
+</div>
+</div>
+<!-- Right Column (7 Cols): Schedule Timeline Preview & What Changed -->
+<div class="xl:col-span-7 flex flex-col gap-space-lg">
+<!-- Section: "What Changed" (Plain English Changelog) -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-xs flex flex-col" id="what-changed-section">
+<div class="flex items-center justify-between pb-space-sm mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-container text-headline-md">swap_horizontal_circle</span>
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">What Changed from Manual Roster</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Intelligent rebalancing to eliminate fatigue and respect approved leaves</p>
+</div>
+</div>
+<span class="font-label-sm text-label-sm bg-secondary-container text-on-secondary-container px-space-sm py-0.5 rounded-full font-bold" id="changes-summary-pill">
+            3 shifts adjusted · 0 gaps created
+          </span>
+</div>
+<!-- Changelog Entries -->
+<div class="flex flex-col gap-space-xs" id="changelog-container">
+<!-- Change 1 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low/70 flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-start gap-space-sm">
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-surface-container-high rounded text-on-surface font-semibold shrink-0 mt-0.5">Fri Evening</span>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5 font-label-md text-label-md text-on-surface">
+<span class="line-through text-on-surface-variant">Priya Sharma</span>
+<span class="material-symbols-outlined text-body-sm text-primary-container">arrow_forward</span>
+<span class="font-semibold text-primary-container">Ananya More</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Accommodates Priya's approved leave. Ananya is available and certified for POS &amp; Brew Bar.</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold self-start sm:self-center shrink-0">Leave Handled</span>
+</div>
+<!-- Change 2 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low/70 flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-start gap-space-sm">
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-surface-container-high rounded text-on-surface font-semibold shrink-0 mt-0.5">Sat Morning</span>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5 font-label-md text-label-md text-on-surface">
+<span class="line-through text-on-surface-variant">Rahul Patil</span>
+<span class="material-symbols-outlined text-body-sm text-primary-container">arrow_forward</span>
+<span class="font-semibold text-primary-container">Priya Sharma</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Keeps Rahul under his 38.5h weekly limit and removes 4h accidental overtime billing.</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold self-start sm:self-center shrink-0">Overtime Cut</span>
+</div>
+<!-- Change 3 -->
+<div class="p-space-sm rounded-lg bg-surface-container-low/70 flex flex-col sm:flex-row sm:items-center justify-between gap-space-xs">
+<div class="flex items-start gap-space-sm">
+<span class="font-label-sm text-label-sm px-2 py-0.5 bg-surface-container-high rounded text-on-surface font-semibold shrink-0 mt-0.5">Sun Evening</span>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5 font-label-md text-label-md text-on-surface">
+<span class="line-through text-on-surface-variant">Ananya More</span>
+<span class="material-symbols-outlined text-body-sm text-primary-container">arrow_forward</span>
+<span class="font-semibold text-primary-container">Rahul Patil</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Satisfies mandatory Shift Supervisor presence on peak Sunday rush.</span>
+</div>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold self-start sm:self-center shrink-0">Role Guard</span>
+</div>
+</div>
+</div>
+<!-- Section: Compact 7-Day Schedule Preview -->
+<div class="bg-surface-container-lowest p-space-lg rounded-xl shadow-xs flex flex-col">
+<div class="flex items-center justify-between pb-space-sm mb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary-container text-headline-md">calendar_view_week</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">7-Day Generated Roster Preview</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">Morning (07:00–15:30) · Evening (15:00–23:30)</span>
+</div>
+<!-- Day Cards Preview Strip -->
+<div class="flex flex-col gap-space-xs">
+<!-- Monday -->
+<div class="p-space-sm rounded-lg bg-surface-container-low/40 hover:bg-surface-container-low transition-colors flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md min-w-[120px]">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Mon, Oct 21</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">5 On Duty</span>
+</div>
+</div>
+<div class="flex-1 flex flex-wrap items-center gap-space-xs">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface"><strong class="font-medium text-primary-container">M:</strong> Priya, Rahul</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface"><strong class="font-medium text-primary-container">E:</strong> Kavita, Arjun, Sneha</span>
+</div>
+<div class="flex items-center gap-1 text-primary shrink-0">
+<span class="material-symbols-outlined text-body-md">check_circle</span>
+<span class="font-label-sm text-label-sm font-semibold">Fully Staffed</span>
+</div>
+</div>
+<!-- Tuesday -->
+<div class="p-space-sm rounded-lg bg-surface-container-low/40 hover:bg-surface-container-low transition-colors flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md min-w-[120px]">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Tue, Oct 22</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">7 On Duty</span>
+</div>
+</div>
+<div class="flex-1 flex flex-wrap items-center gap-space-xs">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface"><strong class="font-medium text-primary-container">M:</strong> Rahul, Aisha, Vikram</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface"><strong class="font-medium text-primary-container">E:</strong> Kavita, Arjun, Sneha, David</span>
+</div>
+<div class="flex items-center gap-1 text-primary shrink-0">
+<span class="material-symbols-outlined text-body-md">check_circle</span>
+<span class="font-label-sm text-label-sm font-semibold">Fully Staffed</span>
+</div>
+</div>
+<!-- Wednesday -->
+<div class="p-space-sm rounded-lg bg-surface-container-low/40 hover:bg-surface-container-low transition-colors flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md min-w-[120px]">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Wed, Oct 23</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">5 On Duty</span>
+</div>
+</div>
+<div class="flex-1 flex flex-wrap items-center gap-space-xs">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface"><strong class="font-medium text-primary-container">M:</strong> Rahul, David, Aisha</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface"><strong class="font-medium text-primary-container">E:</strong> Kavita, Sneha</span>
+</div>
+<div class="flex items-center gap-1 text-primary shrink-0">
+<span class="material-symbols-outlined text-body-md">check_circle</span>
+<span class="font-label-sm text-label-sm font-semibold">Fully Staffed</span>
+</div>
+</div>
+<!-- Thursday -->
+<div class="p-space-sm rounded-lg bg-surface-container-low/40 hover:bg-surface-container-low transition-colors flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md min-w-[120px]">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Thu, Oct 24</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">5 On Duty</span>
+</div>
+</div>
+<div class="flex-1 flex flex-wrap items-center gap-space-xs">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface"><strong class="font-medium text-primary-container">M:</strong> Priya, Aisha, Vikram</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface"><strong class="font-medium text-primary-container">E:</strong> Sneha, David</span>
+</div>
+<div class="flex items-center gap-1 text-primary shrink-0">
+<span class="material-symbols-outlined text-body-md">check_circle</span>
+<span class="font-label-sm text-label-sm font-semibold">Fully Staffed</span>
+</div>
+</div>
+<!-- Friday (Target of Swap) -->
+<div class="p-space-sm rounded-lg bg-surface-container-low/60 hover:bg-surface-container-low transition-colors flex flex-col md:flex-row md:items-center justify-between gap-space-sm ring-1 ring-primary-container/20">
+<div class="flex items-center gap-space-md min-w-[120px]">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Fri, Oct 25</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">6 On Duty · Reassigned</span>
+</div>
+</div>
+<div class="flex-1 flex flex-wrap items-center gap-space-xs">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface"><strong class="font-medium text-primary-container">M:</strong> Aisha, Vikram, Rahul</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-semibold"><strong class="text-primary-container">E:</strong> Ananya [Swap], Kavita, David</span>
+</div>
+<div class="flex items-center gap-1 text-primary shrink-0">
+<span class="material-symbols-outlined text-body-md">check_circle</span>
+<span class="font-label-sm text-label-sm font-semibold">Fully Staffed</span>
+</div>
+</div>
+<!-- Saturday -->
+<div class="p-space-sm rounded-lg bg-surface-container-low/40 hover:bg-surface-container-low transition-colors flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md min-w-[120px]">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Sat, Oct 26</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">5 On Duty</span>
+</div>
+</div>
+<div class="flex-1 flex flex-wrap items-center gap-space-xs">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-semibold"><strong class="text-primary-container">M:</strong> Priya [Swap], Aisha, Vikram</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface"><strong class="font-medium text-primary-container">E:</strong> Rahul, Kavita</span>
+</div>
+<div class="flex items-center gap-1 text-primary shrink-0">
+<span class="material-symbols-outlined text-body-md">check_circle</span>
+<span class="font-label-sm text-label-sm font-semibold">Fully Staffed</span>
+</div>
+</div>
+<!-- Sunday -->
+<div class="p-space-sm rounded-lg bg-surface-container-low/40 hover:bg-surface-container-low transition-colors flex flex-col md:flex-row md:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-md min-w-[120px]">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Sun, Oct 27</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">5 On Duty</span>
+</div>
+</div>
+<div class="flex-1 flex flex-wrap items-center gap-space-xs">
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-surface-container text-on-surface"><strong class="font-medium text-primary-container">M:</strong> Priya, David</span>
+<span class="font-label-sm text-label-sm px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-semibold"><strong class="text-primary-container">E:</strong> Rahul [Swap], Sneha, Arjun</span>
+</div>
+<div class="flex items-center gap-1 text-primary shrink-0">
+<span class="material-symbols-outlined text-body-md">check_circle</span>
+<span class="font-label-sm text-label-sm font-semibold">Fully Staffed</span>
+</div>
+</div>
+</div>
+<!-- Footer Link -->
+<div class="pt-space-md mt-space-sm flex justify-end">
+<a class="font-label-md text-label-md text-primary-container font-semibold hover:underline flex items-center gap-1" href="#">
+<span>Open Full Schedule Workspace</span>
+<span class="material-symbols-outlined text-body-sm">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Quick Confirmation Bar -->
+<div class="w-full bg-surface-container-lowest p-space-lg rounded-xl shadow-xs flex flex-col md:flex-row items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-full bg-surface-container-high text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-headline-md">task_alt</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-md text-headline-md text-on-surface">Ready to publish to your team?</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Notifies 8 team members via SMS &amp; WhatsApp with their assigned weekly shifts.</span>
+</div>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-space-md py-2 rounded-lg bg-surface-container-high text-on-surface font-label-md text-label-md hover:bg-surface-variant transition-colors">
+        Save as Draft
+      </button>
+<button class="px-space-lg py-2 rounded-lg bg-primary-container text-on-primary font-label-md text-label-md font-semibold hover:bg-tertiary-container shadow-sm transition-all flex items-center gap-1.5">
+<span class="material-symbols-outlined text-body-md">send</span>
+<span>Publish &amp; Notify Team</span>
+</button>
+</div>
+</div>
+</div>
+<script>
+  function scrollToChanges() {
+    const el = document.getElementById('what-changed-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  function setScenario(scenarioNum) {
+    // Reset all buttons styling
+    for (let i = 1; i <= 4; i++) {
+      const btn = document.getElementById(`btn-sc-${i}`);
+      if (btn) {
+        btn.className = "px-space-sm py-1 rounded-lg font-label-sm text-label-sm transition-all bg-surface-container-lowest text-on-surface hover:bg-surface-container font-medium";
+      }
+    }
+    const activeBtn = document.getElementById(`btn-sc-${scenarioNum}`);
+    if (activeBtn) {
+      if (scenarioNum === 4) {
+        activeBtn.className = "px-space-sm py-1 rounded-lg font-label-sm text-label-sm transition-all bg-error text-on-error font-semibold shadow-xs";
+      } else {
+        activeBtn.className = "px-space-sm py-1 rounded-lg font-label-sm text-label-sm transition-all bg-primary-container text-on-primary font-semibold shadow-xs";
+      }
+    }
+
+    const banner = document.getElementById('infeasible-banner');
+    const title = document.getElementById('screen-title');
+    const subtitle = document.getElementById('screen-subtitle');
+    const statusText = document.getElementById('status-text');
+    const statusPill = document.getElementById('status-pill');
+
+    const mCoverage = document.getElementById('metric-coverage');
+    const mCoverageSub = document.getElementById('metric-coverage-sub');
+    const barCoverage = document.getElementById('bar-coverage');
+
+    const mCost = document.getElementById('metric-cost');
+    const mCostSub = document.getElementById('metric-cost-sub');
+    const barCost = document.getElementById('bar-cost');
+
+    const mOt = document.getElementById('metric-ot');
+    const mOtSub = document.getElementById('metric-ot-sub');
+
+    const mBalance = document.getElementById('metric-balance');
+    const mBalanceSub = document.getElementById('metric-balance-sub');
+    const barBalance = document.getElementById('bar-balance');
+
+    const savingsText = document.getElementById('savings-text');
+    const changelogSummary = document.getElementById('changes-summary-pill');
+
+    if (scenarioNum === 1) {
+      // 1. New Schedule Ready (Standard Savings)
+      banner.classList.add('hidden');
+      title.innerText = "Your schedule is ready";
+      subtitle.innerText = "We found an optimal roster that fits your team availability, role certifications, and weekly labor budget.";
+      statusText.innerText = "Draft #204-BT · Ready";
+      statusPill.className = "flex items-center gap-1.5 px-space-sm py-0.5 bg-secondary-container text-on-secondary-container rounded-full font-label-sm text-label-sm font-semibold";
+
+      mCoverage.innerText = "100%";
+      mCoverageSub.innerText = "+8% vs manual";
+      barCoverage.style.width = "100%";
+
+      mCost.innerText = "₹42,680";
+      mCostSub.innerText = "↓ ₹5,670 saved";
+      barCost.style.width = "88%";
+
+      mOt.innerText = "0 hrs";
+      mOtSub.innerText = "Saved 12 hrs OT";
+
+      mBalance.innerHTML = '91 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">/ 100</span>';
+      mBalanceSub.innerText = "+15 pts vs manual";
+      barBalance.style.width = "91%";
+
+      savingsText.innerHTML = 'You save <strong class="text-primary-container font-semibold">₹5,670</strong> this week by eliminating accidental overtime and aligning shift starts with peak customer rush hours at UrbanBrew Café.';
+      changelogSummary.innerText = "3 shifts adjusted · 0 gaps created";
+    } 
+    else if (scenarioNum === 2) {
+      // 2. Schedule Updated (Leave Reassigned)
+      banner.classList.add('hidden');
+      title.innerText = "Your schedule has been updated";
+      subtitle.innerText = "Priya's Friday time-off request was accommodated. Shift coverage was rebalanced with zero overtime added.";
+      statusText.innerText = "Updated #204-BT-v2";
+      statusPill.className = "flex items-center gap-1.5 px-space-sm py-0.5 bg-primary-fixed text-on-primary-fixed rounded-full font-label-sm text-label-sm font-semibold";
+
+      mCoverage.innerText = "100%";
+      mCoverageSub.innerText = "Unchanged";
+      barCoverage.style.width = "100%";
+
+      mCost.innerText = "₹42,680";
+      mCostSub.innerText = "₹5,670 savings maintained";
+      barCost.style.width = "88%";
+
+      mOt.innerText = "0 hrs";
+      mOtSub.innerText = "0 hrs OT added";
+
+      mBalance.innerHTML = '89 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">/ 100</span>';
+      mBalanceSub.innerText = "Fair swap applied";
+      barBalance.style.width = "89%";
+
+      savingsText.innerHTML = 'Priya’s approved leave was swapped with Ananya More on Friday Evening without triggering overtime or supervisory deficit.';
+      changelogSummary.innerText = "2 shift swaps · 1 leave covered";
+    }
+    else if (scenarioNum === 3) {
+      // 3. Coverage Focus (Same Cost / Better Coverage)
+      banner.classList.add('hidden');
+      title.innerText = "Coverage Max Scenario";
+      subtitle.innerText = "Algorithmic proof: Full 100% rush hour coverage achieved with identical payroll cost to manual baseline.";
+      statusText.innerText = "Cost Parity · 100% Coverage";
+      statusPill.className = "flex items-center gap-1.5 px-space-sm py-0.5 bg-secondary-fixed text-on-secondary-fixed rounded-full font-label-sm text-label-sm font-semibold";
+
+      mCoverage.innerText = "100%";
+      mCoverageSub.innerText = "+12% vs current (88%)";
+      barCoverage.style.width = "100%";
+
+      mCost.innerText = "₹48,350";
+      mCostSub.innerText = "Identical cost baseline";
+      barCost.style.width = "100%";
+
+      mOt.innerText = "0 hrs";
+      mOtSub.innerText = "Reallocated from OT to rush hours";
+
+      mBalance.innerHTML = '94 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">/ 100</span>';
+      mBalanceSub.innerText = "+18 pts vs manual";
+      barBalance.style.width = "94%";
+
+      savingsText.innerHTML = 'For the same ₹48,350 budget, OptiShift unlocked <strong>14 additional active service hours</strong> during peak rush periods instead of paying overtime premiums.';
+      changelogSummary.innerText = "4 shift swaps · 100% peak coverage";
+    }
+    else if (scenarioNum === 4) {
+      // 4. Infeasible State
+      banner.classList.remove('hidden');
+      title.innerText = "Action Required: Roster Infeasible";
+      subtitle.innerText = "Current staffing levels cannot fulfill all minimum constraints. Friday evening is under-crewed.";
+      statusText.innerText = "Action Needed";
+      statusPill.className = "flex items-center gap-1.5 px-space-sm py-0.5 bg-error-container text-on-error-container rounded-full font-label-sm text-label-sm font-semibold";
+
+      mCoverage.innerText = "93%";
+      mCoverageSub.innerText = "1 shift short";
+      barCoverage.style.width = "93%";
+
+      mCost.innerText = "₹39,840";
+      mCostSub.innerText = "Incomplete roster";
+      barCost.style.width = "82%";
+
+      mOt.innerText = "0 hrs";
+      mOtSub.innerText = "Blocked by 12h rest rule";
+
+      mBalance.innerHTML = '72 <span class="font-body-sm text-body-sm text-on-surface-variant font-normal">/ 100</span>';
+      mBalanceSub.innerText = "Constraint bottleneck";
+      barBalance.style.width = "72%";
+
+      savingsText.innerHTML = '<span class="text-error font-semibold">Immediate resolution required:</span> Adjust Friday Evening staffing from 3 to 2, or relax rest rules for Rahul Patil.';
+      changelogSummary.innerText = "1 shortfall detected · Needs manager decision";
+    }
+  }
+</script></main></div><script src="./connect.js"></script>
+</body></html>
