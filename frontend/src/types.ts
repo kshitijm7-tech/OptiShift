@@ -1,5 +1,6 @@
-// OptiShift frontend domain types (P04).
-// Mirrors backend/app/models/domain.py + optimizer/model.py manually.
+// OptiShift frontend domain types (P04/P05).
+// Mirrors backend/app/models/domain.py + optimizer/model.py +
+// services/schedule_service.py manually.
 // No code generation infrastructure (P04 scope).
 
 export interface Availability {
@@ -99,7 +100,6 @@ export interface OptimizationResult {
   solver: { solver: string; status: string; solve_seconds?: number | null };
   explanation: string[];
 }
-
 export class ApiError extends Error {
   status: number;
   detail: string;
@@ -109,4 +109,25 @@ export class ApiError extends Error {
     this.status = status;
     this.detail = detail;
   }
+}
+
+// Authoritative current schedule (P05). Mirrors the backend
+// CurrentSchedule / ScheduleResponse — rendered verbatim, never rebuilt.
+export interface CurrentSchedule {
+  id: string;
+  generated_at: string; // ISO-8601 timestamp
+  status: OptimizationStatus;
+  assignments: Assignment[];
+  shifts: Shift[];
+  employees: Employee[];
+  requirements: StaffingRequirement[];
+  metrics: OptimizationMetrics;
+  objective_breakdown: ObjectiveBreakdown | null;
+  explanation: string[];
+  solver: { solver: string; status: string; solve_seconds?: number | null };
+}
+
+export interface ScheduleResponse {
+  has_schedule: boolean;
+  schedule: CurrentSchedule | null;
 }

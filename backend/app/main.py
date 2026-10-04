@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.employees import router as employees_router
 from app.api.optimize import router as optimize_router
+from app.api.schedule import router as schedule_router
 
 app = FastAPI(title="OptiShift API", version="1.0.0")
 
@@ -19,4 +20,5 @@ def health_check():
 
 app.include_router(employees_router)
 app.include_router(optimize_router)
+app.include_router(schedule_router)
 

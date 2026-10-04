@@ -71,6 +71,13 @@ curl -X POST http://127.0.0.1:8000/api/v1/optimize ^
 #   -ContentType "application/json" -InFile docs/examples/optimize-request.json
 ```
 
+### Current schedule API (P05)
+```bash
+# An optimal POST /api/v1/optimize is stored as the current schedule.
+# Read it back (200 + {"has_schedule":false,"schedule":null} when empty):
+curl http://127.0.0.1:8000/api/v1/schedule
+```
+
 ## Sentinel
 
 Sentinel is installed at `D:\MProjects\Sentinel_v1.0`.

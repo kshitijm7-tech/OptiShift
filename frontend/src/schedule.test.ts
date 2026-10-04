@@ -1,14 +1,19 @@
-// Unit tests for the Schedule page input builders (P04).
-// These cover pure input construction only — assignment decisions always
-// come from the backend optimizer and are covered by backend tests.
+// Unit tests for the Schedule page input builders (P04/P05).
+// These cover pure input construction and presentation formatting only —
+// assignment decisions always come from the backend optimizer and are
+// covered by backend tests.
 import { describe, expect, it } from 'vitest';
 import {
   activeEmployees,
   buildWeekInputs,
   mondayOf,
   parseSkills,
+  prettyDate,
+  scheduleDates,
   slug,
+  timeAgo,
   toDateStr,
+  weekdayLabel,
   weekDays,
 } from './schedule';
 import type { Employee } from './types';
@@ -103,5 +108,49 @@ describe('activeEmployees', () => {
   it('keeps active staff regardless of case and drops the rest', () => {
     const list = [employee('a'), employee('b', 'Active'), employee('c', 'inactive')];
     expect(activeEmployees(list).map((e) => e.id)).toEqual(['a', 'b']);
+  });
+});
+
+describe('timeAgo', () => {
+  it('says just now for fresh timestamps', () => {
+    expect(timeAgo(new Date().toISOString())).toBe('just now');
+  });
+  it('reports minutes and hours', () => {
+    const now = Date.now();
+    expect(timeAgo(new Date(now - 5 * 60000).toISOString(), now)).toBe(
+      '5 minutes ago',
+    );
+    expect(timeAgo(new Date(now - 60 * 60000).toISOString(), now)).toBe(
+      '1 hour ago',
+    );
+    expect(timeAgo(new Date(now - 3 * 3600000).toISOString(), now)).toBe(
+      '3 hours ago',
+    );
+  });
+  it('falls back to a calendar date after a day', () => {
+    const now = new Date(2026, 9, 6, 12, 0, 0).getTime();
+    const then = new Date(2026, 9, 4, 12, 0, 0).toISOString();
+    expect(timeAgo(then, now)).toBe('on Oct 4, 2026');
+  });
+});
+
+describe('scheduleDates', () => {
+  it('returns distinct shift dates ascending', () => {
+    const days = weekDays(new Date(2026, 9, 5));
+    const { shifts } = buildWeekInputs(days.slice(0, 2), [
+      { name: 'Morning', start: '08:00', end: '12:00', minStaff: 1, skills: '' },
+    ]);
+    expect(scheduleDates([...shifts].reverse())).toEqual([
+      '2026-10-05',
+      '2026-10-06',
+    ]);
+  });
+});
+
+describe('weekdayLabel and prettyDate', () => {
+  it('labels known dates without timezone tricks', () => {
+    expect(weekdayLabel('2026-10-05')).toBe('Mon');
+    expect(weekdayLabel('2026-10-06')).toBe('Tue');
+    expect(prettyDate('2026-10-06')).toBe('Oct 6');
   });
 });

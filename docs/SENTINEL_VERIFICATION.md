@@ -254,3 +254,90 @@ uv run sentinel verify -c API_EXISTENCE -s "/api/v1/optimize" -p "exists" D:\MPr
 | LAYER_BOUNDARY      | NOT_APPLICABLE   |
 | DEPENDENCY_RULE     | NOT_APPLICABLE   |
 | BLUEPRINT_FRESH     | NOT_APPLICABLE   |
+
+---
+
+## P05 — 2026-10-04
+
+### Environment
+- **Sentinel installation**: `D:\MProjects\Sentinel_v1.0`
+- **Target project**: `D:\MProjects\OptiShift`
+- **Sentinel version**: V1
+
+### Step 1 — Scan
+```
+uv run sentinel scan D:\MProjects\OptiShift
+```
+**Result: SUCCESS**
+- 96 files, 25 dirs scanned in 0.172s (uncommitted P05 work)
+
+### Step 2 — Analyze
+```
+uv run sentinel analyze D:\MProjects\OptiShift
+```
+**Result: PARTIAL** (honestly recorded; same known parser limitation)
+- 47 modules, 433 symbols, 155 imports, 172 exports, 2848 relationships
+- 47 supported files, 0 skipped, 0 failed, **5 parser errors** (warnings):
+  `Overview.tsx`, `Schedule.tsx`, `Settings.tsx` (known since P04) plus the
+  new `Overview.test.tsx`, `Schedule.test.tsx`.
+- All five compile cleanly under `tsc -b`, `vite build`, and `vitest`
+  (31 frontend tests pass) — Sentinel TSX-parser limitation, not a defect.
+
+### Step 3 — Verify: CIRCULAR_DEPENDENCY
+```
+uv run sentinel verify -c CIRCULAR_DEPENDENCY -s OptiShift -p "compliant" D:\MProjects\OptiShift --decide
+```
+**Result: PASS** (confidence 0.65 MEDIUM)
+- architecture_verifier: PASS, Decision DISMISS/SUPPRESS [PASS_DISMISSAL]
+- The new schedule service/route/hook introduced no import cycles.
+
+### Step 4 — Verify: SYMBOL_EXISTENCE (P05 schedule symbols)
+```
+uv run sentinel verify -c SYMBOL_EXISTENCE -s "ScheduleService" -p "exists" D:\MProjects\OptiShift --decide
+uv run sentinel verify -c SYMBOL_EXISTENCE -s "useCurrentSchedule" -p "exists" D:\MProjects\OptiShift --decide
+uv run sentinel verify -c SYMBOL_EXISTENCE -s "getCurrentSchedule" -p "exists" D:\MProjects\OptiShift --decide
+```
+**Result: PASS** (all three, confidence 0.65 MEDIUM each)
+- symbol_api_verifier: PASS — the schedule store, hook, and client call
+  exist as real symbols.
+
+### Step 5 — Verify: API_EXISTENCE (new schedule route)
+```
+uv run sentinel verify -c API_EXISTENCE -s "/api/v1/schedule" -p "exists" D:\MProjects\OptiShift --decide
+```
+**Result: ERROR** (honestly recorded, NOT claimed as pass)
+- symbol_api_verifier internal ERROR (ERROR_BOUNDARY) — same verifier
+  limitation as P03/P04, not a project failure.
+- Live evidence instead (backend :8001): `GET /api/v1/schedule` returned
+  `{"has_schedule":false,"schedule":null}` pre-build, then the stored
+  schedule (id + `generated_at` + $128.00 metrics identical to the POST
+  response) post-build, and still the same id after an infeasible run.
+
+### Step 6 — Verify: LAYER_BOUNDARY / DEPENDENCY_RULE / BLUEPRINT_FRESH
+```
+uv run sentinel verify -c LAYER_BOUNDARY -s OptiShift -p "compliant with layer boundary" D:\MProjects\OptiShift --decide
+uv run sentinel verify -c DEPENDENCY_RULE -s "backend.app.services" -p "does not import from backend.app.api" D:\MProjects\OptiShift --decide
+uv run sentinel verify -c BLUEPRINT_FRESH -s architecture -p valid D:\MProjects\OptiShift --decide
+```
+**Result: NOT_APPLICABLE** (all three, known blueprint-schema cause)
+- Manual checks (grep, 2026-10-04): no `app.api` imports in
+  `backend/app/services/` (new `schedule_service.py` imports only models +
+  optimizer); no optimizer/cost logic in `frontend/src/` (only solver-name
+  strings inside mocked test payloads). Separation holds.
+
+### Step 7 — Evidence, Events & Findings
+- `sentinel events`: No events recorded.
+- `sentinel evidence --project ...`: 0 evidence items.
+- `sentinel findings --project-id OptiShift`: [] (empty).
+
+### Summary
+| Check               | Result           |
+|---------------------|------------------|
+| Scan                | SUCCESS          |
+| Analyze             | PARTIAL (5 TSX parser warnings; code compiles) |
+| CIRCULAR_DEPENDENCY | PASS             |
+| SYMBOL ScheduleService / useCurrentSchedule / getCurrentSchedule | PASS |
+| API_EXISTENCE (/api/v1/schedule) | ERROR (verifier-internal, live API proven instead) |
+| LAYER_BOUNDARY      | NOT_APPLICABLE   |
+| DEPENDENCY_RULE     | NOT_APPLICABLE   |
+| BLUEPRINT_FRESH     | NOT_APPLICABLE   |

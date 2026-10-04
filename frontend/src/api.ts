@@ -1,4 +1,4 @@
-// OptiShift API client (P04). Single boundary for all backend calls.
+// OptiShift API client (P04/P05). Single boundary for all backend calls.
 // Backend base URL comes from VITE_API_URL; no hardcoded hosts elsewhere.
 import { ApiError } from './types';
 import type {
@@ -6,6 +6,7 @@ import type {
   EmployeeCreate,
   OptimizeRequest,
   OptimizationResult,
+  ScheduleResponse,
 } from './types';
 
 export { ApiError };
@@ -81,10 +82,17 @@ export async function optimizeSchedule(
 ): Promise<OptimizationResult> {
   // NOTE: the frontend never decides assignments itself. It only sends the
   // structured problem and renders the backend optimizer's answer.
+  // On success the backend also stores the result as the current schedule.
   return request<OptimizationResult>('/api/v1/optimize', {
     method: 'POST',
     body: JSON.stringify(payload),
   });
+}
+
+export async function getCurrentSchedule(): Promise<ScheduleResponse> {
+  // The single authoritative schedule. Absence is data (HTTP 200 with
+  // has_schedule=false), not an error.
+  return request<ScheduleResponse>('/api/v1/schedule');
 }
 
 export function friendlyErrorMessage(error: unknown): string {

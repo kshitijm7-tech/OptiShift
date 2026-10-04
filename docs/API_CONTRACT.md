@@ -15,9 +15,16 @@ This documents the intended API direction.
   `status` is `optimal` (HTTP 200), `infeasible` (HTTP 200 with reasons in
   `violations`), or invalid input (HTTP 400). See `HANDOFF.md` and
   `docs/examples/optimize-request.json`.
+  An `optimal` result is additionally stored as the current schedule
+  (infeasible/error outcomes never overwrite it).
+- `GET /api/v1/schedule` — read the authoritative current schedule.
+  Response (HTTP 200): `{ has_schedule, schedule }`. When nothing was built
+  yet: `{ "has_schedule": false, "schedule": null }` (not an error).
+  Otherwise `schedule` carries `{ id, generated_at, status, assignments[],
+  shifts[], employees[], requirements[], metrics, objective_breakdown,
+  explanation[], solver }` verbatim from the stored optimization result.
 
 **Planned (Do NOT pretend these exist yet):**
-- `GET  /api/v1/schedule`
 - `POST /api/v1/leave`
 - `POST /api/v1/leave/{id}/approve`
 - `POST /api/v1/leave/{id}/reject`

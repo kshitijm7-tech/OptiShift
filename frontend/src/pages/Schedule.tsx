@@ -1,8 +1,8 @@
-// Schedule page (P04): weekly schedule builder + real optimizer results.
-// The frontend NEVER decides assignments: it sends team + shifts +
-// staffing needs to POST /api/v1/optimize and renders the backend answer.
-// Shift windows below are editable *inputs* (manager's business needs),
-// not results — every displayed assignment and metric comes from the API.
+// Schedule page (P04/P05): weekly builder + authoritative current schedule.
+// The backend OWNS the current schedule: this page loads it on mount,
+// re-reads it after every successful optimization, and renders it verbatim.
+// The frontend NEVER decides assignments and keeps no competing schedule
+// state. Shift windows are editable *inputs*, not results.
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -26,19 +26,18 @@ import {
   SecondaryButton,
   StatusBadge,
 } from '../components/ui';
-import { useEmployees } from '../hooks';
+import { useCurrentSchedule, useEmployees } from '../hooks';
 import {
   activeEmployees,
   buildWeekInputs,
   mondayOf,
-  toDateStr,
+  prettyDate,
+  scheduleDates,
+  timeAgo,
+  weekdayLabel,
   weekDays,
 } from '../schedule';
-import type {
-  Employee,
-  OptimizationResult,
-  Shift,
-} from '../types';
+import type { Employee } from '../types';
 
 interface ShiftWindow {
   key: number;
@@ -55,15 +54,20 @@ const DEFAULT_WINDOWS: ShiftWindow[] = [
   { key: 3, name: 'Evening', start: '16:00', end: '20:00', minStaff: 1, skills: '' },
 ];
 
-const WEEKDAY = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-
 export default function Schedule() {
-  const { employees, loading: teamLoading, error: teamError, reload } = useEmployees();
+  const { employees, loading: teamLoading, error: teamError, reload: reloadTeam } = useEmployees();
+  const {
+    schedule,
+    loading: scheduleLoading,
+    error: scheduleError,
+    reload: reloadSchedule,
+  } = useCurrentSchedule();
   const [weekOffset, setWeekOffset] = useState(0);
   const [windows, setWindows] = useState<ShiftWindow[]>(DEFAULT_WINDOWS);
-  const [phase, setPhase] = useState<'idle' | 'building' | 'done'>('idle');
-  const [result, setResult] = useState<OptimizationResult | null>(null);
-  const [problem, setProblem] = useState<{ shifts: Shift[] } | null>(null);
+  const [building, setBuilding] = useState(false);
+  const [lastRun, setLastRun] = useState<
+    { status: 'infeasible'; violations: string[] } | null
+  >(null);
   const [failure, setFailure] = useState<string | null>(null);
 
   const weekStart = useMemo(() => {
@@ -82,11 +86,29 @@ export default function Schedule() {
 
   const activeTeam = useMemo(() => activeEmployees(employees), [employees]);
 
+  // Roster display comes exclusively from the stored schedule: its own
+  // shifts (own dates), its team snapshot for names, its metrics.
+  const dates = useMemo(
+    () => (schedule ? scheduleDates(schedule.shifts) : []),
+    [schedule],
+  );
+
   const namesById = useMemo(() => {
     const map = new Map<string, Employee>();
-    for (const e of employees) map.set(e.id, e);
+    for (const e of schedule?.employees ?? []) map.set(e.id, e);
     return map;
-  }, [employees]);
+  }, [schedule]);
+
+  const assignedByShift = useMemo(() => {
+    const map = new Map<string, string[]>();
+    for (const a of schedule?.assignments ?? []) {
+      const list = map.get(a.shift_id) ?? [];
+      const person = namesById.get(a.employee_id);
+      list.push(person ? person.name : a.employee_id);
+      map.set(a.shift_id, list);
+    }
+    return map;
+  }, [schedule, namesById]);
 
   function updateWindow(key: number, patch: Partial<ShiftWindow>) {
     setWindows((ws) => ws.map((w) => (w.key === key ? { ...w, ...patch } : w)));
@@ -106,8 +128,7 @@ export default function Schedule() {
 
   async function buildSchedule() {
     setFailure(null);
-    setResult(null);
-    setProblem(null);
+    setLastRun(null);
     if (activeTeam.length === 0) return;
     const { shifts, requirements } = buildWeekInputs(
       days,
@@ -119,41 +140,41 @@ export default function Schedule() {
         skills: w.skills,
       })),
     );
-    setPhase('building');
+    setBuilding(true);
     try {
       const res = await optimizeSchedule({
         employees,
         shifts,
         requirements,
       });
-      setProblem({ shifts });
-      setResult(res);
-      setPhase('done');
+      if (res.status === 'optimal') {
+        // The backend stored this as the current schedule; re-read the
+        // authoritative copy instead of trusting the POST echo.
+        await reloadSchedule();
+      } else {
+        // Infeasible: the previous valid schedule (if any) stays intact
+        // and keeps rendering below; only this notice is new.
+        setLastRun({ status: 'infeasible', violations: res.violations });
+      }
     } catch (e: unknown) {
       setFailure(friendlyErrorMessage(e));
-      setPhase('done');
+    } finally {
+      setBuilding(false);
     }
   }
 
-  const assignedByShift = useMemo(() => {
-    const map = new Map<string, string[]>();
-    if (result) {
-      for (const a of result.assignments) {
-        const list = map.get(a.shift_id) ?? [];
-        const person = namesById.get(a.employee_id);
-        list.push(person ? person.name : a.employee_id);
-        map.set(a.shift_id, list);
-      }
-    }
-    return map;
-  }, [result, namesById]);
+  const metrics = schedule?.metrics ?? null;
 
   return (
     <>
       <PageHeader
         eyebrow="Schedule workspace"
         title="Your Schedule"
-        subtitle="See who is working each day and ensure every shift has enough people."
+        subtitle={
+          schedule
+            ? `Current schedule · last built ${timeAgo(schedule.generated_at)}`
+            : 'See who is working each day and ensure every shift has enough people.'
+        }
         actions={
           <>
             <SecondaryButton onClick={() => setWeekOffset((o) => o - 1)}>
@@ -167,9 +188,9 @@ export default function Schedule() {
               Next
               <ChevronRight className="h-4 w-4" aria-hidden="true" />
             </SecondaryButton>
-            <PrimaryButton onClick={buildSchedule} disabled={teamLoading || activeTeam.length === 0 || phase === 'building'}>
+            <PrimaryButton onClick={buildSchedule} disabled={teamLoading || activeTeam.length === 0 || building}>
               <Zap className="h-4 w-4" aria-hidden="true" />
-              {phase === 'building' ? 'Building…' : 'Build My Schedule'}
+              {building ? 'Building…' : 'Build My Schedule'}
             </PrimaryButton>
           </>
         }
@@ -179,7 +200,15 @@ export default function Schedule() {
         <ErrorState
           title="Couldn't load your team."
           body={teamError}
-          retry={<SecondaryButton onClick={reload}>Try again</SecondaryButton>}
+          retry={<SecondaryButton onClick={reloadTeam}>Try again</SecondaryButton>}
+        />
+      )}
+
+      {scheduleError && (
+        <ErrorState
+          title="Couldn't load the current schedule."
+          body={scheduleError}
+          retry={<SecondaryButton onClick={() => void reloadSchedule()}>Try again</SecondaryButton>}
         />
       )}
 
@@ -286,11 +315,15 @@ export default function Schedule() {
         </p>
       </Card>
 
-      {phase === 'building' && (
+      {building && (
         <LoadingState message="Building your schedule..." />
       )}
 
-      {phase === 'idle' && !teamLoading && activeTeam.length === 0 && !teamError && (
+      {scheduleLoading && !schedule && (
+        <LoadingState message="Loading the current schedule..." />
+      )}
+
+      {!scheduleLoading && !schedule && !scheduleError && !teamLoading && activeTeam.length === 0 && !teamError && (
         <EmptyState
           icon={<Users className="h-8 w-8" aria-hidden="true" />}
           title="No team members yet."
@@ -306,7 +339,7 @@ export default function Schedule() {
         />
       )}
 
-      {phase === 'idle' && (teamLoading || activeTeam.length > 0) && (
+      {!scheduleLoading && !schedule && !scheduleError && (teamLoading || activeTeam.length > 0) && (
         <EmptyState
           icon={<CalendarPlus className="h-8 w-8" aria-hidden="true" />}
           title="Your schedule hasn't been built yet."
@@ -328,15 +361,15 @@ export default function Schedule() {
         />
       )}
 
-      {result && result.status === 'infeasible' && (
+      {lastRun && lastRun.status === 'infeasible' && (
         <ErrorState
           title="We couldn't build this schedule yet."
-          body={`Staffing needs exceed what your team can cover. ${result.violations.join(' ')} Adjust the windows above and try again.`}
+          body={`Staffing needs exceed what your team can cover. ${lastRun.violations.join(' ')} Adjust the windows above and try again.`}
           retry={<SecondaryButton onClick={buildSchedule}>Try again</SecondaryButton>}
         />
       )}
 
-      {result && result.status === 'optimal' && result.metrics && problem && (
+      {schedule && metrics && (
         <>
           <section
             className="grid grid-cols-2 gap-2 md:grid-cols-4"
@@ -344,39 +377,46 @@ export default function Schedule() {
           >
             <MetricCard
               label="Est. Staff Cost"
-              value={`$${result.metrics.total_labor_cost.toFixed(2)}`}
-              sub={`${result.metrics.shifts_staffed} of ${result.metrics.shifts_total} shifts staffed`}
+              value={`$${metrics.total_labor_cost.toFixed(2)}`}
+              sub={`${metrics.shifts_staffed} of ${metrics.shifts_total} shifts staffed`}
             />
             <MetricCard
               label="Total Hours"
-              value={`${result.metrics.total_hours} hrs`}
-              sub={`Peak load ${result.metrics.max_hours_per_employee} hrs · lightest ${result.metrics.min_hours_per_employee} hrs`}
+              value={`${metrics.total_hours} hrs`}
+              sub={`Peak load ${metrics.max_hours_per_employee} hrs · lightest ${metrics.min_hours_per_employee} hrs`}
             />
             <MetricCard
               label="Extra Hours"
-              value={`${result.metrics.extra_hours_total} hrs`}
+              value={`${metrics.extra_hours_total} hrs`}
               sub="Within normal limits"
             />
             <MetricCard
               label="Coverage"
-              value={`${Math.round((result.metrics.shifts_staffed / Math.max(1, result.metrics.shifts_total)) * 100)}%`}
+              value={`${Math.round((metrics.shifts_staffed / Math.max(1, metrics.shifts_total)) * 100)}%`}
               sub="Shifts meeting minimum staffing"
             />
           </section>
 
           <Card>
             <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-[15px] font-semibold text-[#111827]">
-                Week roster · solved by the optimization engine
-              </h2>
+              <div>
+                <h2 className="text-[15px] font-semibold text-[#111827]">
+                  Week roster · solved by the optimization engine
+                </h2>
+                <p
+                  className="tnum text-[12px] text-[#6B7280]"
+                  title={new Date(schedule.generated_at).toLocaleString()}
+                >
+                  Last built {timeAgo(schedule.generated_at)}
+                </p>
+              </div>
               <StatusBadge tone="success">Optimal</StatusBadge>
             </div>
             <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-7">
-              {days.map((day, di) => {
-                const dateStr = toDateStr(day);
-                const dayShifts = problem.shifts.filter((s) =>
-                  s.id.endsWith(dateStr),
-                );
+              {dates.map((dateStr) => {
+                const dayShifts = schedule.shifts
+                  .filter((s) => s.shift_date === dateStr)
+                  .sort((a, b) => a.start_time.localeCompare(b.start_time));
                 return (
                   <div
                     key={dateStr}
@@ -384,13 +424,10 @@ export default function Schedule() {
                   >
                     <div className="px-1 pt-1">
                       <p className="text-[12px] font-semibold text-[#111827]">
-                        {WEEKDAY[di]}
+                        {weekdayLabel(dateStr)}
                       </p>
                       <p className="tnum text-[11px] text-[#6B7280]">
-                        {day.toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                        })}
+                        {prettyDate(dateStr)}
                       </p>
                     </div>
                     {dayShifts.map((s) => {
@@ -432,7 +469,7 @@ export default function Schedule() {
                 Why this schedule
               </summary>
               <ul className="mt-2 flex list-disc flex-col gap-1 pl-5 text-[12px] text-[#4B5563]">
-                {result.explanation.map((line) => (
+                {schedule.explanation.map((line) => (
                   <li key={line}>{line}</li>
                 ))}
               </ul>

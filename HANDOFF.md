@@ -4,8 +4,8 @@
 OptiShift is a workforce optimization engine that creates feasible and cost-efficient schedules from people, availability, skills, business needs, and rules. It uses true mathematical optimization (PuLP/CBC).
 
 ## Current Phase
-**P04 — Frontend Foundation + Core UI** (Completed)
-Next step is P05 — Schedule + Dashboard Integration.
+**P05 — Schedule + Dashboard Integration** (Completed)
+Next step is P06 — Demo Mode + Baseline Comparison.
 
 ## Architecture
 - **Frontend**: React 19 + TypeScript + Vite + Tailwind (`frontend/src/`):
@@ -14,23 +14,27 @@ Next step is P05 — Schedule + Dashboard Integration.
   - `components/AppShell.tsx` — 240px Stitch sidebar + header + content
   - `components/ui.tsx` — Card, PageHeader, buttons, StatusBadge, MetricCard,
     Loading/Empty/Error/Notice states
-  - `api.ts` — single API client (VITE_API_URL); `types.ts` mirrors backend
-    domain + optimization contracts; `hooks.ts` (`useEmployees`,
-    `formatAvailability`); `schedule.ts` (pure week/shift input builders)
-  - `pages/`: Overview, Schedule (real optimize flow), Team (real CRUD),
+  - `api.ts` — single API client (VITE_API_URL): health, employees,
+    `optimizeSchedule`, `getCurrentSchedule`; `types.ts` mirrors backend
+    domain + optimization + schedule contracts; `hooks.ts` (`useEmployees`,
+    `useCurrentSchedule`, `formatAvailability`); `schedule.ts` (pure week/
+    shift builders + `timeAgo`, `scheduleDates`, `weekdayLabel`, `prettyDate`)
+  - `pages/`: Overview (schedule-aware KPIs/health/activity), Schedule
+    (builder + authoritative current schedule), Team (real CRUD),
     TimeOff (P07 shell), Rules (static H1–H6 truth), Settings (static +
     live backend-status card)
-  - Tests: vitest (`npm test`, 18 passing); `npm run build` = tsc + vite
-- **Backend**: FastAPI with layered architecture (unchanged in P04):
-  - `app/api/` — thin route handlers (`employees.py`, `optimize.py`)
-  - `app/services/` — business logic (EmployeeService, OptimizationService)
+  - Tests: vitest (`npm test`, 31 passing); `npm run build` = tsc + vite
+- **Backend**: FastAPI with layered architecture:
+  - `app/api/` — thin route handlers (`employees.py`, `optimize.py`,
+    `schedule.py` → `GET /api/v1/schedule`)
+  - `app/services/` — business logic (EmployeeService,
+    OptimizationService (stores optimal results), ScheduleService
+    (backend-owned in-memory current schedule))
   - `app/models/` — Pydantic domain models
-  - `app/optimizer/` — P03 engine: `model.py` (contracts/weights/helpers),
-    `constraints.py` (H1–H6), `objectives.py` (weighted objective + metrics),
-    `solver.py` (`solve_optimization` entry point, PuLP/CBC),
-    `validator.py` (independent post-solve validation)
+  - `app/optimizer/` — P03 engine (unchanged in P05)
 - **Communication**: REST API
-- **Storage**: In-memory (dict-based) for now
+- **Storage**: In-memory (dict-based), incl. the current schedule — survives
+  frontend refresh, cleared on backend restart (documented lifecycle)
 
 ## Important Files
 - `ui/` — Stitch UI/UX (DO NOT modify)
@@ -128,30 +132,27 @@ no role filter; `weights` optional (defaults shown).
 ### Key entry points / services
 - Optimizer entry: `solve_optimization(request)` in `backend/app/optimizer/solver.py`
 - Service: `OptimizationService.optimize(request)` in `backend/app/services/optimization_service.py`
-- Test command: `cd backend; $env:PYTHONPATH="."; uv run pytest` (28 tests)
+- Test command: `cd backend; $env:PYTHONPATH="."; uv run pytest` (35 tests)
 - Known limitations: one shift per employee per day; max hours is a hard cap
   (overtime always 0); no preference data in P02 model (weight 0); no leave /
   re-optimization yet (P07); no custom/dynamic weights UI (P08).
 
 ## Next Step
-Begin **P05 — Schedule + Dashboard Integration**: persist/present the
-optimization result across Schedule + Overview (real coverage/cost metrics on
-the dashboard), replacing the honest P04 placeholders. Read `AGENTS.md` and
-`CURRENT_STATE.md` before starting.
+Begin **P06 — Demo Mode + Baseline Comparison**: seeded UrbanBrew demo
+dataset + baseline schedule + real Money Saved comparison. The current
+schedule store (`ScheduleService`) and the Overview placeholders marked P06
+are the integration points. Read `AGENTS.md` and `CURRENT_STATE.md` before
+starting.
 
-## P04 notes for P05 (frontend map)
-- Route structure: `/` Overview · `/schedule` (week builder + result grid) ·
-  `/team` (roster table + add form) · `/time-off` (P07 shell) · `/rules`
-  (static H1–H6) · `/settings` (static + live backend-status card).
-- Important components: `AppShell`, `PageHeader`, `MetricCard`,
-  `StatusBadge`, `EmptyState`/`LoadingState`/`ErrorState`/`NoticeState`
-  (all in `components/`).
-- API integration: `api.ts` (`getEmployees`, `createEmployee`,
-  `optimizeSchedule`, `checkHealth` via `VITE_API_URL`); `types.ts` mirrors
-  backend contracts; Schedule builds payloads with `schedule.ts`
-  (`buildWeekInputs`) and renders `OptimizationResult` verbatim.
-- Test commands: `cd frontend; npm test` (18 vitest) · `npm run build`
-  (tsc + vite) · `cd backend; $env:PYTHONPATH="."; uv run pytest` (28 tests).
-- Known gaps: no persisted schedule (in-memory backend, result lives in page
-  state); Overview KPIs except Active Team are placeholders; no baseline/
-  savings (P06); no leave workflow (P07); no rule editing (P08).
+## P05 notes for P06 (schedule/dashboard map)
+- Current schedule: `ScheduleService.get_current()/save_from_result()` in
+  `backend/app/services/schedule_service.py`; served by
+  `GET /api/v1/schedule` (`{has_schedule, schedule}` envelope).
+- Frontend reads it via `useCurrentSchedule()` in Overview + Schedule —
+  P06 demo seeding should produce/refresh the same store (or a demo
+  equivalent) so both pages stay consistent.
+- Money Saved stays "—" until a real baseline exists; do not invent one.
+- Test commands: `cd backend; $env:PYTHONPATH="."; uv run pytest`
+  (35 tests) · `cd frontend; npm test` (31 vitest) · `npm run build`.
+- Known gaps: no baseline/savings (P06); no leave workflow (P07); no rule
+  editing/custom mode (P08); in-memory store resets on backend restart.

@@ -1,6 +1,6 @@
 # Current State
 
-Current phase: P04
+Current phase: P05
 Status: Complete
 
 Completed:
@@ -15,21 +15,30 @@ Completed:
 - P04 — Frontend foundation + core UI: Stitch-faithful theme/shell/routing,
   6 pages, single API client, real team + optimization integration, honest
   loading/empty/error states, 18 frontend tests, Sentinel verification
+- P05 — Schedule + dashboard integration: backend-owned current schedule
+  (`ScheduleService`, stored on optimal, `GET /api/v1/schedule`), Schedule
+  page renders the authoritative copy with generated timestamp, Overview
+  shows schedule-derived coverage/cost/extra-hours/balance + health +
+  activity, Money Saved honestly still "—" (P06). 35 backend + 31 frontend
+  tests passing, Sentinel verification
 
 Current work:
-- None (awaiting instruction for P05)
+- None (awaiting instruction for P06)
 
 Next phase:
-- P05 — Schedule + Dashboard Integration
+- P06 — Demo Mode + Baseline Comparison
 
-Frontend (P04, in frontend/src/):
-- Routes: `/` (Overview), `/schedule`, `/team`, `/time-off`, `/rules`,
-  `/settings` (+ legacy redirects `/overview`→`/`, `/my-team`→`/team`)
-- API client: `api.ts` (health/employees/optimize via VITE_API_URL) + `types.ts`
-- Schedule page builds real OptimizeRequest payloads (editable shift windows ×
-  week days + API team) and renders real backend results; no fake metrics —
-  unavailable KPIs show honest placeholders (P05/P06).
-- Tests: `npm test` → 18 passing (vitest); `npm run build` (tsc + vite) green.
+Current schedule (P05):
+- Backend: `ScheduleService` in-memory store (same lifecycle as employee DB:
+  survives frontend refresh, cleared on backend restart). Only optimal
+  results stored; infeasible/error never overwrite.
+- API: `POST /api/v1/optimize` (stores on optimal) + `GET /api/v1/schedule`
+  (`{has_schedule, schedule}`; 200 with null schedule when empty).
+- Frontend: `useCurrentSchedule` hook feeds both Overview and Schedule;
+  no frontend-owned schedule state. Overview KPIs render backend metrics
+  verbatim; Money Saved stays "—" (needs P06 baseline).
+- Tests: backend 35 passed (7 new schedule tests); frontend 31 passed
+  (13 new: helpers + Overview/Schedule pages); tsc + vite build green.
 
 Objective weights (P03, defined in backend/app/optimizer/model.py):
 - labor cost 1.0, extra hours 10.0 (normally 0: H3 hard-caps hours),
@@ -43,9 +52,12 @@ Known issues:
 - Port 8000 in this environment is occupied by an unrelated Sentinel service; P04 live backend checks used port 8001.
 
 Last verification:
-- Backend: 28 tests passed (pytest, PYTHONPATH=".")
-- Frontend: 18 tests passed (vitest); tsc + vite build green; oxlint 0 errors
-- Live integration: backend :8001 seeded 2 employees, GET team = 2,
-  POST /api/v1/optimize → optimal $128.00 (PULP_CBC_CMD/Optimal),
-  infeasible variant explained correctly; vite dev :5173 serves the app shell
-- Sentinel: scan SUCCESS, analyze PARTIAL (parser warnings), CIRCULAR_DEPENDENCY PASS, P04 symbols PASS
+- Backend: 35 tests passed (pytest, PYTHONPATH=".")
+- Frontend: 31 tests passed (vitest); tsc + vite build green; oxlint 0 errors
+- Live integration (backend :8001): empty → `{"has_schedule":false,...}`;
+  seeded 2 employees → optimal $128.00 stored (id + generated_at);
+  repeat GET identical; infeasible run preserved previous schedule;
+  backend restart cleared store (documented in-memory lifecycle);
+  vite dev :5173 serves shell + /schedule SPA route
+- Sentinel: scan SUCCESS, analyze PARTIAL (5 TSX parser warnings; code
+  compiles), CIRCULAR_DEPENDENCY PASS, P05 schedule symbols PASS
