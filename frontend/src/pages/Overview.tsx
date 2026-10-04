@@ -1,10 +1,11 @@
 // Auto-generated from ui/optishift_overview/code.html
 
-import { useCurrentSchedule, useEmployees } from '../hooks';
+import { useComparison, useCurrentSchedule, useEmployees } from '../hooks';
 
 export default function Overview() {
   const { employees, loading } = useEmployees();
   const { schedule } = useCurrentSchedule();
+  const { comparison } = useComparison();
   
   const activeCount = employees.filter((e) => (e.status || '').toLowerCase() === 'active').length;
   const metrics = schedule?.metrics ?? null;
@@ -14,26 +15,7 @@ export default function Overview() {
     <div className="flex flex-col w-full">
       <div className="flex flex-col w-full">
 
-<div className="w-full bg-surface-container-high/60 backdrop-blur-md px-space-md py-space-xs rounded-xl shadow-sm mb-space-lg flex flex-wrap items-center justify-between gap-space-sm">
-<div className="flex items-center gap-space-xs">
-<span className="material-symbols-outlined text-primary-container text-body-md">tune</span>
-<span className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold">Store State Simulator:</span>
-</div>
-<div className="flex items-center gap-space-xs flex-wrap" id="state-selector-group">
-<button className="px-space-md py-1 rounded-lg font-label-md text-label-md transition-all bg-primary-container text-on-primary shadow-sm" id="btn-state-ready" type="button">
-        State A: Schedule Ready
-      </button>
-<button className="px-space-md py-1 rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-container-lowest" id="btn-state-attention" type="button">
-        State B: Attention Needed (Time Off)
-      </button>
-<button className="px-space-md py-1 rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-container-lowest" id="btn-state-updating" type="button">
-        State C: Needs Updating
-      </button>
-<button className="px-space-md py-1 rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-container-lowest" id="btn-state-empty" type="button">
-        State D: First Time (No Schedule)
-      </button>
-</div>
-</div>
+
 
 <div className="flex flex-col gap-space-xl" id="dashboard-content">
 
@@ -42,9 +24,9 @@ export default function Overview() {
 <div className="flex items-center gap-space-xs">
 <span className="font-label-sm text-label-sm text-primary-container uppercase tracking-wider font-semibold">Live Operational Sync</span>
 <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-<span className="font-label-sm text-label-sm text-on-surface-variant" id="header-context">UrbanBrew Café · Mumbai · Week of Oct 14 – Oct 20</span>
+<span className="font-label-sm text-label-sm text-on-surface-variant" id="header-context">UrbanBrew Café · Mumbai · Current Week</span>
 </div>
-<h1 className="font-headline-xl text-headline-xl text-on-surface tracking-tight" id="header-greeting">Good morning, Alex</h1>
+<h1 className="font-headline-xl text-headline-xl text-on-surface tracking-tight" id="header-greeting">Good morning, Manager</h1>
 <p className="font-body-lg text-body-lg text-on-surface-variant" id="header-subtitle">Here’s how your team and schedule are looking today.</p>
 </div>
 
@@ -249,38 +231,54 @@ export default function Overview() {
 </tr>
 </thead>
 <tbody className="divide-y divide-surface-container-high/40 font-body-md text-body-md">
-<tr className="hover:bg-surface-container-low/40 transition-colors">
-<td className="py-3 px-space-md font-semibold text-on-surface">Staff Cost</td>
-<td className="py-3 px-space-md text-on-surface-variant">₹48,350</td>
-<td className="py-3 px-space-md font-semibold text-primary">₹42,680</td>
-<td className="py-3 px-space-md text-right font-semibold text-primary">
-<span className="inline-flex items-center gap-0.5 bg-secondary-container/60 px-2 py-0.5 rounded-full text-label-sm text-on-secondary-container font-bold">-₹5,670</span>
-</td>
-</tr>
-<tr className="hover:bg-surface-container-low/40 transition-colors">
-<td className="py-3 px-space-md font-semibold text-on-surface">Shifts Covered</td>
-<td className="py-3 px-space-md text-on-surface-variant">44 of 48 (92%)</td>
-<td className="py-3 px-space-md font-semibold text-on-surface">48 of 48 (100%)</td>
-<td className="py-3 px-space-md text-right font-medium text-on-secondary-container">
-<span className="inline-flex items-center gap-0.5 text-label-sm font-semibold">+4 shifts filled</span>
-</td>
-</tr>
-<tr className="hover:bg-surface-container-low/40 transition-colors">
-<td className="py-3 px-space-md font-semibold text-on-surface">Extra Overtime</td>
-<td className="py-3 px-space-md text-amber-700">12 hrs overtime</td>
-<td className="py-3 px-space-md font-semibold text-primary">0 hrs</td>
-<td className="py-3 px-space-md text-right font-medium text-on-secondary-container">
-<span className="text-label-sm font-semibold">Zero overtime cost</span>
-</td>
-</tr>
-<tr className="hover:bg-surface-container-low/40 transition-colors">
-<td className="py-3 px-space-md font-semibold text-on-surface">Scheduling Conflicts</td>
-<td className="py-3 px-space-md text-error">6 overlap clashes</td>
-<td className="py-3 px-space-md font-semibold text-primary">0 issues</td>
-<td className="py-3 px-space-md text-right font-medium text-on-secondary-container">
-<span className="material-symbols-outlined text-body-md text-primary align-middle">check_circle</span>
-</td>
-</tr>
+{comparison ? (
+  <>
+    <tr className="hover:bg-surface-container-low/40 transition-colors">
+    <td className="py-3 px-space-md font-semibold text-on-surface">Staff Cost</td>
+    <td className="py-3 px-space-md text-on-surface-variant">₹{comparison.baseline.metrics.total_labor_cost.toLocaleString()}</td>
+    <td className="py-3 px-space-md font-semibold text-primary">₹{comparison.optimized.metrics.total_labor_cost.toLocaleString()}</td>
+    <td className="py-3 px-space-md text-right font-semibold text-primary">
+    {comparison.improvements.cost_saved && comparison.improvements.cost_saved > 0 ? (
+      <span className="inline-flex items-center gap-0.5 bg-secondary-container/60 px-2 py-0.5 rounded-full text-label-sm text-on-secondary-container font-bold">-₹{comparison.improvements.cost_saved.toLocaleString()}</span>
+    ) : (
+      <span className="inline-flex items-center gap-0.5 text-label-sm text-on-surface-variant font-medium">—</span>
+    )}
+    </td>
+    </tr>
+    <tr className="hover:bg-surface-container-low/40 transition-colors">
+    <td className="py-3 px-space-md font-semibold text-on-surface">Shifts Covered</td>
+    <td className="py-3 px-space-md text-on-surface-variant">{comparison.baseline.metrics.shifts_staffed} of {comparison.baseline.metrics.shifts_total} ({Math.round(comparison.baseline.metrics.shifts_staffed/comparison.baseline.metrics.shifts_total*100)}%)</td>
+    <td className="py-3 px-space-md font-semibold text-on-surface">{comparison.optimized.metrics.shifts_staffed} of {comparison.optimized.metrics.shifts_total} ({Math.round(comparison.optimized.metrics.shifts_staffed/comparison.optimized.metrics.shifts_total*100)}%)</td>
+    <td className="py-3 px-space-md text-right font-medium text-on-secondary-container">
+    {comparison.improvements.coverage_change && comparison.improvements.coverage_change > 0 ? (
+      <span className="inline-flex items-center gap-0.5 text-label-sm font-semibold">+{comparison.improvements.coverage_change} shifts filled</span>
+    ) : (
+      <span className="inline-flex items-center gap-0.5 text-label-sm text-on-surface-variant font-medium">Same coverage</span>
+    )}
+    </td>
+    </tr>
+    <tr className="hover:bg-surface-container-low/40 transition-colors">
+    <td className="py-3 px-space-md font-semibold text-on-surface">Extra Overtime</td>
+    <td className="py-3 px-space-md text-amber-700">{comparison.baseline.metrics.extra_hours_total} hrs overtime</td>
+    <td className="py-3 px-space-md font-semibold text-primary">{comparison.optimized.metrics.extra_hours_total} hrs</td>
+    <td className="py-3 px-space-md text-right font-medium text-on-secondary-container">
+    {comparison.improvements.extra_hours_change && comparison.improvements.extra_hours_change < 0 ? (
+      <span className="text-label-sm font-semibold text-primary">{comparison.improvements.extra_hours_change} hrs overtime</span>
+    ) : comparison.optimized.metrics.extra_hours_total === 0 ? (
+      <span className="text-label-sm font-semibold text-primary">Zero overtime cost</span>
+    ) : (
+      <span className="text-label-sm font-medium">—</span>
+    )}
+    </td>
+    </tr>
+  </>
+) : (
+  <tr>
+    <td colSpan={4} className="py-8 text-center text-on-surface-variant font-body-sm">
+      {schedule ? "No baseline comparison available." : "Generate a schedule to see value impact."}
+    </td>
+  </tr>
+)}
 </tbody>
 </table>
 </div>

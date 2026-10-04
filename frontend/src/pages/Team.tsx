@@ -195,7 +195,7 @@ export default function Team() {
 <div className="flex items-center gap-space-xs">
 <span>Showing 8 of 8 team members</span>
 <span>·</span>
-<span>Total Weekly Capacity: <strong>283.5 / 298 hrs</strong> (95.1% scheduled)</span>
+<span>Total Active Members: <strong>{employees.filter(e => (e.status || "").toLowerCase() === "active").length}</strong></span>
 </div>
 <div className="flex items-center gap-space-md">
 <span className="flex items-center gap-1">
