@@ -57,7 +57,7 @@ def create_leave_request(payload: TimeOffCreate):
         )
     except TimeOffError as exc:
         raise HTTPException(status_code=400, detail=str(exc))
-    return TimeOffOut.model_validate(request)
+    return TimeOffOut.model_validate(request.model_dump() if hasattr(request, "model_dump") else request)
 
 
 @router.post("/{request_id}/approve", response_model=TimeOffOut)
@@ -67,7 +67,7 @@ def approve_leave_request(request_id: str):
         request = TimeOffService.approve(request_id)
     except TimeOffError as exc:
         raise HTTPException(status_code=400, detail=str(exc))
-    return TimeOffOut.model_validate(request)
+    return TimeOffOut.model_validate(request.model_dump() if hasattr(request, "model_dump") else request)
 
 
 @router.post("/{request_id}/reject", response_model=TimeOffOut)
@@ -77,4 +77,4 @@ def reject_leave_request(request_id: str):
         request = TimeOffService.reject(request_id)
     except TimeOffError as exc:
         raise HTTPException(status_code=400, detail=str(exc))
-    return TimeOffOut.model_validate(request)
+    return TimeOffOut.model_validate(request.model_dump() if hasattr(request, "model_dump") else request)
