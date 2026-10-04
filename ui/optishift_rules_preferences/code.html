@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"outline-variant":"#bfc9bd","error-container":"#ffdad6","surface-variant":"#dce2f7","primary-fixed":"#a6f4b5","on-error":"#ffffff","surface-container-highest":"#dce2f7","on-surface":"#141b2b","on-secondary":"#ffffff","outline":"#707a6f","secondary-container":"#b0f1c7","tertiary-container":"#00662d","surface-dim":"#d3daef","on-secondary-fixed-variant":"#0f5132","on-tertiary-fixed":"#00210a","surface-container-high":"#e1e8fd","error":"#ba1a1a","on-tertiary":"#ffffff","on-error-container":"#93000a","inverse-on-surface":"#edf0ff","on-tertiary-container":"#81e394","on-tertiary-fixed-variant":"#005323","tertiary":"#004b1f","on-secondary-fixed":"#002111","primary":"#004c22","on-surface-variant":"#404940","inverse-primary":"#8bd79b","surface-bright":"#f9f9ff","surface-container-low":"#f1f3ff","secondary-fixed-dim":"#95d4ac","primary-fixed-dim":"#8bd79b","surface-tint":"#1f6c3a","on-primary-fixed":"#00210b","background":"#f9f9ff","surface":"#f9f9ff","inverse-surface":"#293040","on-primary":"#ffffff","on-secondary-container":"#33704e","on-primary-fixed-variant":"#005226","primary-container":"#166534","surface-container-lowest":"#ffffff","on-background":"#141b2b","tertiary-fixed":"#95f8a7","secondary":"#2d6a48","on-primary-container":"#93e0a2","surface-container":"#e9edff","secondary-fixed":"#b0f1c7","tertiary-fixed-dim":"#79db8d"},borderRadius:{DEFAULT:"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},spacing:{gutter:"1rem",margin:"1rem","space-sm":"0.5rem","space-lg":"1rem","gutter-desktop":"1.5rem","space-xs":"0.25rem","margin-desktop":"2rem","space-xl":"1.5rem","space-md":"0.75rem"},fontFamily:{"metric-display":["Inter"],"label-sm":["Inter"],"headline-lg":["Inter"],"headline-xl":["Inter"],"body-sm":["Inter"],"headline-xl-mobile":["Inter"],"body-md":["Inter"],"headline-md":["Inter"],"body-lg":["Inter"],"label-md":["Inter"]},fontSize:{"metric-display":["28px",{lineHeight:"34px",letterSpacing:"-0.02em",fontWeight:"600"}],"label-sm":["11px",{lineHeight:"14px",letterSpacing:"0.04em",fontWeight:"600"}],"headline-lg":["24px",{lineHeight:"32px",letterSpacing:"-0.015em",fontWeight:"600"}],"headline-xl":["32px",{lineHeight:"40px",letterSpacing:"-0.02em",fontWeight:"600"}],"body-sm":["12px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"400"}],"headline-xl-mobile":["24px",{lineHeight:"32px",letterSpacing:"-0.01em",fontWeight:"600"}],"body-md":["13px",{lineHeight:"18px",letterSpacing:"0em",fontWeight:"400"}],"headline-md":["18px",{lineHeight:"26px",letterSpacing:"-0.01em",fontWeight:"600"}],"body-lg":["15px",{lineHeight:"22px",letterSpacing:"0em",fontWeight:"400"}],"label-md":["12px",{lineHeight:"16px",letterSpacing:"0.02em",fontWeight:"500"}]}}}}</script></head><body class="bg-surface text-on-surface font-body-md text-body-md"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-space-lg flex items-center gap-space-md"><img alt="Brand logo. - Primary color: #166534
+- Font: inter
+- Mode: light
+- Roundness: rounded-sm
+" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UAYwL_UjHjNc3kB2MYEZDs0ifLdEf7mEfw_kOEwjG4KQrjUCYuzHBQ8aFY9ze6vK1ADq01phcoDoIF8SuNRaRfBhOOcOCLLBgS6cec2aQ1epM6Y9CktECMSIU1klF33MAALTjI7yvBeF47N8l9v-_sx-z7JRUJqO-camWWaGDlz4bXEtW6JlghYNmb4pE9lP9kdtA1LTZPG8pDrEpnD09Y0cD8Kl8Y-EJaUyi_CJX5zm20a5KS879lBw"/><div class="flex flex-col"><span class="font-headline-md text-body-lg text-primary leading-tight font-semibold">OptiShift</span><span class="font-label-sm text-label-sm text-on-surface-variant">Smart Scheduling</span></div></div><nav class="flex-1 px-space-md py-space-sm flex flex-col gap-space-xs" data-active-classes="bg-secondary-container text-on-secondary-container rounded-lg"><a class="group flex flex-col p-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="overview" href="#"><span class="font-label-md text-label-md font-medium text-inherit">Overview</span><span class="font-label-sm text-label-sm text-on-surface-variant">Today's summary</span></a><a class="group flex flex-col p-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="schedule" href="#"><span class="font-label-md text-label-md font-medium text-inherit">Schedule</span><span class="font-label-sm text-label-sm text-on-surface-variant">See who works when</span></a><a class="group flex flex-col p-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="my-team" href="#"><span class="font-label-md text-label-md font-medium text-inherit">My Team</span><span class="font-label-sm text-label-sm text-on-surface-variant">Staff &amp; work limits</span></a><a class="group flex flex-col p-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="time-off" href="#"><div class="flex items-center justify-between"><span class="font-label-md text-label-md font-medium text-inherit">Time Off</span><span class="px-space-xs py-0.5 rounded-full bg-error-container text-on-error-container font-label-sm text-label-sm leading-none font-semibold">1</span></div><span class="font-label-sm text-label-sm text-on-surface-variant">Vacation &amp; requests</span></a><a aria-current="page" class="group flex flex-col p-space-sm transition-colors bg-secondary-container text-on-secondary-container rounded-lg" data-path="rules" href="#"><span class="font-label-md text-label-md font-medium text-inherit">Rules</span><span class="font-label-sm text-label-sm text-on-surface-variant">Shift &amp; hour limits</span></a><a class="group flex flex-col p-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="settings" href="#"><span class="font-label-md text-label-md font-medium text-inherit">Settings</span><span class="font-label-sm text-label-sm text-on-surface-variant">Store &amp; preferences</span></a></nav><div class="p-space-md m-space-md rounded-lg bg-surface-container-low"><div class="flex items-center gap-space-xs text-primary font-label-md text-label-md"><span class="material-symbols-outlined text-body-md">help</span><span class="font-semibold">Need help?</span></div><p class="mt-space-xs font-body-sm text-body-sm text-on-surface-variant leading-tight">Simple guide to scheduling staff and managing shifts easily.</p><a class="mt-space-sm inline-block font-label-sm text-label-sm font-semibold text-primary hover:text-primary-container transition-colors" data-path="documentation" href="#">View documentation →</a></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest/90 backdrop-blur-xl z-40 flex items-center justify-between px-space-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex items-center gap-space-sm"><div class="flex items-center gap-space-xs px-space-md py-space-xs rounded-lg bg-surface-container-low hover:bg-surface-container cursor-pointer transition-colors"><span class="material-symbols-outlined text-secondary text-body-lg">storefront</span><span class="font-label-md text-label-md text-on-surface font-medium">UrbanBrew Café · Mumbai Outlet</span><span class="material-symbols-outlined text-on-surface-variant text-body-md">arrow_drop_down</span></div></div><div class="flex items-center gap-space-lg"><button class="relative p-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" type="button"><span class="material-symbols-outlined text-body-lg">notifications</span><span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-error"></span></button><div class="flex items-center gap-space-md pl-space-md"><div class="flex flex-col text-right"><span class="font-label-md text-label-md font-semibold text-on-surface">Alex Morgan</span><span class="font-label-sm text-label-sm text-on-surface-variant">Owner</span></div><img alt="Profile" class="w-8 h-8 rounded-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1ULF42LAEkd7qJAhWNMQvd6lBfSI80KBFsa1ORr5JI9iTIxaCMUOI_8qT6LJstTtIKci00RYPNBY6h5LNxyBxoX-AMFGdlrvUjEgvyy8JI2ccr2MwoJjW_gTMBsH1JAYellkVy1YWJfXDNGq7ab40g8xt-eT3BQ5aoDeZiFiSi79PUbZO8gqvpn5n344hj31WCRFjquV9W_yDyhobMZ-mxwQI44LhjyvP9RDSUEdOO0p5BqNll1n3mwkQ"/></div></div></header><main class="relative pt-16 w-full min-h-screen px-space-xl py-space-lg bg-surface"><div class="flex flex-col w-full font-body-md text-on-surface">
+<!-- Interactive Prototype Scenario Switcher Banner -->
+<section class="bg-surface-container-high rounded-xl p-space-md mb-space-lg shadow-sm">
+<div class="flex flex-wrap items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-lg">tune</span>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-semibold">State Simulator: Switch View</span>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs text-label-sm">
+<button class="px-space-sm py-1 rounded bg-primary text-on-primary font-semibold transition-all" id="btn-scenario-default" onclick="setScenario('default')">
+          Active Rules (Default)
+        </button>
+<button class="px-space-sm py-1 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all" id="btn-scenario-unsaved" onclick="setScenario('unsaved')">
+          Unsaved Changes Banner
+        </button>
+<button class="px-space-sm py-1 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all" id="btn-scenario-impact" onclick="setScenario('impact')">
+          Schedule Impact Warning
+        </button>
+<button class="px-space-sm py-1 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all" id="btn-scenario-saved" onclick="setScenario('saved')">
+          Rules Saved Toast
+        </button>
+<button class="px-space-sm py-1 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all" id="btn-scenario-strict" onclick="setScenario('strict')">
+          Rules Too Strict (Guidance)
+        </button>
+<button class="px-space-sm py-1 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all" id="btn-scenario-reset" onclick="setScenario('reset-dialog')">
+          Reset Dialog
+        </button>
+<button class="px-space-sm py-1 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all" id="btn-scenario-first" onclick="setScenario('first-time')">
+          First-Time Defaults
+        </button>
+</div>
+</div>
+</section>
+<!-- Page Header -->
+<header class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md mb-space-lg">
+<div>
+<div class="flex items-center gap-space-xs">
+<h1 class="font-headline-xl text-headline-xl text-on-surface font-semibold tracking-tight">Rules</h1>
+<span class="inline-flex items-center px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Active Engine v2.4</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+        Tell OptiShift how you want your schedule to work for UrbanBrew Café.
+      </p>
+</div>
+<div class="flex items-center gap-space-sm shrink-0">
+<button class="inline-flex items-center gap-space-xs px-space-md py-space-sm bg-surface-container-lowest text-on-surface rounded-lg font-label-md text-label-md font-medium hover:bg-surface-container-low transition-colors shadow-sm" onclick="openResetModal()" type="button">
+<span class="material-symbols-outlined text-body-md text-on-surface-variant">restart_alt</span>
+<span>Reset to Defaults</span>
+</button>
+<button class="inline-flex items-center gap-space-xs px-space-lg py-space-sm bg-primary-container text-on-primary rounded-lg font-label-md text-label-md font-semibold hover:bg-primary transition-colors shadow-sm" onclick="saveRulesAction()" type="button">
+<span class="material-symbols-outlined text-body-md">check</span>
+<span>Save Changes</span>
+</button>
+</div>
+</header>
+<!-- Dynamic Alerts Zone -->
+<section class="space-y-space-sm mb-space-lg" id="alert-container">
+<!-- Saved Toast (Hidden by default) -->
+<div class="hidden p-space-md rounded-lg bg-secondary-container text-on-secondary-container shadow-sm flex items-start justify-between gap-space-md transition-all" id="toast-saved">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-headline-md text-primary">check_circle</span>
+<div>
+<h2 class="font-label-md text-label-md font-semibold">Rules successfully updated!</h2>
+<p class="font-body-sm text-body-sm text-on-secondary-container">Your changes will take effect automatically the next time you regenerate the UrbanBrew Café roster.</p>
+</div>
+</div>
+<button aria-label="Close notification" class="text-on-secondary-container hover:opacity-70 p-0.5" onclick="dismissAlert('toast-saved')">
+<span class="material-symbols-outlined text-body-md">close</span>
+</button>
+</div>
+<!-- Too Strict / Infeasible Warning Banner (Hidden by default) -->
+<div class="hidden p-space-md rounded-lg bg-error-container text-on-error-container shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-space-md" id="banner-strict">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-headline-md text-error shrink-0">warning</span>
+<div>
+<h2 class="font-label-md text-label-md font-semibold">These rules may be too strict for your current team</h2>
+<p class="font-body-sm text-body-sm mt-0.5">
+            3 shifts currently require <strong>4 Baristas</strong> simultaneously, but only <strong>2 Baristas</strong> are currently marked active in your team list. This makes an automatic schedule impossible without overtime or unstaffed shifts.
+          </p>
+</div>
+</div>
+<div class="flex items-center gap-space-xs shrink-0 self-end md:self-auto">
+<button class="px-space-sm py-1 bg-surface-container-lowest text-on-error-container font-label-sm text-label-sm font-semibold rounded hover:bg-surface-container-low transition-colors" onclick="autoFixRules()">
+          Adjust to Available Staff
+        </button>
+<button aria-label="Dismiss warning" class="p-1 text-on-error-container" onclick="dismissAlert('banner-strict')">
+<span class="material-symbols-outlined text-body-md">close</span>
+</button>
+</div>
+</div>
+<!-- Impact Notice (Toggleable) -->
+<div class="hidden p-space-md rounded-lg bg-surface-container-high text-on-surface shadow-sm flex items-start justify-between gap-space-md" id="banner-impact">
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-headline-md text-secondary shrink-0">info</span>
+<div>
+<h2 class="font-label-md text-label-md font-semibold">Active Schedule Impact Detected</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            You've modified minimum rest periods from 11 hrs to 12 hrs. Two team members (Rahul S. &amp; Priya M.) currently have back-to-back close/open shifts on Oct 17. Updating will mark these as needing reassignment.
+          </p>
+</div>
+</div>
+<button aria-label="Close notification" class="text-on-surface-variant hover:text-on-surface" onclick="dismissAlert('banner-impact')">
+<span class="material-symbols-outlined text-body-md">close</span>
+</button>
+</div>
+</section>
+<!-- Intro Explanation Callout -->
+<section class="bg-surface-container-low rounded-xl p-space-lg mb-space-xl shadow-sm">
+<div class="flex items-start gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-headline-md">psychology</span>
+</div>
+<div class="flex-1">
+<h2 class="font-headline-md text-headline-md text-on-surface font-semibold">These rules help us build schedules that fit your business and your team.</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 leading-relaxed">
+          We’ll always follow your must-have requirements first (people available, mandatory skills, working limits), then try to create the most balanced, cost-effective schedule. You stay in control without having to calculate shift math.
+        </p>
+<div class="mt-space-sm flex flex-wrap items-center gap-space-md font-label-sm text-label-sm text-secondary">
+<span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span> 100% Labour Law Compliant</span>
+<span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span> Mumbai Retail Hours Optimized</span>
+<span class="inline-flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-primary"></span> Fair Allocation by Default</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start">
+<!-- LEFT COLUMN: Primary Operational Rules (7 cols) -->
+<div class="lg:col-span-7 flex flex-col gap-space-xl">
+<!-- SECTION 1: Staffing Requirements -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-6 h-6 rounded bg-surface-container text-primary font-label-sm text-label-sm font-semibold flex items-center justify-center">1</span>
+<h2 class="font-headline-md text-headline-md font-semibold text-on-surface">Staffing Requirements</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              How many people do you need working at the same time? We'll make sure every shift has enough hands.
+            </p>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Must-Have</span>
+</div>
+<div class="flex flex-col gap-space-sm" id="shift-requirements-list">
+<!-- Morning Shift -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm transition-all hover:bg-surface-container">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary shadow-sm">
+<span class="material-symbols-outlined text-body-lg">wb_sunny</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Morning Shift</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">07:00 – 15:30</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Breakfast &amp; corporate coffee peak</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-end sm:self-auto">
+<div class="flex items-center bg-surface-container-lowest rounded-lg p-0.5 shadow-sm">
+<button aria-label="Decrease morning count" class="w-7 h-7 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded" onclick="adjustCount('morning-stepper', -1)" type="button">-</button>
+<input class="w-10 text-center font-label-md text-label-md font-semibold bg-transparent text-on-surface focus:outline-none" id="morning-stepper" readonly="" type="text" value="3"/>
+<button aria-label="Increase morning count" class="w-7 h-7 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded" onclick="adjustCount('morning-stepper', 1)" type="button">+</button>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant w-16">people min</span>
+</div>
+</div>
+<!-- Evening Shift -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm transition-all hover:bg-surface-container">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary shadow-sm">
+<span class="material-symbols-outlined text-body-lg">bedtime</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Evening Shift</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">15:00 – 23:30</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">After-work rush &amp; kitchen closing prep</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-end sm:self-auto">
+<div class="flex items-center bg-surface-container-lowest rounded-lg p-0.5 shadow-sm">
+<button aria-label="Decrease evening count" class="w-7 h-7 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded" onclick="adjustCount('evening-stepper', -1)" type="button">-</button>
+<input class="w-10 text-center font-label-md text-label-md font-semibold bg-transparent text-on-surface focus:outline-none" id="evening-stepper" readonly="" type="text" value="4"/>
+<button aria-label="Increase evening count" class="w-7 h-7 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded" onclick="adjustCount('evening-stepper', 1)" type="button">+</button>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant w-16">people min</span>
+</div>
+</div>
+<!-- Weekend Special Peak -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm transition-all hover:bg-surface-container">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-secondary shadow-sm">
+<span class="material-symbols-outlined text-body-lg">local_cafe</span>
+</div>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Weekend Brunch Peak</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Sat – Sun (10:00 – 16:00)</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Heavy dine-in &amp; patio traffic</span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm self-end sm:self-auto">
+<div class="flex items-center bg-surface-container-lowest rounded-lg p-0.5 shadow-sm">
+<button aria-label="Decrease weekend count" class="w-7 h-7 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded" onclick="adjustCount('weekend-stepper', -1)" type="button">-</button>
+<input class="w-10 text-center font-label-md text-label-md font-semibold bg-transparent text-on-surface focus:outline-none" id="weekend-stepper" readonly="" type="text" value="4"/>
+<button aria-label="Increase weekend count" class="w-7 h-7 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container rounded" onclick="adjustCount('weekend-stepper', 1)" type="button">+</button>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant w-16">people min</span>
+</div>
+</div>
+</div>
+<button class="inline-flex items-center gap-space-xs font-label-md text-label-md font-semibold text-primary hover:text-primary-container transition-colors pt-space-xs self-start" onclick="triggerUnsavedState()" type="button">
+<span class="material-symbols-outlined text-body-md">add_circle</span>
+<span>+ Add custom shift requirement</span>
+</button>
+</section>
+<!-- SECTION 2: Skills & Roles Coverage -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-6 h-6 rounded bg-surface-container text-primary font-label-sm text-label-sm font-semibold flex items-center justify-center">2</span>
+<h2 class="font-headline-md text-headline-md font-semibold text-on-surface">Mandatory Skills &amp; Roles</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Make sure specialized roles like Baristas and Supervisors are always on shift when the store is open.
+            </p>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Must-Have</span>
+</div>
+<div class="space-y-space-xs">
+<!-- Existing rule 1 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-md">
+<span class="font-label-md text-label-md font-semibold text-on-surface w-28">Morning Shift</span>
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                  Min 1 Barista (L2+)
+                </span>
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Min 1 Cashier / POS
+                </span>
+</div>
+</div>
+<button aria-label="Delete rule" class="text-on-surface-variant hover:text-error p-1 rounded transition-colors" onclick="triggerUnsavedState()" type="button">
+<span class="material-symbols-outlined text-body-md">delete</span>
+</button>
+</div>
+<!-- Existing rule 2 -->
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors">
+<div class="flex items-center gap-space-md">
+<span class="font-label-md text-label-md font-semibold text-on-surface w-28">Evening Shift</span>
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                  Min 1 Shift Supervisor
+                </span>
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Min 1 Kitchen &amp; Prep
+                </span>
+</div>
+</div>
+<button aria-label="Delete rule" class="text-on-surface-variant hover:text-error p-1 rounded transition-colors" onclick="triggerUnsavedState()" type="button">
+<span class="material-symbols-outlined text-body-md">delete</span>
+</button>
+</div>
+</div>
+<!-- Inline Quick Add Control -->
+<div class="p-space-md rounded-lg bg-surface-container-low mt-space-xs">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-semibold block mb-space-sm">Add Skill Coverage Rule</span>
+<div class="grid grid-cols-1 sm:grid-cols-4 gap-space-sm">
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1" for="shift-select">Shift</label>
+<select class="w-full h-9 px-space-sm bg-surface-container-lowest rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none" id="shift-select">
+<option>Evening Shift</option>
+<option>Morning Shift</option>
+<option>Weekend Brunch</option>
+</select>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1" for="skill-select">Role or Skill</label>
+<select class="w-full h-9 px-space-sm bg-surface-container-lowest rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none" id="skill-select">
+<option>Senior Barista</option>
+<option>Shift Supervisor</option>
+<option>Food Handler Certified</option>
+<option>Counter Cashier</option>
+</select>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-on-surface-variant mb-1" for="count-select">Required</label>
+<select class="w-full h-9 px-space-sm bg-surface-container-lowest rounded-lg font-body-sm text-body-sm text-on-surface focus:outline-none" id="count-select">
+<option>At least 1</option>
+<option>At least 2</option>
+<option>At least 3</option>
+</select>
+</div>
+<div class="flex items-end">
+<button class="w-full h-9 px-space-md bg-secondary text-on-secondary rounded-lg font-label-md text-label-md font-semibold hover:bg-secondary-container hover:text-on-secondary-container transition-colors shadow-sm" onclick="addSkillRuleMock()" type="button">
+                Add Rule
+              </button>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 3: Working Hours & Rest Limits -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-6 h-6 rounded bg-surface-container text-primary font-label-sm text-label-sm font-semibold flex items-center justify-center">3</span>
+<h2 class="font-headline-md text-headline-md font-semibold text-on-surface">Working Hours &amp; Rest Limits</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Set limits so people don’t get scheduled for too much work and have enough time to sleep between shifts.
+            </p>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Labour Safety</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+<!-- Max Weekly Hours -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col justify-between">
+<div>
+<label class="font-label-md text-label-md font-semibold text-on-surface block" for="input-max-weekly">Weekly Hours Cap</label>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-xs block mt-0.5">Maximum normal hours</span>
+</div>
+<div class="mt-space-md flex items-baseline gap-space-xs">
+<input class="w-16 h-9 px-2 bg-surface-container-lowest rounded-lg font-headline-md text-headline-md font-semibold text-on-surface text-center focus:outline-none" id="input-max-weekly" onchange="triggerUnsavedState()" type="number" value="40"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">hrs / week</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-space-sm pt-space-xs">Can be customized per person in My Team</p>
+</div>
+<!-- Max Daily Hours -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col justify-between">
+<div>
+<label class="font-label-md text-label-md font-semibold text-on-surface block" for="input-max-daily">Daily Hours Limit</label>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-xs block mt-0.5">Single shift maximum</span>
+</div>
+<div class="mt-space-md flex items-baseline gap-space-xs">
+<input class="w-16 h-9 px-2 bg-surface-container-lowest rounded-lg font-headline-md text-headline-md font-semibold text-on-surface text-center focus:outline-none" id="input-max-daily" onchange="triggerUnsavedState()" type="number" value="8"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">hrs / day</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-space-sm pt-space-xs">Excludes 30-min unpaid meal break</p>
+</div>
+<!-- Rest Between Shifts -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex flex-col justify-between">
+<div>
+<label class="font-label-md text-label-md font-semibold text-on-surface block" for="input-rest-hours">Rest Between Shifts</label>
+<span class="font-body-sm text-body-sm text-on-surface-variant text-xs block mt-0.5">No "clopenings"</span>
+</div>
+<div class="mt-space-md flex items-baseline gap-space-xs">
+<input class="w-16 h-9 px-2 bg-surface-container-lowest rounded-lg font-headline-md text-headline-md font-semibold text-on-surface text-center focus:outline-none" id="input-rest-hours" onchange="triggerUnsavedState()" type="number" value="12"/>
+<span class="font-label-sm text-label-sm text-on-surface-variant">hours minimum</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-space-sm pt-space-xs">Between store closing and next opening</p>
+</div>
+</div>
+</section>
+<!-- SECTION 4: Extra Hours ("Overtime") -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start justify-between">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-6 h-6 rounded bg-surface-container text-primary font-label-sm text-label-sm font-semibold flex items-center justify-center">4</span>
+<h2 class="font-headline-md text-headline-md font-semibold text-on-surface">Extra Hours &amp; Overtime</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+              Tell us what to do when someone would need to work beyond their normal hours to cover a shift.
+            </p>
+</div>
+<span class="px-space-xs py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Budget Control</span>
+</div>
+<div class="space-y-space-sm">
+<label class="p-space-md rounded-lg bg-surface-container-low flex items-start gap-space-md cursor-pointer hover:bg-surface-container transition-colors block">
+<input checked="" class="mt-1 accent-primary w-4 h-4" name="overtime_policy" onchange="triggerUnsavedState()" type="radio" value="avoid"/>
+<div class="flex-1">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Avoid extra hours whenever possible</span>
+<span class="px-space-xs py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">Recommended</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                OptiShift will first prioritize staff who haven't reached 40 hours. Extra hours will only be used if there is truly no other person available. Protects your monthly wage budget.
+              </p>
+</div>
+</label>
+<label class="p-space-md rounded-lg bg-surface-container-low flex items-start gap-space-md cursor-pointer hover:bg-surface-container transition-colors block">
+<input class="mt-1 accent-primary w-4 h-4" name="overtime_policy" onchange="triggerUnsavedState()" type="radio" value="allow"/>
+<div class="flex-1">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Allow extra hours when needed</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Allows team members to take on up to
+                <input class="inline-block w-12 h-6 px-1 mx-1 text-center bg-surface-container-lowest rounded font-semibold text-on-surface focus:outline-none" id="input-ot-cap" onchange="triggerUnsavedState()" type="number" value="4"/>
+                extra hours per week if they want more hours or to cover absences easily.
+              </p>
+</div>
+</label>
+</div>
+</section>
+</div>
+<!-- RIGHT COLUMN: Preferences, Balance & Impact (5 cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-xl">
+<!-- SECTION 5: Work Balance -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-6 h-6 rounded bg-surface-container text-primary font-label-sm text-label-sm font-semibold flex items-center justify-center">5</span>
+<h2 class="font-headline-md text-headline-md font-semibold text-on-surface">Fair Work Distribution</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+            Try to share work and weekend shifts fairly across your team so morale stays high.
+          </p>
+</div>
+<div class="space-y-space-md">
+<!-- Balance hours toggle -->
+<div class="flex items-start justify-between gap-space-md">
+<div>
+<span class="font-label-md text-label-md font-semibold text-on-surface block">Keep weekly hours balanced</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">
+                When possible, avoid giving one full-timer 42 hours while another gets only 28 hours.
+              </span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0 mt-1">
+<input checked="" class="sr-only peer" onchange="triggerUnsavedState()" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Weekend distribution toggle -->
+<div class="flex items-start justify-between gap-space-md pt-space-sm border-t border-surface-container">
+<div>
+<span class="font-label-md text-label-md font-semibold text-on-surface block">Prefer balanced weekend distribution</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">
+                Rotate Saturday and Sunday shifts across staff so everyone gets some weekend rest.
+              </span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0 mt-1">
+<input checked="" class="sr-only peer" onchange="triggerUnsavedState()" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- SECTION 6: Team Preferences -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="w-6 h-6 rounded bg-surface-container text-primary font-label-sm text-label-sm font-semibold flex items-center justify-center">6</span>
+<h2 class="font-headline-md text-headline-md font-semibold text-on-surface">Team Preferences</h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">
+            Use people’s shift preferences whenever they don’t conflict with store opening needs.
+          </p>
+</div>
+<div class="space-y-space-md">
+<!-- Shift preferences -->
+<div class="flex items-start justify-between gap-space-md">
+<div>
+<span class="font-label-md text-label-md font-semibold text-on-surface block">Try to follow preferred shifts</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">
+                We'll match employee preferred mornings or evenings when staffing requirements permit.
+              </span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0 mt-1">
+<input checked="" class="sr-only peer" onchange="triggerUnsavedState()" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+<!-- Consistent patterns -->
+<div class="flex items-start justify-between gap-space-md pt-space-sm border-t border-surface-container">
+<div>
+<span class="font-label-md text-label-md font-semibold text-on-surface block">Avoid abrupt shift pattern changes</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant block mt-0.5">
+                Keep people on consistent blocks (e.g. 3 mornings in a row instead of flipping daily).
+              </span>
+</div>
+<label class="relative inline-flex items-center cursor-pointer shrink-0 mt-1">
+<input checked="" class="sr-only peer" onchange="triggerUnsavedState()" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary-container"></div>
+</label>
+</div>
+</div>
+</section>
+<!-- SECTION 7: How OptiShift Uses Your Rules (Priority Hierarchy Guide) -->
+<section class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-md">
+<div>
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-semibold">Priority Hierarchy Guide</span>
+<h2 class="font-headline-md text-headline-md font-semibold text-on-surface mt-1">How OptiShift Applies Your Rules</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+            When creating your schedule, our engine balances requirements in this exact priority order:
+          </p>
+</div>
+<div class="space-y-space-sm">
+<!-- Tier 1 -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<span class="w-6 h-6 rounded bg-primary text-on-primary font-label-sm text-label-sm font-semibold flex items-center justify-center shrink-0 mt-0.5">1</span>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Must-Haves (Non-negotiable)</span>
+<span class="material-symbols-outlined text-primary text-body-md">lock</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Store coverage targets, certified skill availability (Baristas &amp; Supervisors), approved leaves, and not double-booking.
+              </p>
+</div>
+</div>
+<!-- Tier 2 -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<span class="w-6 h-6 rounded bg-secondary text-on-secondary font-label-sm text-label-sm font-semibold flex items-center justify-center shrink-0 mt-0.5">2</span>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Well-being &amp; Rest Limits</span>
+<span class="material-symbols-outlined text-secondary text-body-md">shield</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Max 40 hrs/week per person, max 8 hrs/day, and mandatory 12 hours rest between evening close and morning opening.
+              </p>
+</div>
+</div>
+<!-- Tier 3 -->
+<div class="p-space-md rounded-lg bg-surface-container-low flex items-start gap-space-sm">
+<span class="w-6 h-6 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm font-semibold flex items-center justify-center shrink-0 mt-0.5">3</span>
+<div>
+<div class="flex items-center gap-space-xs">
+<span class="font-label-md text-label-md font-semibold text-on-surface">Staff Happiness &amp; Optimization</span>
+<span class="material-symbols-outlined text-on-surface-variant text-body-md">sentiment_satisfied</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                Zero overtime where possible, balanced weekend rotations, and matching individual morning or evening preferences.
+              </p>
+</div>
+</div>
+</div>
+</section>
+<!-- SECTION 8: Schedule Impact Notice Box -->
+<section class="bg-surface-container-low rounded-xl p-space-lg shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-body-lg">calendar_month</span>
+<span class="font-label-md text-label-md font-semibold text-on-surface">Current Schedule Status</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+          UrbanBrew Café's active schedule for <strong>Oct 14 – Oct 20</strong> is running smoothly under these rules. Changing staffing minimums or weekly caps will automatically apply to next week's draft.
+        </p>
+<div class="pt-space-xs">
+<a class="inline-flex items-center gap-space-xs font-label-md text-label-md font-semibold text-primary hover:text-primary-container transition-colors" href="#">
+<span>View Active Schedule</span>
+<span class="material-symbols-outlined text-body-md">arrow_forward</span>
+</a>
+</div>
+</section>
+</div>
+</div>
+<!-- Bottom Floating Unsaved Changes Bar -->
+<div class="hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-11/12 max-w-4xl bg-inverse-surface text-inverse-on-surface p-space-md rounded-xl shadow-xl z-50 flex items-center justify-between gap-space-md transition-all" id="unsaved-bar">
+<div class="flex items-center gap-space-sm">
+<span class="material-symbols-outlined text-tertiary-fixed text-headline-md">info</span>
+<div>
+<p class="font-label-md text-label-md font-semibold text-inverse-on-surface">You have unsaved changes</p>
+<p class="font-body-sm text-body-sm text-surface-variant">Changes will not affect scheduled shifts until saved.</p>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="px-space-md py-space-xs rounded-lg font-label-md text-label-md font-medium text-inverse-on-surface hover:bg-surface-variant/20 transition-colors" onclick="discardChanges()">
+        Discard
+      </button>
+<button class="px-space-lg py-space-xs bg-primary-fixed text-on-primary-fixed rounded-lg font-label-md text-label-md font-semibold hover:bg-primary-fixed-dim transition-colors shadow-sm" onclick="saveRulesAction()">
+        Save Changes
+      </button>
+</div>
+</div>
+<!-- Reset Confirmation Modal Dialog -->
+<div class="hidden fixed inset-0 z-50 bg-on-surface/40 backdrop-blur-sm flex items-center justify-center p-space-md" id="modal-reset">
+<div class="bg-surface-container-lowest max-w-md w-full rounded-2xl p-space-xl shadow-xl flex flex-col gap-space-md">
+<div class="w-12 h-12 rounded-full bg-error-container text-on-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-headline-lg">restart_alt</span>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md font-semibold text-on-surface">Reset rules to defaults?</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 leading-relaxed">
+          This will restore the standard UrbanBrew Café shift settings: 3 morning staff, 4 evening staff, 40-hour weekly cap, and 12-hour rest requirement. Your team roster will not be altered.
+        </p>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-sm">
+<button class="px-space-lg py-space-sm rounded-lg font-label-md text-label-md font-medium text-on-surface-variant hover:bg-surface-container-low transition-colors" onclick="closeResetModal()" type="button">
+          Cancel
+        </button>
+<button class="px-space-lg py-space-sm bg-error text-on-error rounded-lg font-label-md text-label-md font-semibold hover:opacity-90 transition-opacity shadow-sm" onclick="confirmReset()" type="button">
+          Reset to Defaults
+        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Vanilla JS State Management & Micro-interactions -->
+<script>
+  let hasUnsavedChanges = false;
+
+  function triggerUnsavedState() {
+    hasUnsavedChanges = true;
+    const bar = document.getElementById('unsaved-bar');
+    if (bar) bar.classList.remove('hidden');
+  }
+
+  function discardChanges() {
+    hasUnsavedChanges = false;
+    const bar = document.getElementById('unsaved-bar');
+    if (bar) bar.classList.add('hidden');
+    // Reload active defaults
+    document.getElementById('morning-stepper').value = '3';
+    document.getElementById('evening-stepper').value = '4';
+    document.getElementById('weekend-stepper').value = '4';
+    document.getElementById('input-max-weekly').value = '40';
+    document.getElementById('input-max-daily').value = '8';
+    document.getElementById('input-rest-hours').value = '12';
+  }
+
+  function adjustCount(inputId, delta) {
+    const el = document.getElementById(inputId);
+    if (!el) return;
+    let val = parseInt(el.value, 10) || 1;
+    val = Math.max(1, Math.min(10, val + delta));
+    el.value = val;
+    triggerUnsavedState();
+  }
+
+  function saveRulesAction() {
+    hasUnsavedChanges = false;
+    const bar = document.getElementById('unsaved-bar');
+    if (bar) bar.classList.add('hidden');
+    const toast = document.getElementById('toast-saved');
+    if (toast) {
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 5000);
+    }
+  }
+
+  function dismissAlert(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('hidden');
+  }
+
+  function openResetModal() {
+    document.getElementById('modal-reset').classList.remove('hidden');
+  }
+
+  function closeResetModal() {
+    document.getElementById('modal-reset').classList.add('hidden');
+  }
+
+  function confirmReset() {
+    closeResetModal();
+    discardChanges();
+    const toast = document.getElementById('toast-saved');
+    if (toast) {
+      toast.querySelector('h3').textContent = 'Default rules restored!';
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 4000);
+    }
+  }
+
+  function autoFixRules() {
+    // Adjust barista requirement to fit 2 baristas
+    dismissAlert('banner-strict');
+    document.getElementById('morning-stepper').value = '2';
+    triggerUnsavedState();
+  }
+
+  function addSkillRuleMock() {
+    triggerUnsavedState();
+    const skill = document.getElementById('skill-select').value;
+    const shift = document.getElementById('shift-select').value;
+    const count = document.getElementById('count-select').value;
+    alert(`Rule queued: ${shift} requires ${count} ${skill}. Click Save Changes below.`);
+  }
+
+  // Interactive Scenario Simulator Router
+  function setScenario(scenario) {
+    // Hide all transient alerts first
+    document.getElementById('toast-saved').classList.add('hidden');
+    document.getElementById('banner-strict').classList.add('hidden');
+    document.getElementById('banner-impact').classList.add('hidden');
+    document.getElementById('unsaved-bar').classList.add('hidden');
+    closeResetModal();
+
+    // Reset button states in simulator
+    const buttons = document.querySelectorAll('[id^="btn-scenario-"]');
+    buttons.forEach(btn => {
+      btn.className = "px-space-sm py-1 rounded bg-surface-container-lowest text-on-surface hover:bg-surface-container transition-all";
+    });
+
+    if (scenario === 'default') {
+      document.getElementById('btn-scenario-default').className = "px-space-sm py-1 rounded bg-primary text-on-primary font-semibold transition-all";
+      discardChanges();
+    } else if (scenario === 'unsaved') {
+      document.getElementById('btn-scenario-unsaved').className = "px-space-sm py-1 rounded bg-primary text-on-primary font-semibold transition-all";
+      triggerUnsavedState();
+    } else if (scenario === 'impact') {
+      document.getElementById('btn-scenario-impact').className = "px-space-sm py-1 rounded bg-primary text-on-primary font-semibold transition-all";
+      document.getElementById('banner-impact').classList.remove('hidden');
+    } else if (scenario === 'saved') {
+      document.getElementById('btn-scenario-saved').className = "px-space-sm py-1 rounded bg-primary text-on-primary font-semibold transition-all";
+      saveRulesAction();
+    } else if (scenario === 'strict') {
+      document.getElementById('btn-scenario-strict').className = "px-space-sm py-1 rounded bg-primary text-on-primary font-semibold transition-all";
+      document.getElementById('banner-strict').classList.remove('hidden');
+    } else if (scenario === 'reset-dialog') {
+      document.getElementById('btn-scenario-reset').className = "px-space-sm py-1 rounded bg-primary text-on-primary font-semibold transition-all";
+      openResetModal();
+    } else if (scenario === 'first-time') {
+      document.getElementById('btn-scenario-first').className = "px-space-sm py-1 rounded bg-primary text-on-primary font-semibold transition-all";
+      document.getElementById('morning-stepper').value = '2';
+      document.getElementById('evening-stepper').value = '3';
+      document.getElementById('weekend-stepper').value = '3';
+      triggerUnsavedState();
+    }
+  }
+</script></main></div></body></html>

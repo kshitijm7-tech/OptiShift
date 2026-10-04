@@ -1,0 +1,48 @@
+version: "1"
+
+layers:
+  - name: api
+    match: backend.app.api.*
+  - name: services
+    match: backend.app.services.*
+  - name: optimizer
+    match: backend.app.optimizer.*
+  - name: models
+    match: backend.app.models.*
+
+rules:
+  # api can depend on services, models
+  - from: api
+    allow:
+      - services
+      - models
+      - optimizer
+
+  # services can depend on models, optimizer
+  - from: services
+    allow:
+      - models
+      - optimizer
+    forbid:
+      - api
+
+  # optimizer can depend on models
+  - from: optimizer
+    allow:
+      - models
+    forbid:
+      - api
+      - services
+
+  # models should be independent of higher layers
+  - from: models
+    allow: []
+    forbid:
+      - api
+      - services
+      - optimizer
+
+dependencies:
+  required:
+    - fastapi
+    - uvicorn
