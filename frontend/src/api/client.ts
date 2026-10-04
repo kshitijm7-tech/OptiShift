@@ -85,9 +85,15 @@ export interface BackendLeave {
   manager_note?: string | null;
 }
 
+export interface BackendDiffAssignment {
+  employee: string;
+  shift: string;
+  date: string;
+}
+
 export interface BackendDiff {
-  removed_assignments: Record<string, unknown>[];
-  added_assignments: BackendAssignment[];
+  removed_assignments: BackendDiffAssignment[];
+  added_assignments: BackendDiffAssignment[];
   affected_tasks: string[];
   affected_employees: string[];
 }

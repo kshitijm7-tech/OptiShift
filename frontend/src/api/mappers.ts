@@ -390,33 +390,36 @@ export function mapLeaves(
 }
 
 // ── Changelog from a re-optimization diff ───────────────────────────────────
-
+// Backend diff entries are compact {employee, shift, date} triples (names,
+// not ids) — see ScheduleService._compute_diff.
 export function changelogFromDiff(
   diff: BackendDiff,
-  shiftById: Map<string, BackendShift>
+  shifts: BackendShift[]
 ): ScheduleChangeLog[] {
-  const removedByKey = new Map<string, BackendAssignment>();
+  const shiftByName = new Map(shifts.map(s => [s.name, s]));
+  const removedByKey = new Map<string, { employee: string; shift: string; date: string }>();
   for (const r of diff.removed_assignments) {
-    const a = r as unknown as BackendAssignment;
-    if (a && a.shift_id && a.date) {
-      removedByKey.set(`${a.shift_id}|${a.date}`, a);
+    if (r && r.shift && r.date) {
+      removedByKey.set(`${r.shift}|${r.date}`, r);
     }
   }
   const entries: ScheduleChangeLog[] = [];
-  for (const added of diff.added_assignments) {
-    const removed = removedByKey.get(`${added.shift_id}|${added.date}`);
-    if (removed && removed.employee_id !== added.employee_id) {
-      const shift = shiftById.get(added.shift_id);
-      entries.push({
-        id: `ch-${added.employee_id}-${added.shift_id}-${added.date}`,
-        dayText: `${prettyDate(added.date)} · ${added.shift_name || shift?.name || 'Shift'}`,
-        shiftText: shift ? `${shift.start_time}–${shift.end_time}` : added.date,
-        prevPerson: removed.employee_name || removed.employee_id,
-        newPerson: added.employee_name || added.employee_id,
-        reason: 'Reassigned by the MILP solver to keep every shift covered after the approved leave.',
-        tag: 'Leave Handled'
-      });
-    }
+  for (const a of diff.added_assignments) {
+    if (!a || !a.shift || !a.date) continue;
+    const removed = removedByKey.get(`${a.shift}|${a.date}`);
+    const prev = removed && removed.employee !== a.employee ? removed.employee : null;
+    const s = shiftByName.get(a.shift);
+    entries.push({
+      id: `ch-${a.date}-${a.shift}-${a.employee}`.replace(/\s+/g, '_'),
+      dayText: `${prettyDate(a.date)} · ${a.shift}`,
+      shiftText: s ? `${s.start_time}–${s.end_time}` : a.date,
+      prevPerson: prev || 'Unstaffed',
+      newPerson: a.employee,
+      reason: prev
+        ? 'Reassigned by the MILP solver to keep every shift covered after the approved leave.'
+        : 'Newly staffed by the MILP solver after the approved leave.',
+      tag: 'Leave Handled'
+    });
     if (entries.length >= 8) break;
   }
   return entries;

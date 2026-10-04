@@ -97,7 +97,7 @@ interface ScheduleContextType {
   setAlgothonScenario: (sc: number) => void;
 
   // Actions
-  triggerReoptimize: () => Promise<void>;
+  triggerReoptimize: () => Promise<boolean>;
   isOptimizing: boolean;
   approveLeaveRequest: (id: string) => void;
   rejectLeaveRequest: (id: string) => void;
@@ -320,9 +320,11 @@ export const ScheduleProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Run solver whenever triggered
-  const triggerReoptimize = async () => {
+  // Run solver whenever triggered. Resolves true when the schedule
+  // on screen was actually rebuilt, false otherwise.
+  const triggerReoptimize = async (): Promise<boolean> => {
     setIsOptimizing(true);
+    let applied = false;
     try {
       if (backendConnected) {
         const approvedIds = leaveRequests
@@ -346,6 +348,7 @@ export const ScheduleProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           ]);
           setOverviewState('state-ready');
           setToastMessage('Schedule rebuilt by the live solver.');
+          applied = true;
         } else {
           setToastMessage(
             result.message ||
@@ -372,6 +375,7 @@ export const ScheduleProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           setChangelog(result.changelog);
           setOverviewState('state-ready');
           setToastMessage('Schedule automatically rebalanced! ₹5,670 savings preserved.');
+          applied = true;
         }
       }
     } catch (e: unknown) {
@@ -379,6 +383,7 @@ export const ScheduleProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     } finally {
       setIsOptimizing(false);
     }
+    return applied;
   };
 
   const approveLeaveRequest = async (id: string) => {
@@ -411,7 +416,7 @@ export const ScheduleProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           ));
           setLeaveRequests(mapEnrichedLeaveRequests(leaveState, re.new_assignments));
           if (re.diff) {
-            const entries = changelogFromDiff(re.diff, shiftById);
+            const entries = changelogFromDiff(re.diff, beShifts);
             if (entries.length > 0) setChangelog(entries);
           }
           setOverviewState('state-ready');
