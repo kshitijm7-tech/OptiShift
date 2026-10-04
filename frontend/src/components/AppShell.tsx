@@ -7,6 +7,7 @@ import {
   CalendarDays,
   LayoutDashboard,
   Palmtree,
+  Play,
   Settings,
   SlidersHorizontal,
   Store,
@@ -33,6 +34,12 @@ const NAV_ITEMS: NavItem[] = [
     label: 'Schedule',
     hint: 'See who works when',
     icon: <CalendarDays className="h-5 w-5" aria-hidden="true" />,
+  },
+  {
+    to: '/demo',
+    label: 'Demo Mode',
+    hint: 'UrbanBrew walkthrough',
+    icon: <Play className="h-5 w-5" aria-hidden="true" />,
   },
   {
     to: '/team',

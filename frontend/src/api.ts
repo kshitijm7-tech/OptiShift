@@ -2,6 +2,9 @@
 // Backend base URL comes from VITE_API_URL; no hardcoded hosts elsewhere.
 import { ApiError } from './types';
 import type {
+  ComparisonEnvelope,
+  DemoDataset,
+  DemoResetResponse,
   Employee,
   EmployeeCreate,
   OptimizeRequest,
@@ -93,6 +96,39 @@ export async function getCurrentSchedule(): Promise<ScheduleResponse> {
   // The single authoritative schedule. Absence is data (HTTP 200 with
   // has_schedule=false), not an error.
   return request<ScheduleResponse>('/api/v1/schedule');
+}
+
+// ---------------------------------------------------------------------------
+// P06 — Demo Mode + Baseline Comparison
+// ---------------------------------------------------------------------------
+
+export async function getDemoDataset(): Promise<DemoDataset> {
+  // Read-only UrbanBrew Café scenario; the frontend renders it verbatim.
+  return request<DemoDataset>('/api/v1/demo');
+}
+
+export async function runDemo(): Promise<ComparisonEnvelope> {
+  // Baseline → P03 optimizer → comparison, all inside the backend's demo
+  // workspace. The user's team and current schedule are never touched.
+  return request<ComparisonEnvelope>('/api/v1/demo/run', { method: 'POST' });
+}
+
+export async function getDemoComparison(): Promise<ComparisonEnvelope> {
+  return request<ComparisonEnvelope>('/api/v1/demo/comparison');
+}
+
+export async function resetDemo(): Promise<DemoResetResponse> {
+  return request<DemoResetResponse>('/api/v1/demo/reset', { method: 'POST' });
+}
+
+export async function generateComparison(): Promise<ComparisonEnvelope> {
+  // Normal mode: compare the current schedule against a manual baseline of
+  // the same inputs. Only runs when the user explicitly asks for it.
+  return request<ComparisonEnvelope>('/api/v1/comparison', { method: 'POST' });
+}
+
+export async function getComparison(): Promise<ComparisonEnvelope> {
+  return request<ComparisonEnvelope>('/api/v1/comparison');
 }
 
 export function friendlyErrorMessage(error: unknown): string {

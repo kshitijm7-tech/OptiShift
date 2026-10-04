@@ -82,6 +82,24 @@ export function buildWeekInputs(
   return { shifts, requirements };
 }
 
+// Currency-aware money label, e.g. formatMoney(1500, "₹") -> "₹1,500".
+// Presentation only: the amount and symbol always come from the backend
+// comparison payload (Indian grouping via en-IN).
+export function formatMoney(amount: number, symbol: string): string {
+  const digits = Number.isInteger(amount) ? 0 : 2;
+  return `${symbol}${amount.toLocaleString('en-IN', {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+  })}`;
+}
+
+// Signed metric label, e.g. formatSignedHours(1.5, "hrs") -> "1.5 hrs".
+// Integers drop the trailing decimal for cleaner chips.
+export function formatSignedHours(value: number, unit: string): string {
+  const rounded = Math.round(value * 100) / 100;
+  return `${rounded} ${unit}`;
+}
+
 export function activeEmployees(employees: Employee[]): Employee[] {
   return employees.filter((e) => (e.status || '').toLowerCase() === 'active');
 }

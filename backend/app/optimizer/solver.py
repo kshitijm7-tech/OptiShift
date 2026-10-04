@@ -198,7 +198,7 @@ def solve_optimization(request: OptimizeRequest) -> OptimizationResult:
     pay = {e.id: e.hourly_pay for e in employees}
     explanation = [
         f"{a.employee_id} -> {a.shift_id} on {a.assigned_date} "
-        f"(${pay.get(a.employee_id, 0.0):.2f}/h x "
+        f"({pay.get(a.employee_id, 0.0):.2f}/h x "
         f"{durations.get(a.shift_id, 0.0):.1f}h)"
         for a in sorted(assignments, key=lambda a: (a.assigned_date, a.shift_id, a.employee_id))
     ]

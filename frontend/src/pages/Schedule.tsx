@@ -10,17 +10,19 @@ import {
   ChevronLeft,
   ChevronRight,
   Plus,
+  Scale,
   Trash2,
   Users,
   Zap,
 } from 'lucide-react';
-import { friendlyErrorMessage, optimizeSchedule } from '../api';
+import { friendlyErrorMessage, generateComparison, optimizeSchedule } from '../api';
 import {
   Card,
   EmptyState,
   ErrorState,
   LoadingState,
   MetricCard,
+  NoticeState,
   PageHeader,
   PrimaryButton,
   SecondaryButton,
@@ -65,6 +67,9 @@ export default function Schedule() {
   const [weekOffset, setWeekOffset] = useState(0);
   const [windows, setWindows] = useState<ShiftWindow[]>(DEFAULT_WINDOWS);
   const [building, setBuilding] = useState(false);
+  const [comparing, setComparing] = useState(false);
+  const [compareSummary, setCompareSummary] = useState<string | null>(null);
+  const [compareError, setCompareError] = useState<string | null>(null);
   const [lastRun, setLastRun] = useState<
     { status: 'infeasible'; violations: string[] } | null
   >(null);
@@ -163,6 +168,25 @@ export default function Schedule() {
     }
   }
 
+  async function compareWithBaseline() {
+    setCompareError(null);
+    setCompareSummary(null);
+    if (!schedule) return;
+    setComparing(true);
+    try {
+      const res = await generateComparison();
+      if (res.has_comparison && res.comparison) {
+        setCompareSummary(res.comparison.summary);
+      } else {
+        setCompareSummary('The comparison finished but returned no result. Please try again.');
+      }
+    } catch (e: unknown) {
+      setCompareError(friendlyErrorMessage(e));
+    } finally {
+      setComparing(false);
+    }
+  }
+
   const metrics = schedule?.metrics ?? null;
 
   return (
@@ -187,6 +211,13 @@ export default function Schedule() {
             <SecondaryButton onClick={() => setWeekOffset((o) => o + 1)}>
               Next
               <ChevronRight className="h-4 w-4" aria-hidden="true" />
+            </SecondaryButton>
+            <SecondaryButton
+              onClick={() => void compareWithBaseline()}
+              disabled={!schedule || comparing || building}
+            >
+              <Scale className="h-4 w-4" aria-hidden="true" />
+              {comparing ? 'Comparing…' : 'Compare with baseline'}
             </SecondaryButton>
             <PrimaryButton onClick={buildSchedule} disabled={teamLoading || activeTeam.length === 0 || building}>
               <Zap className="h-4 w-4" aria-hidden="true" />
@@ -369,6 +400,22 @@ export default function Schedule() {
         />
       )}
 
+      {compareError && (
+        <ErrorState
+          title="Couldn't build the baseline comparison."
+          body={compareError}
+          retry={
+            <SecondaryButton onClick={() => void compareWithBaseline()}>
+              Try again
+            </SecondaryButton>
+          }
+        />
+      )}
+
+      {compareSummary && (
+        <NoticeState tone="info" title="Baseline comparison" body={compareSummary} />
+      )}
+
       {schedule && metrics && (
         <>
           <section
@@ -377,7 +424,7 @@ export default function Schedule() {
           >
             <MetricCard
               label="Est. Staff Cost"
-              value={`$${metrics.total_labor_cost.toFixed(2)}`}
+              value={`₹${metrics.total_labor_cost.toFixed(2)}`}
               sub={`${metrics.shifts_staffed} of ${metrics.shifts_total} shifts staffed`}
             />
             <MetricCard

@@ -1,7 +1,8 @@
-// Overview page (P04/P05): Stitch Overview screen wired to real data.
+// Overview page (P04/P05/P06): Stitch Overview screen wired to real data.
 // Active Team comes from the team API; coverage, cost, extra hours, and
 // balance come from the ONE authoritative current schedule (backend-owned).
-// Money Saved stays honestly unavailable until P06 baseline comparison.
+// Money Saved appears only when a real baseline comparison exists for the
+// current schedule — it is never assumed or invented.
 import { Link } from 'react-router-dom';
 import {
   CalendarDays,
@@ -22,8 +23,8 @@ import {
   SecondaryButton,
   StatusBadge,
 } from '../components/ui';
-import { useCurrentSchedule, useEmployees } from '../hooks';
-import { prettyDate, timeAgo, toDateStr } from '../schedule';
+import { useComparison, useCurrentSchedule, useEmployees } from '../hooks';
+import { formatMoney, prettyDate, timeAgo, toDateStr } from '../schedule';
 
 export default function Overview() {
   const { employees, loading, error, reload } = useEmployees();
@@ -33,6 +34,14 @@ export default function Overview() {
     error: scheduleError,
     reload: reloadSchedule,
   } = useCurrentSchedule();
+  const { comparison: storedComparison } = useComparison();
+  // Only a comparison of THIS current schedule counts; anything else stays "—".
+  const comparison =
+    storedComparison && schedule && storedComparison.optimized.id === schedule.id
+      ? storedComparison
+      : null;
+  const saved = comparison?.improvements.cost_saved ?? null;
+  const savingsSymbol = comparison?.currency_symbol ?? '₹';
 
   const activeCount = employees.filter(
     (e) => (e.status || '').toLowerCase() === 'active',
@@ -148,7 +157,7 @@ export default function Overview() {
         <MetricCard
           label="Staff Cost"
           value={
-            metrics ? `$${metrics.total_labor_cost.toFixed(2)}` : '—'
+            metrics ? `₹${metrics.total_labor_cost.toFixed(2)}` : '—'
           }
           sub={
             metrics
@@ -171,9 +180,25 @@ export default function Overview() {
         />
         <MetricCard
           label="Money Saved"
-          value="—"
-          sub="Available after baseline comparison · P06"
-          unavailable
+          value={
+            saved == null
+              ? '—'
+              : saved > 0
+                ? `${formatMoney(saved, savingsSymbol)} saved`
+                : saved === 0
+                  ? `${formatMoney(0, savingsSymbol)} saved`
+                  : `${formatMoney(Math.abs(saved), savingsSymbol)} added`
+          }
+          sub={
+            saved == null
+              ? 'Run a baseline comparison to see savings'
+              : saved > 0
+                ? `vs manual baseline${comparison?.improvements.cost_saved_percent != null ? ` · ${comparison.improvements.cost_saved_percent}% lower cost` : ''}`
+                : saved === 0
+                  ? 'Same staff cost as the manual baseline'
+                  : 'Staff cost increased vs the baseline'
+          }
+          unavailable={saved == null}
         />
         <MetricCard
           label="Work Balance"
@@ -315,7 +340,7 @@ export default function Overview() {
                       </span>
                     </div>
                     <p className="tnum truncate text-[12px] text-[#6B7280]">
-                      {schedule.assignments.length} assignments · $
+                      {schedule.assignments.length} assignments · ₹
                       {metrics.total_labor_cost.toFixed(2)} staff cost
                     </p>
                   </div>

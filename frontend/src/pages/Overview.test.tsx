@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import Overview from './Overview';
-import { getCurrentSchedule, getEmployees } from '../api';
+import { getComparison, getCurrentSchedule, getEmployees } from '../api';
 import { toDateStr } from '../schedule';
 import type { CurrentSchedule, Employee } from '../types';
 
@@ -15,12 +15,14 @@ vi.mock('../api', async (importOriginal) => {
     ...actual,
     getEmployees: vi.fn(),
     getCurrentSchedule: vi.fn(),
+    getComparison: vi.fn(),
     optimizeSchedule: vi.fn(),
   };
 });
 
 const mockedGetEmployees = vi.mocked(getEmployees);
 const mockedGetSchedule = vi.mocked(getCurrentSchedule);
+const mockedGetComparison = vi.mocked(getComparison);
 
 function employee(): Employee {
   return {
@@ -88,6 +90,8 @@ function renderPage() {
 
 beforeEach(() => {
   vi.clearAllMocks();
+  // No baseline comparison by default: Money Saved stays honestly "—".
+  mockedGetComparison.mockResolvedValue({ has_comparison: false, comparison: null });
 });
 
 describe('Overview with no schedule', () => {
@@ -101,7 +105,7 @@ describe('Overview with no schedule', () => {
     ).toBeInTheDocument();
     expect(await screen.findByText('No recent activity yet.')).toBeInTheDocument();
     expect(
-      screen.getByText('Available after baseline comparison · P06'),
+      screen.getByText('Run a baseline comparison to see savings'),
     ).toBeInTheDocument();
     // No fabricated coverage or cost.
     expect(screen.queryByText('All required shifts covered.')).not.toBeInTheDocument();
@@ -118,7 +122,7 @@ describe('Overview with a current schedule', () => {
     });
     renderPage();
 
-    expect(await screen.findByText('$60.00')).toBeInTheDocument();
+    expect(await screen.findByText('₹60.00')).toBeInTheDocument();
     expect(screen.getByText('100%')).toBeInTheDocument();
     expect(
       screen.getByText('All required shifts covered.'),
@@ -128,9 +132,9 @@ describe('Overview with a current schedule', () => {
     expect(screen.getByText('Priya')).toBeInTheDocument();
     // Activity reflects the real generation event.
     expect(await screen.findByText('Schedule built')).toBeInTheDocument();
-    // Money Saved is still honestly unavailable (P06).
+    // Money Saved is still honestly unavailable without a comparison.
     expect(
-      screen.getByText('Available after baseline comparison · P06'),
+      screen.getByText('Run a baseline comparison to see savings'),
     ).toBeInTheDocument();
   });
 });

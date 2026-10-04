@@ -131,3 +131,73 @@ export interface ScheduleResponse {
   has_schedule: boolean;
   schedule: CurrentSchedule | null;
 }
+
+// ---------------------------------------------------------------------------
+// P06 — Demo Mode + Baseline Comparison
+// ---------------------------------------------------------------------------
+
+export interface Business {
+  id: string;
+  name: string;
+  location: string;
+}
+
+// Backend-owned UrbanBrew Café scenario served by GET /api/v1/demo.
+// Rendered verbatim — the frontend never builds demo data itself.
+export interface DemoDataset {
+  business: Business;
+  description: string;
+  horizon_days: number;
+  week_start: string; // "YYYY-MM-DD"
+  week_end: string;
+  currency: string;
+  currency_symbol: string;
+  employees: Employee[];
+  shifts: Shift[];
+  requirements: StaffingRequirement[];
+}
+
+// Deterministic manual-approach baseline (never claims optimality).
+export interface BaselineSchedule {
+  status: 'baseline';
+  assignments: Assignment[];
+  shifts: Shift[];
+  employees: Employee[];
+  requirements: StaffingRequirement[];
+  metrics: OptimizationMetrics;
+  solver: { solver: string; status: string; solve_seconds?: number | null };
+  explanation: string[];
+}
+
+// Signed deltas. Positive cost_saved = money saved; negative means the
+// optimized schedule costs more and is reported honestly, never flipped.
+export interface ComparisonImprovements {
+  cost_saved: number | null;
+  cost_saved_percent: number | null;
+  hours_change: number | null;
+  coverage_change: number | null;
+  extra_hours_change: number | null;
+  work_balance_change: number | null;
+}
+
+export interface ScheduleComparison {
+  id: string;
+  generated_at: string;
+  currency: string;
+  currency_symbol: string;
+  baseline: BaselineSchedule;
+  optimized: CurrentSchedule;
+  improvements: ComparisonImprovements;
+  summary: string;
+}
+
+// Envelope for comparison reads; absence is data (HTTP 200), mirroring the
+// schedule envelope.
+export interface ComparisonEnvelope {
+  has_comparison: boolean;
+  comparison: ScheduleComparison | null;
+}
+
+export interface DemoResetResponse {
+  reset: boolean;
+}

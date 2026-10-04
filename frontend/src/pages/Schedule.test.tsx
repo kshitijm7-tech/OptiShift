@@ -119,7 +119,7 @@ describe('Schedule with a current schedule', () => {
 
     expect(await screen.findByText('Morning')).toBeInTheDocument();
     expect(screen.getByText('Priya')).toBeInTheDocument();
-    expect(screen.getByText('$60.00')).toBeInTheDocument();
+    expect(screen.getByText('₹60.00')).toBeInTheDocument();
     expect(screen.getByText(/Last built/)).toBeInTheDocument();
     expect(screen.getByText('Why this schedule')).toBeInTheDocument();
   });
@@ -182,7 +182,7 @@ describe('Schedule build flow', () => {
       await screen.findByText("We couldn't build this schedule yet."),
     ).toBeInTheDocument();
     // Previous schedule still rendered.
-    expect(screen.getByText('$60.00')).toBeInTheDocument();
+    expect(screen.getByText('₹60.00')).toBeInTheDocument();
     expect(screen.getByText('Morning')).toBeInTheDocument();
   });
 });
