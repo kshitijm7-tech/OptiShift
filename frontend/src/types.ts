@@ -201,3 +201,30 @@ export interface ComparisonEnvelope {
 export interface DemoResetResponse {
   reset: boolean;
 }
+
+// ---------------------------------------------------------------------------
+// P08 — Custom Mode + Dynamic Scheduling
+// ---------------------------------------------------------------------------
+
+export interface BusinessInput {
+  name: string;
+  location: string;
+}
+
+// Customer-facing scheduling priorities, in engine weight units.
+// Defaults reproduce standard optimization exactly.
+export interface SchedulingRules {
+  labor_cost_weight: number;
+  work_balance_weight: number;
+}
+
+// One complete Custom Mode setup. The backend translates this into an
+// OptimizeRequest for the shared P03 engine — the frontend never maps,
+// decides, or solves anything itself.
+export interface CustomScheduleConfig {
+  business: BusinessInput;
+  employees: Employee[];
+  shifts: Shift[];
+  requirements: StaffingRequirement[];
+  rules: SchedulingRules;
+}

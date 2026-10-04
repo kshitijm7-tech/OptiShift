@@ -39,6 +39,14 @@ PuLP 2.8.0 + CBC (PULP_CBC_CMD)
   refreshes). `OptimizationService.optimize` stores optimal results;
   `GET /api/v1/schedule` (`backend/app/api/schedule.py`, thin) serves them.
   Infeasible/error outcomes never overwrite a valid stored schedule.
+- **Custom scheduling (P08)**: `CustomScheduleConfig`
+  (`backend/app/models/scheduling.py`) + `SchedulingService`
+  (`backend/app/services/scheduling_service.py`) translate customer rules
+  into an `OptimizeRequest` and delegate to the SAME `OptimizationService`
+  engine (one path, different configuration source). Served by thin
+  `POST /api/v1/schedules/build` (`backend/app/api/schedules.py`); the
+  `/custom` wizard (`frontend/src/pages/CustomMode.tsx`) collects config
+  only and renders results via the existing `/schedule` experience.
 - **Data/Storage**: In-memory (dict-based). Avoid complex databases/cloud infrastructure until required.
 - **Communication**: Frontend calls REST API over HTTP.
 

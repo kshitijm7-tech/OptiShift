@@ -5,6 +5,7 @@ from app.api.demo import router as demo_router
 from app.api.employees import router as employees_router
 from app.api.optimize import router as optimize_router
 from app.api.schedule import router as schedule_router
+from app.api.schedules import router as schedules_router
 
 app = FastAPI(title="OptiShift API", version="1.0.0")
 
@@ -23,6 +24,7 @@ def health_check():
 app.include_router(employees_router)
 app.include_router(optimize_router)
 app.include_router(schedule_router)
+app.include_router(schedules_router)
 app.include_router(comparison_router)
 app.include_router(demo_router)
 

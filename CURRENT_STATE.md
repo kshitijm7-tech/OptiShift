@@ -61,3 +61,19 @@ Last verification:
   vite dev :5173 serves shell + /schedule SPA route
 - Sentinel: scan SUCCESS, analyze PARTIAL (5 TSX parser warnings; code
   compiles), CIRCULAR_DEPENDENCY PASS, P05 schedule symbols PASS
+
+## P08 — Custom Mode (branch `p08`, in progress, parallel with P07)
+- `POST /api/v1/schedules/build` accepts
+  `{business, employees, shifts, requirements, rules}`; `SchedulingService`
+  translates rules to engine weights and runs the shared P03 optimizer.
+  Only optimal results reach the current-schedule store.
+- `/custom` wizard (Business → Team → Shifts → Staffing → Rules/Review)
+  collects config, builds via the API, navigates to `/schedule` on optimal,
+  explains infeasible runs in place. Demo Mode and normal flow untouched.
+- Rules limited to engine truth: tunable cost/balance weights; hour caps
+  always enforced; inactive never scheduled. No second optimizer, no LLM.
+- Verified: backend 70 passed (15 new P08) · frontend 44 passed
+  (6 new P08) · tsc + vite build green · live walkthrough PASS (min 2 →
+  4 assignments $264 → min 3 → 6 assignments $420 → min 9 infeasible with
+  prior schedule preserved).
+- No Sentinel per phase policy (project tests + build + live walkthrough).

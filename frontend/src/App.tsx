@@ -7,6 +7,7 @@ import {
   Routes,
 } from 'react-router-dom';
 import AppShell from './components/AppShell';
+import CustomMode from './pages/CustomMode';
 import DemoMode from './pages/DemoMode';
 import Overview from './pages/Overview';
 import Rules from './pages/Rules';
@@ -31,6 +32,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Overview />} />
           <Route path="/schedule" element={<Schedule />} />
+          <Route path="/custom" element={<CustomMode />} />
           <Route path="/demo" element={<DemoMode />} />
           <Route path="/team" element={<Team />} />
           <Route path="/time-off" element={<TimeOff />} />

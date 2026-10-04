@@ -62,8 +62,8 @@ export default function Rules() {
 
       <NoticeState
         tone="info"
-        title="Rule customization arrives in P08."
-        body="These are the live engine rules. Editable thresholds and custom rule sets come with Custom Mode."
+        title="Tune these rules in Custom Mode."
+        body="Custom Mode lets you set staffing minimums, required skills, shifts, and cost/balance priorities — then builds a real schedule with this engine."
       />
 
       <div className="flex flex-col gap-4">

@@ -3,6 +3,7 @@
 import { ApiError } from './types';
 import type {
   ComparisonEnvelope,
+  CustomScheduleConfig,
   DemoDataset,
   DemoResetResponse,
   Employee,
@@ -129,6 +130,22 @@ export async function generateComparison(): Promise<ComparisonEnvelope> {
 
 export async function getComparison(): Promise<ComparisonEnvelope> {
   return request<ComparisonEnvelope>('/api/v1/comparison');
+}
+
+// ---------------------------------------------------------------------------
+// P08 — Custom Mode + Dynamic Scheduling
+// ---------------------------------------------------------------------------
+
+export async function buildCustomSchedule(
+  config: CustomScheduleConfig,
+): Promise<OptimizationResult> {
+  // Custom Mode configuration translated server-side into the shared P03
+  // engine. Same optimizer, same result contract, same current-schedule
+  // store as POST /api/v1/optimize — only the configuration source differs.
+  return request<OptimizationResult>('/api/v1/schedules/build', {
+    method: 'POST',
+    body: JSON.stringify(config),
+  });
 }
 
 export function friendlyErrorMessage(error: unknown): string {

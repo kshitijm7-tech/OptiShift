@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import {
   CalendarDays,
+  Hammer,
   LayoutDashboard,
   Palmtree,
   Play,
@@ -40,6 +41,12 @@ const NAV_ITEMS: NavItem[] = [
     label: 'Demo Mode',
     hint: 'UrbanBrew walkthrough',
     icon: <Play className="h-5 w-5" aria-hidden="true" />,
+  },
+  {
+    to: '/custom',
+    label: 'Custom',
+    hint: 'Build your own setup',
+    icon: <Hammer className="h-5 w-5" aria-hidden="true" />,
   },
   {
     to: '/team',

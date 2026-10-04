@@ -156,3 +156,20 @@ starting.
   (35 tests) · `cd frontend; npm test` (31 vitest) · `npm run build`.
 - Known gaps: no baseline/savings (P06); no leave workflow (P07); no rule
   editing/custom mode (P08); in-memory store resets on backend restart.
+
+## P08 notes (branch `p08`, parallel with P07 — do NOT merge yet)
+- Custom Mode wizard at `/custom` (`frontend/src/pages/CustomMode.tsx`):
+  Business → Team (real roster checklist) → Shifts (editable list) →
+  Staffing (per-shift min + skills) → Rules + Review → Build My Schedule.
+- Build calls `POST /api/v1/schedules/build`
+  (`backend/app/api/schedules.py` thin →
+  `SchedulingService.build_custom_schedule` →
+  shared `OptimizationService.optimize` → PuLP/CBC). Optimal results land
+  in the same current-schedule store, so `/schedule` renders them unchanged.
+- Rules honor only what the engine supports: cost/balance weights tunable;
+  hour caps always enforced (no fake overtime switch), no preference data
+  (weight stays 0). Business name/location is validated run context.
+- P07 compatibility: P08 touches NO leave/time-off/re-opt files; shares only
+  append-only router registration in `main.py` and additive types. P07's
+  optional `unavailability` on `OptimizeRequest` is untouched by P08 and
+  defaults to empty (backward compatible both ways).
