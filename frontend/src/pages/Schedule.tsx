@@ -26,7 +26,7 @@ export default function Schedule() {
       const shift = schedule.shifts.find(s => s.id === a.shift_id);
       if (shift) {
         const empShifts = map.get(a.employee_id) || [];
-        empShifts.push({ date: shift.start_time.split('T')[0], shift });
+        empShifts.push({ date: shift.shift_date, shift });
         map.set(a.employee_id, empShifts);
       }
     });
@@ -113,7 +113,7 @@ export default function Schedule() {
                            {dayShifts.length > 0 ? (
                              dayShifts.map((s: any, j: number) => (
                                <div key={j} className="bg-primary-fixed border border-primary-fixed-dim rounded-md px-2 py-1 text-center cursor-pointer hover:shadow-sm transition-shadow">
-                                 <div className="font-label-sm font-semibold text-on-primary-fixed">{new Date(s.shift.start_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - {new Date(s.shift.end_time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                                 <div className="font-label-sm font-semibold text-on-primary-fixed">{s.shift.start_time.slice(0, 5)} - {s.shift.end_time.slice(0, 5)}</div>
                                  <div className="text-[10px] text-on-primary-fixed-variant leading-none mt-0.5">{s.shift.role_req}</div>
                                </div>
                              ))
