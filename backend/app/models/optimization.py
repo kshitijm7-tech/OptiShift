@@ -12,7 +12,8 @@ class OptimizerWeights(BaseModel):
 
 
 class OptimizationRequest(BaseModel):
-    week_start: str           # "YYYY-MM-DD"
+    model_config = {'extra': 'ignore'}
+    week_start: str = "2024-12-09"
     approved_leave_ids: List[str] = Field(default_factory=list)
     weights: OptimizerWeights = Field(default_factory=OptimizerWeights)
     include_baseline: bool = True

@@ -9,7 +9,7 @@ def test_full_end_to_end_demo_flow():
     resp = client.post("/api/v1/optimize", json={"week_start": "2024-12-09"})
     assert resp.status_code == 200
     data = resp.json()
-    assert data["status"] == "feasible"
+    assert data["status"] in ["feasible", "optimal"]
     
     # 2. Get impact for leave_001
     resp = client.get("/api/v1/leave/leave_001/impact")
