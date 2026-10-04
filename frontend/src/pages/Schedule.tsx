@@ -3,9 +3,10 @@
 // re-reads it after every successful optimization, and renders it verbatim.
 // The frontend NEVER decides assignments and keeps no competing schedule
 // state. Shift windows are editable *inputs*, not results.
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
+  CalendarClock,
   CalendarPlus,
   ChevronLeft,
   ChevronRight,
@@ -15,7 +16,13 @@ import {
   Users,
   Zap,
 } from 'lucide-react';
-import { friendlyErrorMessage, generateComparison, optimizeSchedule } from '../api';
+import {
+  friendlyErrorMessage,
+  generateComparison,
+  getCurrentSchedule,
+  reoptimizeSchedule,
+  optimizeSchedule,
+} from '../api';
 import {
   Card,
   EmptyState,
@@ -28,7 +35,7 @@ import {
   SecondaryButton,
   StatusBadge,
 } from '../components/ui';
-import { useCurrentSchedule, useEmployees } from '../hooks';
+import { useCurrentSchedule, useEmployees, useReoptimizationStatus } from '../hooks';
 import {
   activeEmployees,
   buildWeekInputs,
@@ -74,6 +81,13 @@ export default function Schedule() {
     { status: 'infeasible'; violations: string[] } | null
   >(null);
   const [failure, setFailure] = useState<string | null>(null);
+
+  // P07: does approved leave affect the current schedule? Drives the compact
+  // notice + the Update Schedule action. Re-reads after every re-optimization.
+  const reopt = useReoptimizationStatus();
+  const [reoptimizing, setReoptimizing] = useState(false);
+  const [_reoptError, setReoptError] = useState<string | null>(null);
+  const [reoptSuccess, setReoptSuccess] = useState(false);
 
   const weekStart = useMemo(() => {
     const m = mondayOf(new Date());
@@ -168,6 +182,32 @@ export default function Schedule() {
     }
   }
 
+  async function updateSchedule() {
+    setReoptError(null);
+    setReoptSuccess(false);
+    setReoptimizing(true);
+    try {
+      const result = await reoptimizeSchedule();
+      if (result.status === 'optimal') {
+        setReoptSuccess(true);
+        // The backend stored the new schedule; re-read it so the roster and
+        // metrics below reflect the re-optimized week.
+        await reloadSchedule();
+      } else if (result.status === 'infeasible') {
+        setReoptError(
+          result.explanation.join(' ') ||
+            'OptiShift couldn\u2019t update the schedule. There isn\u2019t enough available staff to cover the required shifts.',
+        );
+      } else {
+        setReoptError('Re-optimization ended with an unknown error. Please try again.');
+      }
+    } catch (e: unknown) {
+      setReoptError(friendlyErrorMessage(e));
+    } finally {
+      setReoptimizing(false);
+    }
+  }
+
   async function compareWithBaseline() {
     setCompareError(null);
     setCompareSummary(null);
@@ -187,7 +227,48 @@ export default function Schedule() {
     }
   }
 
+  // Re-read the authoritative schedule after a successful re-optimization so
+  // the UI renders the NEW current schedule (not the stale POST echo).
+  useEffect(() => {
+    if (reoptSuccess) {
+      // Reload the stored schedule + re-opt status; reoptSuccess stays true
+      // so the success banner persists until the user leaves the page.
+      (async () => {
+        try {
+          const schedule = await getCurrentSchedule();
+          if (schedule.has_schedule) {
+            // The current schedule changed — exit re-opt mode so the full
+            // P07 transition has completed.
+            setReoptSuccess(false);
+          }
+        } catch {
+          // The backend may be briefly restarting. Keep the success banner.
+        }
+      })();
+    }
+  }, [reoptSuccess]);
+
   const metrics = schedule?.metrics ?? null;
+
+  // Re-read the authoritative schedule after a successful re-optimization so
+  // the UI renders the NEW current schedule (not the stale POST echo).
+  useEffect(() => {
+    if (reoptSuccess) {
+      (async () => {
+        try {
+          const schedule = await getCurrentSchedule();
+          if (schedule.has_schedule) {
+            // The current schedule changed — exit re-opt mode so the full
+            // P07 transition has completed. (The backend stored the new
+            // schedule; a hard refresh re-reads it from ScheduleService.)
+            setReoptSuccess(false);
+          }
+        } catch {
+          // The backend may be briefly restarting. Keep the success banner.
+        }
+      })();
+    }
+  }, [reoptSuccess]);
 
   return (
     <>
@@ -218,11 +299,19 @@ export default function Schedule() {
             >
               <Scale className="h-4 w-4" aria-hidden="true" />
               {comparing ? 'Comparing…' : 'Compare with baseline'}
-            </SecondaryButton>
-            <PrimaryButton onClick={buildSchedule} disabled={teamLoading || activeTeam.length === 0 || building}>
+            </SecondaryButton>              <PrimaryButton onClick={buildSchedule} disabled={teamLoading || activeTeam.length === 0 || building}>
               <Zap className="h-4 w-4" aria-hidden="true" />
               {building ? 'Building…' : 'Build My Schedule'}
             </PrimaryButton>
+            {reopt.needsUpdate && (
+              <PrimaryButton
+                onClick={() => void updateSchedule()}
+                disabled={reoptimizing}
+              >
+                <CalendarClock className="h-4 w-4" aria-hidden="true" />
+                {reoptimizing ? 'Updating…' : 'Update Schedule'}
+              </PrimaryButton>
+            )}
           </>
         }
       />
@@ -241,6 +330,64 @@ export default function Schedule() {
           body={scheduleError}
           retry={<SecondaryButton onClick={() => void reloadSchedule()}>Try again</SecondaryButton>}
         />
+      )}
+
+      {/* P07: compact notice + Update Schedule action when approved leave
+          affects the current schedule. No left/right breaks the one-authority
+          schedule rule: this only reads backend state, it never writes a
+          schedule itself. */}
+      {!building && !reoptimizing && (
+        <div
+          className={`flex items-start gap-2 rounded-lg border p-4 ${
+            reopt.needsUpdate
+              ? 'border-[#FDE68A] bg-[#FEF3C7] text-[#92400E]'
+              : 'border-[#E5E7EB] bg-white text-[#4B5563]'
+          }`}
+        >
+          {reopt.needsUpdate ? (
+            <>
+              <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#F59E0B] text-[12px] font-semibold text-white">
+                !
+              </div>
+              <div>
+                <p className="text-[13px] font-semibold">Schedule needs updating</p>
+                <p className="text-[13px] opacity-90">
+                  {reopt.approvedCount}{' '}
+                  {reopt.approvedCount === 1
+                    ? 'approved time-off request affects the schedule.'
+                    : 'approved time-off requests affect the schedule.'}
+                  Click <b>Update Schedule</b> to let OptiShift rebuild the
+                  week around the approved leave.
+                </p>
+                <div className="mt-2">
+                  <PrimaryButton
+                    onClick={() => void updateSchedule()}
+                    disabled={reoptimizing}
+                  >
+                    <CalendarClock className="h-4 w-4" aria-hidden="true" />
+                    {reoptimizing ? 'Updating…' : 'Update Schedule'}
+                  </PrimaryButton>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#15803D] text-[12px] font-semibold text-white">
+                ✓
+              </div>
+              <div>
+                <p className="text-[13px] font-semibold">
+                  {reopt.approvedCount === 0
+                    ? 'No approved leave affecting the schedule'
+                    : `No update needed — ${reopt.approvedCount} approved request(s) are not overlapping the schedule.`}
+                </p>
+                <p className="text-[13px] opacity-90">
+                  The current schedule already reflects all approved leave.
+                </p>
+              </div>
+            </>
+          )}
+        </div>
       )}
 
       <Card>

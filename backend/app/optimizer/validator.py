@@ -1,11 +1,16 @@
-# Post-solve validator for P03.
+# Post-solve validator for P03 + P07.
 #
 # Independently re-checks every hard constraint against a solved schedule so
 # that a modelling bug can never silently ship an invalid roster. Returns a
 # list of human-readable violations (empty means the schedule is valid).
+#
+# P07: `unavailability` (approved leave, inclusive) is re-checked here too,
+# so a solver that accidentally shipped a leave assignment is caught before
+# it can reach the current-schedule store.
 
+from datetime import date
 from collections import defaultdict
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from app.models.domain import Employee, Shift, StaffingRequirement
 from app.optimizer.model import (
@@ -15,12 +20,17 @@ from app.optimizer.model import (
     shifts_overlap,
 )
 
+# H7 - approved leave dates: employee_id -> dates out (inclusive). Passed by
+# the caller (the re-optimization service) when present.
+Unavailability = Optional[Dict[str, List[date]]]
+
 
 def validate_assignments(
     assignments: List[Assignment],
     employees: List[Employee],
     shifts: List[Shift],
     requirements_by_shift: Dict[str, StaffingRequirement],
+    unavailability: Unavailability = None,
 ) -> List[str]:
     violations: List[str] = []
     employees_by_id = {e.id: e for e in employees}
@@ -50,7 +60,7 @@ def validate_assignments(
 
         req = requirements_by_shift.get(shift.id)
         required_skills = req.required_skills if req else []
-        ok, reason = employee_eligible(employee, shift, required_skills)
+        ok, reason = employee_eligible(employee, shift, required_skills, unavailability)
         if not ok:
             violations.append(f"ineligible assignment: {reason}")
 

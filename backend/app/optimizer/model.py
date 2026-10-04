@@ -1,9 +1,16 @@
 # Optimizer shared model for OptiShift P03.
 #
 # This module holds the optimization input/output contracts, the documented
-# objective weights, and small deterministic helper functions. It depends
-# only on the domain models (app.models.domain) and never on API or
-# service layers.
+# objective weights, and small deterministic helper functions. It depends only
+# on the domain models (`app.models.domain`) and never on API or service
+# layers.
+#
+# For P07, `OptimizeRequest` also carries an optional
+# `unavailability: Dict[str, List[date]]` context: `employee_id -> dates the
+# person is out (approved leave, inclusive)`. The solver treats those
+# employee/shift pairs as ineligible by construction, so an employee on
+# approved leave can never be assigned to a shift they are out for. Adding or
+# removing the field is backward compatible: existing requests simply omit it.
 
 from datetime import date, datetime, time, timedelta
 from enum import Enum
@@ -50,6 +57,15 @@ class OptimizeRequest(BaseModel):
     shifts: List[Shift] = []
     requirements: List[StaffingRequirement] = []
     weights: ObjectiveWeights = Field(default_factory=ObjectiveWeights)
+    # P07: dates an employee is unavailable because of approved leave
+    # (inclusive). The solver treats these employee/shift pairs as
+    # ineligible so an employee on approved leave can never be assigned to a
+    # shift they are out for. Kept optional so normal P03/P05/P06 calls are
+    # unaffected and backward compatible.
+    unavailability: Dict[str, List[date]] = Field(
+        default_factory=dict,
+        description="employee_id -> dates the employee is out (approved leave, inclusive).",
+    )
 
 
 class Assignment(BaseModel):
@@ -165,12 +181,21 @@ def shifts_overlap(a: Shift, b: Shift) -> bool:
 
 
 def employee_eligible(
-    employee: Employee, shift: Shift, required_skills: List[str]
+    employee: Employee,
+    shift: Shift,
+    required_skills: List[str],
+    unavailability: Optional[Dict[str, List[date]]] = None,
 ) -> Tuple[bool, str]:
     """Eligibility check used both before solving and in post-validation.
 
     Returns (True, "") when the employee may take the shift, otherwise
     (False, reason).
+
+    H1/H5/H6 are documented in app.optimizer.constraints. H7 (P07) is the
+    approved-leave check: an employee on leave cannot be assigned to any
+    shift inside the leave window, inclusive. `unavailability` carries
+    `employee_id -> dates` (approved leave, inclusive); when it is None the
+    leave check is skipped (backward compatibility).
     """
     if not is_employee_active(employee):
         return False, f"employee '{employee.id}' is not active"
@@ -187,5 +212,11 @@ def employee_eligible(
     if not covers_availability(employee, shift):
         return False, (
             f"employee '{employee.id}' is not available for shift '{shift.id}'"
+        )
+    # H7 - approved leave availability.
+    emp_dates = (unavailability or {}).get(employee.id, [])
+    if emp_dates and shift.shift_date in emp_dates:
+        return False, (
+            f"employee '{employee.id}' is on approved leave on {shift.shift_date}"
         )
     return True, ""

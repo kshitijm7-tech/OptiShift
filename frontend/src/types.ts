@@ -1,4 +1,4 @@
-// OptiShift frontend domain types (P04/P05).
+// OptiShift frontend domain types (P04/P05/P06/P07).
 // Mirrors backend/app/models/domain.py + optimizer/model.py +
 // services/schedule_service.py manually.
 // No code generation infrastructure (P04 scope).
@@ -100,6 +100,7 @@ export interface OptimizationResult {
   solver: { solver: string; status: string; solve_seconds?: number | null };
   explanation: string[];
 }
+
 export class ApiError extends Error {
   status: number;
   detail: string;
@@ -200,6 +201,56 @@ export interface ComparisonEnvelope {
 
 export interface DemoResetResponse {
   reset: boolean;
+}
+
+// ---------------------------------------------------------------------------
+// P07 — Leave + Approval + Re-optimization
+// ---------------------------------------------------------------------------
+
+// Pending request — the only status a manager may approve or reject.
+export interface TimeOff {
+  id: string;
+  employee_id: string;
+  start_date: string; // "YYYY-MM-DD"
+  end_date: string; // "YYYY-MM-DD"
+  reason: string | null;
+  status: 'pending' | 'approved' | 'rejected';
+}
+
+export interface TimeOffCreate {
+  employee_id: string;
+  start_date: string; // "YYYY-MM-DD"
+  end_date: string; // "YYYY-MM-DD"
+  reason?: string; // optional, free text
+}
+
+export interface TimeOffList {
+  requests: TimeOff[];
+}
+
+export interface TimeOffResponse {
+  request: TimeOff;
+}
+
+// Envelope for POST /api/v1/reoptimize.
+// status: optimal (new schedule stored) | infeasible | error.
+// On optimal the freshly stored schedule is echoed; on infeasible/error the
+// previous valid schedule is preserved and echoed unchanged under `schedule`.
+export interface ReoptimizationResult {
+  status: 'optimal' | 'infeasible' | 'error';
+  schedule: CurrentSchedule | null;
+  previous_schedule_id: string | null;
+  explanation: string[];
+  affected_leave: TimeOff[];
+  solver: { solver: string; status: string; solve_seconds?: number | null } | null;
+}
+
+// Whether approved leave overlaps the current schedule, so the Schedule
+// page can show the compact "Schedule needs updating" notice.
+export interface ReoptimizationStatus {
+  needs_update: boolean;
+  approved_count: number;
+  approved_requests: TimeOff[];
 }
 
 // ---------------------------------------------------------------------------

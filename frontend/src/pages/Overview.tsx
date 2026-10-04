@@ -5,6 +5,7 @@
 // current schedule — it is never assumed or invented.
 import { Link } from 'react-router-dom';
 import {
+  CalendarClock,
   CalendarDays,
   CalendarPlus,
   CircleCheck,
@@ -23,7 +24,13 @@ import {
   SecondaryButton,
   StatusBadge,
 } from '../components/ui';
-import { useComparison, useCurrentSchedule, useEmployees } from '../hooks';
+import {
+  friendlyErrorMessage,
+  getCurrentSchedule,
+  reoptimizeSchedule,
+} from '../api';
+import { useEffect, useState } from 'react';
+import { useComparison, useCurrentSchedule, useEmployees, useReoptimizationStatus } from '../hooks';
 import { formatMoney, prettyDate, timeAgo, toDateStr } from '../schedule';
 
 export default function Overview() {
@@ -42,6 +49,57 @@ export default function Overview() {
       : null;
   const saved = comparison?.improvements.cost_saved ?? null;
   const savingsSymbol = comparison?.currency_symbol ?? '₹';
+
+  // P07: does approved leave affect the current schedule? Drives the compact
+  // notice + the Update Schedule action.
+  const reopt = useReoptimizationStatus();
+  const [reoptimizing, setReoptimizing] = useState(false);
+  const [_reoptError, setReoptError] = useState<string | null>(null);
+  const [reoptSuccess, setReoptSuccess] = useState(false);
+
+  // If a re-optimization succeeded, re-read the authoritative schedule so
+  // the KPI cards (cost/coverage/extra-hours/balance) reflect the new one.
+  useEffect(() => {
+    if (reoptSuccess) {
+      (async () => {
+        try {
+          const schedule = await getCurrentSchedule();
+          if (schedule.has_schedule) {
+            // New schedule is live; exit re-opt mode.
+            setReoptSuccess(false);
+          }
+        } catch {
+          // Backend may be briefly restarting. Keep the success banner.
+        }
+      })();
+    }
+  }, [reoptSuccess]);
+
+  async function updateSchedule() {
+    setReoptError(null);
+    setReoptSuccess(false);
+    setReoptimizing(true);
+    try {
+      const result = await reoptimizeSchedule();
+      if (result.status === 'optimal') {
+        setReoptSuccess(true);
+        // Reload the authoritative schedule from ScheduleService so the
+        // KPI cards read the NEW current schedule.
+        await reloadSchedule();
+      } else if (result.status === 'infeasible') {
+        setReoptError(
+          result.explanation.join(' ') ||
+            'OptiShift couldn’t update the schedule. There isn’t enough available staff to cover the required shifts.',
+        );
+      } else {
+        setReoptError('Re-optimization ended with an unknown error. Please try again.');
+      }
+    } catch (e: unknown) {
+      setReoptError(friendlyErrorMessage(e));
+    } finally {
+      setReoptimizing(false);
+    }
+  }
 
   const activeCount = employees.filter(
     (e) => (e.status || '').toLowerCase() === 'active',
@@ -127,6 +185,34 @@ export default function Overview() {
 
       {scheduleLoading && (
         <LoadingState message="Loading your schedule..." />
+      )}
+
+      {/* P07: compact “Needs Attention” notice + Update Schedule action.
+          Approved leave that overlaps the current schedule is the trigger. This
+          only reads backend state; it never writes a schedule itself. */}
+      {reopt.needsUpdate && (
+        <div className="mb-4 flex items-start gap-2 rounded-lg border border-[#FDE68A] bg-[#FEF3C7] p-4">
+          <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#F59E0B] text-[12px] font-semibold text-white">
+            !
+          </div>
+          <div>
+            <p className="text-[13px] font-semibold">Schedule needs updating</p>
+            <p className="text-[13px] text-[#92400E]">
+              {reopt.approvedCount} approved time-off request affects the
+              current schedule. Click <b>Update Schedule</b> to have OptiShift
+              rebuild the week around the approved leave.
+            </p>
+            <div className="mt-2">
+              <PrimaryButton
+                onClick={() => void updateSchedule()}
+                disabled={reoptimizing}
+              >
+                <CalendarClock className="h-4 w-4" aria-hidden="true" />
+                {reoptimizing ? 'Updating…' : 'Update Schedule'}
+              </PrimaryButton>
+            </div>
+          </div>
+        </div>
       )}
 
       <section

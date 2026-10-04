@@ -10,7 +10,11 @@ import type {
   EmployeeCreate,
   OptimizeRequest,
   OptimizationResult,
+  ReoptimizationResult,
+  ReoptimizationStatus,
   ScheduleResponse,
+  TimeOff,
+  TimeOffCreate,
 } from './types';
 
 export { ApiError };
@@ -126,6 +130,45 @@ export async function generateComparison(): Promise<ComparisonEnvelope> {
   // Normal mode: compare the current schedule against a manual baseline of
   // the same inputs. Only runs when the user explicitly asks for it.
   return request<ComparisonEnvelope>('/api/v1/comparison', { method: 'POST' });
+}
+
+export async function getTimeOff(): Promise<TimeOff[]> {
+  return request<TimeOff[]>('/api/v1/leave');
+}
+
+export async function createTimeOff(
+  payload: TimeOffCreate,
+): Promise<TimeOff> {
+  return request<TimeOff>('/api/v1/leave', {
+    method: 'POST',
+    body: JSON.stringify(payload),
+  });
+}
+
+export async function approveTimeOff(
+  requestId: string,
+): Promise<TimeOff> {
+  return request<TimeOff>(
+    `/api/v1/leave/${encodeURIComponent(requestId)}/approve`,
+    { method: 'POST' },
+  );
+}
+
+export async function rejectTimeOff(
+  requestId: string,
+): Promise<TimeOff> {
+  return request<TimeOff>(
+    `/api/v1/leave/${encodeURIComponent(requestId)}/reject`,
+    { method: 'POST' },
+  );
+}
+
+export async function reoptimizeSchedule(): Promise<ReoptimizationResult> {
+  return request<ReoptimizationResult>('/api/v1/reoptimize', { method: 'POST' });
+}
+
+export async function getReoptimizationStatus(): Promise<ReoptimizationStatus> {
+  return request<ReoptimizationStatus>('/api/v1/reoptimization/status');
 }
 
 export async function getComparison(): Promise<ComparisonEnvelope> {

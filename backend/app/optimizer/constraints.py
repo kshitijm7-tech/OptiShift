@@ -5,8 +5,13 @@
 # enforced structurally: variables are only created for eligible
 # (employee, shift) pairs (see solver.py), so an ineligible assignment is
 # impossible by construction. The remaining constraints are linear rules.
+#
+# P07 adds H7 via build_eligibility's `unavailability` context. The leave
+# context is not a linear constraint here: it only shrinks the eligible pool.
+# The leave context (employee_id -> dates) comes from TimeOffService.
 
-from typing import Dict, List, Tuple
+from datetime import date
+from typing import Dict, List, Optional, Tuple
 
 import pulp
 
@@ -18,13 +23,15 @@ def build_eligibility(
     employees: List[Employee],
     shifts: List[Shift],
     requirements_by_shift: Dict[str, StaffingRequirement],
+    unavailability: Optional[Dict[str, List[date]]] = None,
 ) -> Tuple[Dict[Tuple[str, str], bool], Dict[Tuple[str, str], str]]:
     """Precompute the eligible (employee, shift) pairs.
 
     Returns (eligible, reasons) where eligible[(e, s)] is True only when the
-    employee satisfies H1 (availability), H5 (skills + role) and H6 (active
-    status) for the shift. Reasons hold the human-readable cause for every
-    ineligible pair and are used for infeasibility diagnostics.
+    employee satisfies H1 (availability), H5 (skills + role), H6 (active
+    status) and H7 (P07 approved leave) for the shift. Reasons hold the
+    human-readable cause for every ineligible pair and are used for
+    infeasibility diagnostics.
     """
     eligible: Dict[Tuple[str, str], bool] = {}
     reasons: Dict[Tuple[str, str], str] = {}
@@ -32,7 +39,9 @@ def build_eligibility(
         for shift in shifts:
             req = requirements_by_shift.get(shift.id)
             required_skills = req.required_skills if req else []
-            ok, reason = employee_eligible(employee, shift, required_skills)
+            ok, reason = employee_eligible(
+                employee, shift, required_skills, unavailability
+            )
             eligible[(employee.id, shift.id)] = ok
             if not ok:
                 reasons[(employee.id, shift.id)] = reason

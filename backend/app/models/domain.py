@@ -52,6 +52,13 @@ class TimeOffBase(BaseModel):
     status: str = "pending"
     reason: Optional[str] = None
 
+class TimeOffCreate(TimeOffBase):
+    """Input for creating a leave request (no `id`, no `status`).
+
+    Status is always set to pending by the service on creation.
+    """
+    pass
+
 class TimeOff(TimeOffBase):
     id: str
 

@@ -7,6 +7,7 @@ import {
   getDemoComparison,
   getDemoDataset,
   getEmployees,
+  getReoptimizationStatus,
 } from './api';
 import type {
   ComparisonEnvelope,
@@ -14,6 +15,7 @@ import type {
   DemoDataset,
   Employee,
   ScheduleComparison,
+  TimeOff,
 } from './types';
 
 export interface EmployeesState {
@@ -44,6 +46,14 @@ export function useEmployees(): EmployeesState {
   return { employees, loading, error, reload: load };
 }
 
+export interface ReoptimizationStatusState {
+  needsUpdate: boolean;
+  approvedCount: number;
+  approvedRequests: TimeOff[];
+  loading: boolean;
+  error: string | null;
+}
+
 export interface CurrentScheduleState {
   schedule: CurrentSchedule | null;
   loading: boolean;
@@ -54,6 +64,42 @@ export interface CurrentScheduleState {
 // Single authoritative schedule, backend-owned. Both Overview and Schedule
 // read through this hook so they can never disagree. Absence of a schedule
 // is normal (not an error) and reported via schedule === null.
+export function useReoptimizationStatus(): ReoptimizationStatusState {
+  const [state, setState] = useState<ReoptimizationStatusState>({
+    needsUpdate: false,
+    approvedCount: 0,
+    approvedRequests: [],
+    loading: true,
+    error: null,
+  });
+
+  useEffect(() => {
+    let cancelled = false;
+    getReoptimizationStatus()
+      .then((res) => {
+        if (!cancelled) {
+          setState({
+            needsUpdate: res.needs_update,
+            approvedCount: res.approved_count,
+            approvedRequests: res.approved_requests,
+            loading: false,
+            error: null,
+          });
+        }
+      })
+      .catch((e: unknown) => {
+        if (!cancelled) {
+          setState((s) => ({ ...s, loading: false, error: friendlyErrorMessage(e) }));
+        }
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return state;
+}
+
 export function useCurrentSchedule(): CurrentScheduleState {
   const [schedule, setSchedule] = useState<CurrentSchedule | null>(null);
   const [loading, setLoading] = useState(true);
