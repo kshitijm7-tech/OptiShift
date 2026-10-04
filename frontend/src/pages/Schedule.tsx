@@ -1,10 +1,11 @@
 import { useState, useMemo } from 'react';
-import { useCurrentSchedule, useEmployees } from '../hooks';
+import { useCurrentSchedule, useEmployees, useDemoDataset } from '../hooks';
 import { optimizeSchedule } from '../api';
 
 export default function Schedule() {
   const { schedule, loading: scheduleLoading } = useCurrentSchedule();
   const { employees } = useEmployees();
+  const { dataset } = useDemoDataset();
   
   const [isGenerating, setIsGenerating] = useState(false);
 
@@ -33,9 +34,14 @@ export default function Schedule() {
   }, [schedule]);
 
   const handleGenerate = async () => {
+    if (!dataset) return;
     setIsGenerating(true);
     try {
-      await optimizeSchedule({} as any);
+      await optimizeSchedule({
+        employees: activeTeam,
+        shifts: dataset.shifts,
+        requirements: dataset.requirements,
+      });
       window.location.reload();
     } catch (e: any) {
       console.error(e);
@@ -65,7 +71,7 @@ export default function Schedule() {
             </button>
           </nav>
           <div className="flex items-center gap-space-xs">
-            <button onClick={handleGenerate} disabled={isGenerating} className="flex items-center gap-space-xs px-space-lg py-2 rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-all font-label-md font-semibold shadow-xs" type="button">
+            <button onClick={handleGenerate} disabled={isGenerating || !dataset} className="flex items-center gap-space-xs px-space-lg py-2 rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-all font-label-md font-semibold shadow-xs" type="button">
               <span className="material-symbols-outlined text-[18px]">auto_fix_high</span>
               <span>{isGenerating ? "Generating..." : "Auto-Generate Optimal"}</span>
             </button>
@@ -123,6 +129,20 @@ export default function Schedule() {
           </div>
         </div>
       </div>
+
+      {schedule?.explanation && schedule.explanation.length > 0 && (
+        <details className="mt-space-lg rounded-xl bg-surface-container-lowest p-space-md border border-surface-container-low shadow-sm">
+          <summary className="cursor-pointer font-label-md font-semibold text-primary">
+            See What Changed (Engine Explanation)
+          </summary>
+          <ul className="mt-space-sm flex list-disc flex-col gap-1 pl-5 font-body-sm text-on-surface-variant">
+            {schedule.explanation.map((line) => (
+              <li key={line}>{line}</li>
+            ))}
+          </ul>
+        </details>
+      )}
     </div>
   );
 }
+
