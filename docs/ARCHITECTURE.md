@@ -1,8 +1,16 @@
 # Architecture
 
-This document reflects the actual P03 architecture.
+This document reflects the actual P04 architecture.
 
-- **Frontend**: A minimal React + TypeScript + Vite + Tailwind application shell (`frontend/`). No complex state management is introduced yet.
+- **Frontend**: React 19 + TypeScript + Vite + Tailwind (`frontend/src/`).
+  Stitch-faithful shell: `AppShell` sidebar nav, routes `/`, `/schedule`,
+  `/team`, `/time-off`, `/rules`, `/settings`. Single API client (`api.ts`
+  via `VITE_API_URL`); pages: Overview (real Active-Team KPI, honest
+  placeholders for schedule-dependent metrics), Schedule (editable shift
+  windows × week + real `POST /api/v1/optimize` results), Team (real
+  employee CRUD), TimeOff (P07 shell), Rules (static H1–H6 truth), Settings
+  (static + live backend-status card). No optimizer logic in the frontend
+  (grep-verified); no store libraries (React state + fetch only).
 - **Backend**: A FastAPI application (`backend/app/main.py`) serving `/health`, employee routes, and the P03 optimization route:
 ```text
 API (app/api/optimize.py, thin)

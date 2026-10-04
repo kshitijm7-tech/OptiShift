@@ -4,12 +4,24 @@
 OptiShift is a workforce optimization engine that creates feasible and cost-efficient schedules from people, availability, skills, business needs, and rules. It uses true mathematical optimization (PuLP/CBC).
 
 ## Current Phase
-**P03 — Optimization Engine** (Completed)
-Next step is P04 — Frontend Foundation + Core UI.
+**P04 — Frontend Foundation + Core UI** (Completed)
+Next step is P05 — Schedule + Dashboard Integration.
 
 ## Architecture
-- **Frontend**: React, TypeScript, Vite, Tailwind CSS, React Router. Minimal shell with navigation placeholders.
-- **Backend**: FastAPI with layered architecture:
+- **Frontend**: React 19 + TypeScript + Vite + Tailwind (`frontend/src/`):
+  - `App.tsx` — routes `/`, `/schedule`, `/team`, `/time-off`, `/rules`,
+    `/settings` (+ `/overview`→`/`, `/my-team`→`/team` redirects)
+  - `components/AppShell.tsx` — 240px Stitch sidebar + header + content
+  - `components/ui.tsx` — Card, PageHeader, buttons, StatusBadge, MetricCard,
+    Loading/Empty/Error/Notice states
+  - `api.ts` — single API client (VITE_API_URL); `types.ts` mirrors backend
+    domain + optimization contracts; `hooks.ts` (`useEmployees`,
+    `formatAvailability`); `schedule.ts` (pure week/shift input builders)
+  - `pages/`: Overview, Schedule (real optimize flow), Team (real CRUD),
+    TimeOff (P07 shell), Rules (static H1–H6 truth), Settings (static +
+    live backend-status card)
+  - Tests: vitest (`npm test`, 18 passing); `npm run build` = tsc + vite
+- **Backend**: FastAPI with layered architecture (unchanged in P04):
   - `app/api/` — thin route handlers (`employees.py`, `optimize.py`)
   - `app/services/` — business logic (EmployeeService, OptimizationService)
   - `app/models/` — Pydantic domain models
@@ -62,8 +74,10 @@ uv run sentinel verify -c CIRCULAR_DEPENDENCY -s OptiShift -p "compliant" d:\MPr
 
 ## Current Known Issues
 - Sentinel V1 blueprint verifier does not parse custom sentinel.yaml schema (returns NOT_APPLICABLE for LAYER_BOUNDARY/DEPENDENCY_RULE). CIRCULAR_DEPENDENCY PASS works.
-- Sentinel V1 API_EXISTENCE verifier returns an internal ERROR for route checks (endpoints proven by passing pytest API tests instead).
+- Sentinel V1 API_EXISTENCE verifier returns an internal ERROR for route checks (endpoints proven by passing tests + live API calls instead).
+- Sentinel V1 analyze returns PARTIAL with 3 TSX parser warnings on P04 pages (they compile under tsc/vite/vitest — parser limitation).
 - PuLP is pinned to 2.8.0 because PuLP 4.x no longer bundles the CBC binary.
+- Port 8000 in this environment is occupied by an unrelated Sentinel service; use another port (e.g. 8001) for local backend runs here.
 
 ## P03 Optimization API (for P04 consumers)
 
@@ -120,4 +134,24 @@ no role filter; `weights` optional (defaults shown).
   re-optimization yet (P07); no custom/dynamic weights UI (P08).
 
 ## Next Step
-Begin **P04 — Frontend Foundation + Core UI** (consume POST /api/v1/optimize above). Read `AGENTS.md` and `CURRENT_STATE.md` before starting.
+Begin **P05 — Schedule + Dashboard Integration**: persist/present the
+optimization result across Schedule + Overview (real coverage/cost metrics on
+the dashboard), replacing the honest P04 placeholders. Read `AGENTS.md` and
+`CURRENT_STATE.md` before starting.
+
+## P04 notes for P05 (frontend map)
+- Route structure: `/` Overview · `/schedule` (week builder + result grid) ·
+  `/team` (roster table + add form) · `/time-off` (P07 shell) · `/rules`
+  (static H1–H6) · `/settings` (static + live backend-status card).
+- Important components: `AppShell`, `PageHeader`, `MetricCard`,
+  `StatusBadge`, `EmptyState`/`LoadingState`/`ErrorState`/`NoticeState`
+  (all in `components/`).
+- API integration: `api.ts` (`getEmployees`, `createEmployee`,
+  `optimizeSchedule`, `checkHealth` via `VITE_API_URL`); `types.ts` mirrors
+  backend contracts; Schedule builds payloads with `schedule.ts`
+  (`buildWeekInputs`) and renders `OptimizationResult` verbatim.
+- Test commands: `cd frontend; npm test` (18 vitest) · `npm run build`
+  (tsc + vite) · `cd backend; $env:PYTHONPATH="."; uv run pytest` (28 tests).
+- Known gaps: no persisted schedule (in-memory backend, result lives in page
+  state); Overview KPIs except Active Team are placeholders; no baseline/
+  savings (P06); no leave workflow (P07); no rule editing (P08).

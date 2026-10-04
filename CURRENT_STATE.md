@@ -1,6 +1,6 @@
 # Current State
 
-Current phase: P03
+Current phase: P04
 Status: Complete
 
 Completed:
@@ -12,12 +12,24 @@ Completed:
   H1–H6, weighted soft objectives (cost/extras/prefs/balance), post-solve
   validator, POST /api/v1/optimize, 18 new tests (28 total passing), Sentinel
   verification
+- P04 — Frontend foundation + core UI: Stitch-faithful theme/shell/routing,
+  6 pages, single API client, real team + optimization integration, honest
+  loading/empty/error states, 18 frontend tests, Sentinel verification
 
 Current work:
-- None (awaiting instruction for P04)
+- None (awaiting instruction for P05)
 
 Next phase:
-- P04 — Frontend Foundation + Core UI
+- P05 — Schedule + Dashboard Integration
+
+Frontend (P04, in frontend/src/):
+- Routes: `/` (Overview), `/schedule`, `/team`, `/time-off`, `/rules`,
+  `/settings` (+ legacy redirects `/overview`→`/`, `/my-team`→`/team`)
+- API client: `api.ts` (health/employees/optimize via VITE_API_URL) + `types.ts`
+- Schedule page builds real OptimizeRequest payloads (editable shift windows ×
+  week days + API team) and renders real backend results; no fake metrics —
+  unavailable KPIs show honest placeholders (P05/P06).
+- Tests: `npm test` → 18 passing (vitest); `npm run build` (tsc + vite) green.
 
 Objective weights (P03, defined in backend/app/optimizer/model.py):
 - labor cost 1.0, extra hours 10.0 (normally 0: H3 hard-caps hours),
@@ -26,10 +38,14 @@ Objective weights (P03, defined in backend/app/optimizer/model.py):
 
 Known issues:
 - Sentinel V1 blueprint verifier returns NOT_APPLICABLE for LAYER_BOUNDARY/DEPENDENCY_RULE/BLUEPRINT_FRESH due to sentinel.yaml schema mismatch. CIRCULAR_DEPENDENCY check PASSED.
-- Sentinel V1 API_EXISTENCE verifier returns internal ERROR for /health and optimize routes (not a project failure; endpoints proven by passing API tests).
+- Sentinel V1 API_EXISTENCE verifier returns internal ERROR for route checks (not a project failure; endpoints proven by passing tests + live API calls).
+- Sentinel V1 analyze returns PARTIAL with 3 TSX parser warnings on new P04 pages (they compile under tsc/vite/vitest — parser limitation, not a defect).
+- Port 8000 in this environment is occupied by an unrelated Sentinel service; P04 live backend checks used port 8001.
 
 Last verification:
 - Backend: 28 tests passed (pytest, PYTHONPATH=".")
-- Frontend: untouched (P04 scope)
-- Sentinel: scan SUCCESS, analyze SUCCESS, CIRCULAR_DEPENDENCY PASS, optimizer symbols PASS
-- Real solver run (UrbanBrew 3-day fixture): Optimal, 9 assignments, $576.00 labor cost, 12h each for priya/ananya/arjun, 0.035s CBC solve
+- Frontend: 18 tests passed (vitest); tsc + vite build green; oxlint 0 errors
+- Live integration: backend :8001 seeded 2 employees, GET team = 2,
+  POST /api/v1/optimize → optimal $128.00 (PULP_CBC_CMD/Optimal),
+  infeasible variant explained correctly; vite dev :5173 serves the app shell
+- Sentinel: scan SUCCESS, analyze PARTIAL (parser warnings), CIRCULAR_DEPENDENCY PASS, P04 symbols PASS

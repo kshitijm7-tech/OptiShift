@@ -1,49 +1,48 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+// OptiShift application entry (P04): routing + shell + backend status.
 import { useEffect, useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from 'react-router-dom';
+import AppShell from './components/AppShell';
+import Overview from './pages/Overview';
+import Rules from './pages/Rules';
+import Schedule from './pages/Schedule';
+import Settings from './pages/Settings';
+import Team from './pages/Team';
+import TimeOff from './pages/TimeOff';
 import { checkHealth } from './api';
 
 function App() {
-  const [health, setHealth] = useState<string>('checking...');
+  const [backendStatus, setBackendStatus] = useState('Checking backend…');
 
   useEffect(() => {
     checkHealth()
-      .then(() => setHealth('Backend: OK'))
-      .catch(() => setHealth('Backend: Error'));
+      .then(() => setBackendStatus('Backend connected'))
+      .catch(() => setBackendStatus('Backend unreachable'));
   }, []);
 
   return (
     <Router>
-      <div className="min-h-screen bg-gray-50 flex flex-col">
-        <header className="bg-white shadow p-4">
-          <div className="max-w-7xl mx-auto flex justify-between items-center">
-            <h1 className="text-xl font-bold text-gray-900">OptiShift</h1>
-            <span className="text-sm text-gray-500">{health}</span>
-          </div>
-        </header>
-        <div className="flex flex-1">
-          <aside className="w-64 bg-white border-r p-4 space-y-2">
-            <nav className="flex flex-col gap-2">
-              <Link to="/overview" className="p-2 hover:bg-gray-100 rounded">Overview</Link>
-              <Link to="/schedule" className="p-2 hover:bg-gray-100 rounded">Schedule</Link>
-              <Link to="/my-team" className="p-2 hover:bg-gray-100 rounded">My Team</Link>
-              <Link to="/time-off" className="p-2 hover:bg-gray-100 rounded">Time Off</Link>
-              <Link to="/rules" className="p-2 hover:bg-gray-100 rounded">Rules</Link>
-              <Link to="/settings" className="p-2 hover:bg-gray-100 rounded">Settings</Link>
-            </nav>
-          </aside>
-          <main className="flex-1 p-6">
-            <Routes>
-              <Route path="/" element={<div>Welcome to OptiShift Foundation</div>} />
-              <Route path="/overview" element={<div>Overview Placeholder</div>} />
-              <Route path="/schedule" element={<div>Schedule Placeholder</div>} />
-              <Route path="/my-team" element={<div>My Team Placeholder</div>} />
-              <Route path="/time-off" element={<div>Time Off Placeholder</div>} />
-              <Route path="/rules" element={<div>Rules Placeholder</div>} />
-              <Route path="/settings" element={<div>Settings Placeholder</div>} />
-            </Routes>
-          </main>
-        </div>
-      </div>
+      <AppShell backendStatus={backendStatus}>
+        <Routes>
+          <Route path="/" element={<Overview />} />
+          <Route path="/schedule" element={<Schedule />} />
+          <Route path="/team" element={<Team />} />
+          <Route path="/time-off" element={<TimeOff />} />
+          <Route path="/rules" element={<Rules />} />
+          <Route path="/settings" element={<Settings />} />
+          {/* Legacy P01 paths redirect to the canonical routes. */}
+          <Route path="/overview" element={<Navigate to="/" replace />} />
+          <Route path="/my-team" element={<Navigate to="/team" replace />} />
+          <Route
+            path="*"
+            element={<Navigate to="/" replace />}
+          />
+        </Routes>
+      </AppShell>
     </Router>
   );
 }

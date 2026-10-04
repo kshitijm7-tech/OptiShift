@@ -170,3 +170,87 @@ uv run sentinel verify -c BLUEPRINT_FRESH -s architecture -p valid D:\MProjects\
 - No architecture violations found by manual inspection either.
 - API_EXISTENCE ERROR is a verifier-internal error, not a project failure;
   the endpoints are proven by the passing pytest suite (28 tests).
+
+---
+
+## P04 — 2026-10-04
+
+### Environment
+- **Sentinel installation**: `D:\MProjects\Sentinel_v1.0`
+- **Target project**: `D:\MProjects\OptiShift`
+- **Sentinel version**: V1
+
+### Step 1 — Scan
+```
+uv run sentinel scan D:\MProjects\OptiShift
+```
+**Result: SUCCESS**
+- 91 files, 25 dirs scanned in 0.187s (uncommitted P04 work)
+
+### Step 2 — Analyze
+```
+uv run sentinel analyze D:\MProjects\OptiShift
+```
+**Result: PARTIAL** (honestly recorded)
+- 42 modules, 353 symbols, 123 imports, 149 exports, 2282 relationships
+- 42 supported files, 0 skipped, 0 failed, **3 parser errors** (warnings):
+  `frontend/src/pages/Overview.tsx`, `frontend/src/pages/Schedule.tsx`,
+  `frontend/src/pages/Settings.tsx` — "parser reported syntax errors;
+  extraction is partial".
+- These files compile cleanly under `tsc -b`, `vite build`, and `vitest`
+  (18 frontend tests pass), so this is a Sentinel TSX-parser limitation,
+  not a code defect.
+
+### Step 3 — Verify: CIRCULAR_DEPENDENCY
+```
+uv run sentinel verify -c CIRCULAR_DEPENDENCY -s OptiShift -p "compliant" D:\MProjects\OptiShift --decide
+```
+**Result: PASS** (confidence 0.65 MEDIUM)
+- architecture_verifier: PASS, Decision DISMISS/SUPPRESS [PASS_DISMISSAL]
+
+### Step 4 — Verify: SYMBOL_EXISTENCE (P04 integration symbols)
+```
+uv run sentinel verify -c SYMBOL_EXISTENCE -s "optimizeSchedule" -p "exists" D:\MProjects\OptiShift --decide
+uv run sentinel verify -c SYMBOL_EXISTENCE -s "AppShell" -p "exists" D:\MProjects\OptiShift --decide
+```
+**Result: PASS** (both, confidence 0.65 MEDIUM each)
+- symbol_api_verifier: PASS — the API-client boundary (`optimizeSchedule`)
+  and the application shell (`AppShell`) exist as real symbols.
+
+### Step 5 — Verify: API_EXISTENCE (backend routes still present)
+```
+uv run sentinel verify -c API_EXISTENCE -s "/api/v1/employees" -p "exists" D:\MProjects\OptiShift --decide
+uv run sentinel verify -c API_EXISTENCE -s "/api/v1/optimize" -p "exists" D:\MProjects\OptiShift --decide
+```
+**Result: ERROR** (honestly recorded, NOT claimed as pass)
+- symbol_api_verifier internal ERROR (ERROR_BOUNDARY) for both — same
+  verifier limitation seen in P03, not a project failure.
+- Live evidence instead: backend served on :8001 during P04 verification —
+  `POST /api/v1/employees` ×2, `GET /api/v1/employees` (2 members),
+  `POST /api/v1/optimize` → `optimal` ($128.00, PULP_CBC_CMD/Optimal),
+  infeasible variant → `infeasible` with shift-level reason.
+
+### Step 6 — Verify: LAYER_BOUNDARY / DEPENDENCY_RULE / BLUEPRINT_FRESH
+**Result: NOT_APPLICABLE** (all three, known blueprint-schema cause)
+- Manual frontend↔backend separation check (grep, 2026-10-04):
+  no `pulp|PuLP|LpProblem|LpVariable|CBC` references anywhere in
+  `frontend/src/` (no optimizer logic in the frontend); no
+  `frontend|*.tsx|*.ts` references anywhere in `backend/app/`.
+  Separation Frontend → API client → FastAPI holds.
+
+### Step 7 — Evidence, Events & Findings
+- `sentinel events`: No events recorded.
+- `sentinel evidence --project ...`: 0 evidence items.
+- `sentinel findings --project-id OptiShift`: [] (empty).
+
+### Summary
+| Check               | Result           |
+|---------------------|------------------|
+| Scan                | SUCCESS          |
+| Analyze             | PARTIAL (3 TSX parser warnings; code compiles) |
+| CIRCULAR_DEPENDENCY | PASS             |
+| SYMBOL optimizeSchedule / AppShell | PASS |
+| API_EXISTENCE (employees, optimize) | ERROR (verifier-internal, live API proven instead) |
+| LAYER_BOUNDARY      | NOT_APPLICABLE   |
+| DEPENDENCY_RULE     | NOT_APPLICABLE   |
+| BLUEPRINT_FRESH     | NOT_APPLICABLE   |

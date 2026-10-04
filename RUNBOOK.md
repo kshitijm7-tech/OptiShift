@@ -13,6 +13,20 @@ npm install
 cd frontend
 npm run dev
 ```
+(Vite default `http://127.0.0.1:5173/`; backend URL comes from
+`frontend/.env` → `VITE_API_URL`.)
+
+### Run frontend tests
+```bash
+cd frontend
+npm test
+```
+
+### Typecheck + production build
+```bash
+cd frontend
+npm run build
+```
 
 ### Build
 ```bash
