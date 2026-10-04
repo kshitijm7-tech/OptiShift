@@ -1,20 +1,17 @@
-// OptiShift application entry (P04): routing + shell + backend status.
 import { useEffect, useState } from 'react';
-import {
-  BrowserRouter as Router,
-  Navigate,
-  Route,
-  Routes,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Route, Routes } from 'react-router-dom';
 import AppShell from './components/AppShell';
-import DemoMode from './pages/DemoMode';
-import Overview from './pages/Overview';
-import Rules from './pages/Rules';
-import Schedule from './pages/Schedule';
-import Settings from './pages/Settings';
-import Team from './pages/Team';
-import TimeOff from './pages/TimeOff';
 import { checkHealth } from './api';
+
+import Overview from './pages/Overview_Stitch';
+import Schedule from './pages/Schedule_Stitch';
+import Team from './pages/Team_Stitch';
+import TimeOff from './pages/TimeOff_Stitch';
+import Rules from './pages/Rules_Stitch';
+import Settings from './pages/Settings_Stitch';
+
+// Temporary mapped to Overview until DemoMode_Stitch exists
+import DemoMode from './pages/Overview_Stitch';
 
 function App() {
   const [backendStatus, setBackendStatus] = useState('Checking backend…');
@@ -36,13 +33,9 @@ function App() {
           <Route path="/time-off" element={<TimeOff />} />
           <Route path="/rules" element={<Rules />} />
           <Route path="/settings" element={<Settings />} />
-          {/* Legacy P01 paths redirect to the canonical routes. */}
           <Route path="/overview" element={<Navigate to="/" replace />} />
           <Route path="/my-team" element={<Navigate to="/team" replace />} />
-          <Route
-            path="*"
-            element={<Navigate to="/" replace />}
-          />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </AppShell>
     </Router>
