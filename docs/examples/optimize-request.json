@@ -1,0 +1,60 @@
+{
+  "employees": [
+    {
+      "id": "priya",
+      "name": "Priya",
+      "role": "Barista",
+      "skills": ["barista", "cashier"],
+      "hourly_pay": 15.0,
+      "max_weekly_hours": 24.0,
+      "availability": [
+        { "day_of_week": 0, "start_time": "08:00:00", "end_time": "20:00:00" }
+      ],
+      "status": "active"
+    },
+    {
+      "id": "ananya",
+      "name": "Ananya",
+      "role": "Barista",
+      "skills": ["barista"],
+      "hourly_pay": 16.0,
+      "max_weekly_hours": 24.0,
+      "availability": [
+        { "day_of_week": 0, "start_time": "08:00:00", "end_time": "20:00:00" }
+      ],
+      "status": "active"
+    }
+  ],
+  "shifts": [
+    {
+      "id": "morning-2026-10-05",
+      "name": "Morning",
+      "shift_date": "2026-10-05",
+      "start_time": "08:00:00",
+      "end_time": "12:00:00",
+      "required_role": "Barista"
+    },
+    {
+      "id": "afternoon-2026-10-05",
+      "name": "Afternoon",
+      "shift_date": "2026-10-05",
+      "start_time": "12:00:00",
+      "end_time": "16:00:00",
+      "required_role": "Barista"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "req-morning",
+      "shift_id": "morning-2026-10-05",
+      "min_employees": 1,
+      "required_skills": ["barista"]
+    },
+    {
+      "id": "req-afternoon",
+      "shift_id": "afternoon-2026-10-05",
+      "min_employees": 1,
+      "required_skills": ["barista"]
+    }
+  ]
+}

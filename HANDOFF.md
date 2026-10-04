@@ -4,16 +4,19 @@
 OptiShift is a workforce optimization engine that creates feasible and cost-efficient schedules from people, availability, skills, business needs, and rules. It uses true mathematical optimization (PuLP/CBC).
 
 ## Current Phase
-**P02 — Core Data Models + Backend Foundation** (Completed)
-Next step is P03 — Optimization Engine.
+**P03 — Optimization Engine** (Completed)
+Next step is P04 — Frontend Foundation + Core UI.
 
 ## Architecture
 - **Frontend**: React, TypeScript, Vite, Tailwind CSS, React Router. Minimal shell with navigation placeholders.
 - **Backend**: FastAPI with layered architecture:
-  - `app/api/` — thin route handlers
-  - `app/services/` — business logic (EmployeeService)
+  - `app/api/` — thin route handlers (`employees.py`, `optimize.py`)
+  - `app/services/` — business logic (EmployeeService, OptimizationService)
   - `app/models/` — Pydantic domain models
-  - `app/optimizer/` — placeholder for P03
+  - `app/optimizer/` — P03 engine: `model.py` (contracts/weights/helpers),
+    `constraints.py` (H1–H6), `objectives.py` (weighted objective + metrics),
+    `solver.py` (`solve_optimization` entry point, PuLP/CBC),
+    `validator.py` (independent post-solve validation)
 - **Communication**: REST API
 - **Storage**: In-memory (dict-based) for now
 
@@ -59,6 +62,62 @@ uv run sentinel verify -c CIRCULAR_DEPENDENCY -s OptiShift -p "compliant" d:\MPr
 
 ## Current Known Issues
 - Sentinel V1 blueprint verifier does not parse custom sentinel.yaml schema (returns NOT_APPLICABLE for LAYER_BOUNDARY/DEPENDENCY_RULE). CIRCULAR_DEPENDENCY PASS works.
+- Sentinel V1 API_EXISTENCE verifier returns an internal ERROR for route checks (endpoints proven by passing pytest API tests instead).
+- PuLP is pinned to 2.8.0 because PuLP 4.x no longer bundles the CBC binary.
+
+## P03 Optimization API (for P04 consumers)
+
+### Request — POST /api/v1/optimize
+```json
+{
+  "employees": [ { "id": "priya", "name": "Priya", "role": "Barista",
+                   "skills": ["barista"], "hourly_pay": 15.0,
+                   "max_weekly_hours": 24.0,
+                   "availability": [ { "day_of_week": 0,
+                                       "start_time": "08:00:00",
+                                       "end_time": "20:00:00" } ],
+                   "status": "active" } ],
+  "shifts": [ { "id": "morning-2026-10-05", "name": "Morning",
+                "shift_date": "2026-10-05",
+                "start_time": "08:00:00", "end_time": "12:00:00",
+                "required_role": "Barista" } ],
+  "requirements": [ { "id": "req-1", "shift_id": "morning-2026-10-05",
+                      "min_employees": 1, "required_skills": ["barista"] } ],
+  "weights": { "labor_cost": 1.0, "extra_hours": 10.0,
+               "preference": 0.0, "balance": 0.5 }
+}
+```
+Notes: empty `availability` = open availability; `required_role` null/empty =
+no role filter; `weights` optional (defaults shown).
+
+### Response (optimal)
+```json
+{
+  "status": "optimal",
+  "assignments": [ { "employee_id": "priya",
+                     "shift_id": "morning-2026-10-05",
+                     "assigned_date": "2026-10-05" } ],
+  "metrics": { "total_labor_cost": 60.0, "total_hours": 4.0,
+               "extra_hours_total": 0.0, "employee_hours": {"priya": 4.0},
+               "shifts_staffed": 1, "shifts_total": 1 },
+  "violations": [],
+  "objective_breakdown": { "labor_cost": 60.0, "balance_term": 4.0,
+                           "total_objective": 62.0 },
+  "solver": { "solver": "PULP_CBC_CMD", "status": "Optimal" },
+  "explanation": ["priya -> morning-2026-10-05 on 2026-10-05 ($15.00/h x 4.0h)"]
+}
+```
+- `status: "infeasible"` (HTTP 200) with `violations` explaining why when no
+  rule-compliant schedule exists.
+- HTTP 400 when the request itself is invalid (e.g. no employees/shifts).
+
+### Key entry points / services
+- Optimizer entry: `solve_optimization(request)` in `backend/app/optimizer/solver.py`
+- Service: `OptimizationService.optimize(request)` in `backend/app/services/optimization_service.py`
+- Test command: `cd backend; $env:PYTHONPATH="."; uv run pytest` (28 tests)
+- Known limitations: one shift per employee per day; max hours is a hard cap
+  (overtime always 0); no preference data in P02 model (weight 0); no leave /
+  re-optimization yet (P07); no custom/dynamic weights UI (P08).
 
 ## Next Step
-Begin **P03 — Optimization Engine**. Implement PuLP/CBC-based mathematical optimization that consumes the domain models from `backend/app/models/domain.py`. The optimizer should live in `backend/app/optimizer/`. Read `AGENTS.md` and `CURRENT_STATE.md` before starting.
+Begin **P04 — Frontend Foundation + Core UI** (consume POST /api/v1/optimize above). Read `AGENTS.md` and `CURRENT_STATE.md` before starting.

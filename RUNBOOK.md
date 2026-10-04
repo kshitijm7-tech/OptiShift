@@ -46,6 +46,17 @@ cd backend
 $env:PYTHONPATH="." ; uv run pytest
 ```
 
+### Optimization API (P03)
+```bash
+# Start backend first (see above), then:
+curl -X POST http://127.0.0.1:8000/api/v1/optimize ^
+  -H "Content-Type: application/json" ^
+  -d "@docs/examples/optimize-request.json"
+# PowerShell alternative:
+# Invoke-RestMethod -Method Post -Uri http://127.0.0.1:8000/api/v1/optimize `
+#   -ContentType "application/json" -InFile docs/examples/optimize-request.json
+```
+
 ## Sentinel
 
 Sentinel is installed at `D:\MProjects\Sentinel_v1.0`.
